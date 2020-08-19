@@ -1,0 +1,101 @@
+/* CSS Document */
+/*** RaleWay Font ***/
+/*** Extra Light ***/
+@font-face{
+	font-family: "Raleway-extralight";
+	src: url(Raleway-ExtraLight.ttf);
+}
+@font-face{
+	font-family: "Raleway-extralightitalic";
+	font-style: italic;
+	src: url(Raleway-ExtraLightItalic.ttf);
+}
+
+/*** Light ***/
+@font-face{
+	font-family: "Raleway-light";
+	src: url(raleway-Light.ttf);
+}
+@font-face{
+	font-family: "Raleway-lightitalic";
+	font-style: italic;
+	src: url(Raleway-LightItalic.ttf);
+}
+
+/*** Thin ***/
+@font-face{
+	font-family: "Raleway-thin";
+	src: url(raleway-Thin.ttf);
+}
+@font-face{
+	font-family: "Raleway-thinitalic";
+	font-style: italic;
+	src: url(Raleway-ThinItalic.ttf);
+}
+
+/*** Regular ***/
+@font-face{
+	font-family: "Raleway-regular";
+	src: url(Raleway-Regular.ttf);
+}
+@font-face{
+	font-family: "Raleway-italic";
+	font-style: italic;
+	src: url(Raleway-Italic.ttf);
+}
+
+/*** Medium ***/
+@font-face{
+	font-family: "Raleway-medium";
+	src: url(raleway-Medium.ttf);
+}
+@font-face{
+	font-family: "Raleway-mediumitalic";
+	font-style: italic;
+	src: url(Raleway-MediumItalic.ttf);
+}
+
+/*** Semi Bold ***/
+@font-face{
+	font-family: "Raleway-semibold";
+	src: url(Raleway-SemiBold.ttf);
+}
+@font-face{
+	font-family: "Raleway-semibolditalic";
+	font-style: italic;
+	src: url(Raleway-SemiBoldItalic.ttf);
+}
+/*** Bold ***/
+@font-face{
+	font-family: "Raleway-bold";
+	src: url(raleway-Bold.ttf);
+}
+@font-face{
+	font-family: "Raleway-bolditalic";
+	font-style: italic;
+	src: url(Raleway-BoldItalic.ttf);
+}
+
+/*** Extra Bold ***/
+@font-face{
+	font-family: "Raleway-extrabold";
+	src: url(Raleway-ExtraBold.ttf);
+}
+@font-face{
+	font-family: "Raleway-extrabolditalic";
+	font-style: italic;
+	src: url(Raleway-ExtraBoldItalic.ttf);
+}
+
+/*** Black ***/
+@font-face{
+	font-family: "Raleway-black";
+	src: url(raleway-Black.ttf);
+}
+@font-face{
+	font-family: "Raleway-blackitalic";
+	font-style: italic;
+	src: url(Raleway-BlackItalic.ttf);
+}
+
+

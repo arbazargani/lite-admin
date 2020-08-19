@@ -1,0 +1,15 @@
+<?php
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+
+class Alert extends Model
+{
+    protected $fillable = ['read'];
+
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
+}

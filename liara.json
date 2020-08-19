@@ -1,0 +1,15 @@
+{
+    "platform": "laravel",
+    "app": "crypto",
+    "laravel": {
+        "routeCache": true,
+        "configCache": true,
+        "buildAssets": true
+    },
+    "disks": [
+      {
+        "name": "crypto",
+        "mountTo": "storage"
+      }
+    ]
+  }

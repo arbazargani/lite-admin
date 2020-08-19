@@ -1,0 +1,89 @@
+/* CSS Document */
+/*** Aileron Font ***/
+/*** Ultra Light ***/
+@font-face{
+	font-family: "Aileron-ultralight";
+	src: url(Aileron-ultralight.otf);
+}
+@font-face{
+	font-family: "Aileron-ultralightitalic";
+	font-style: italic;
+	src: url(Aileron-UltraLightItalic.otf);
+}
+
+/*** Light ***/
+@font-face{
+	font-family: "Aileron-light";
+	src: url(Aileron-Light.otf);
+}
+@font-face{
+	font-family: "Aileron-lightitalic";
+	font-style: italic;
+	src: url(Aileron-LightItalic.otf);
+}
+
+/*** Thin ***/
+@font-face{
+	font-family: "Aileron-thin";
+	src: url(Aileron-Thin.otf);
+}
+@font-face{
+	font-family: "Aileron-thinitalic";
+	font-style: italic;
+	src: url(Aileron-ThinItalic.otf);
+}
+
+/*** Regular ***/
+@font-face{
+	font-family: "Aileron-Regular";
+	src: url(Aileron-Regular.otf);
+}
+@font-face{
+	font-family: "Aileron-regularitalic";
+	font-style: italic;
+	src: url(Aileron-LightItalic.otf);
+}
+
+/*** Semi Bold ***/
+@font-face{
+	font-family: "Aileron-semibold";
+	src: url(Aileron-SemiBold.otf);
+}
+@font-face{
+	font-family: "Aileron-semibolditalic";
+	font-style: italic;
+	src: url(Aileron-SemiBoldItalic.otf);
+}
+
+/*** Bold ***/
+@font-face{
+	font-family: "Aileron-bold";
+	src: url(Aileron-bold.otf);
+}
+@font-face{
+	font-family: "Aileron-bolditalic";
+	font-style: italic;
+	src: url(Aileron-BoldItalic.otf);
+}
+
+/*** Black ***/
+@font-face{
+	font-family: "Aileron-black";
+	src: url(Aileron-Black.otf);
+}
+@font-face{
+	font-family: "Aileron-blackitalic";
+	font-style: italic;
+	src: url(Aileron-BlackItalic.otf);
+}
+
+/*** Heavy ***/
+@font-face{
+	font-family: "Aileron-heavy";
+	src: url(Aileron-Heavy.otf);
+}
+@font-face{
+	font-family: "Aileron-heavyitalic";
+	font-style: italic;
+	src: url(Aileron-HeavyItalic.otf);
+}

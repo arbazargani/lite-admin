@@ -1,0 +1,207 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use OneAPI\Laravel\API\Crypto;
+use OneAPI\Laravel\API\Currency;
+
+use App\Transaction;
+use App\StringTrait;
+use App\AlertTrait;
+use App\User;
+use App\Settings;
+use Auth;
+
+class TransactionController extends Controller
+{
+    use StringTrait;
+    use AlertTrait;
+
+    public function CalculatePrice_old($currency, $amount)
+    {
+        if (env('API_DOWN')) {
+            $array = array('ok' => false,
+                'error' => 'System under maintenance.'
+            );
+            return json_encode($array);
+        }
+        $in = $currency;
+        $to = 'IRT';
+        $number = $amount;
+
+        /*** curl get  start ***/
+        $ch = curl_init();
+        curl_setopt_array($ch,
+            [
+                CURLOPT_URL => 'https://arzdigital.com/coins/calculator/?convert=' . $number . '-' . $in . '-to-' . $to . '',
+                CURLOPT_POST => true,
+                //CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_RETURNTRANSFER => true
+            ]
+        );
+        $End = curl_exec($ch);
+        /*** curl get End ***/
+
+        /****  price number to digital start ****/
+        preg_match_all('#<input disabled type="text" value="(.*?)" inputmode="numeric" pattern="(.*?)">#', $End, $numeric);
+        $price_to_digital = $numeric[1][0];
+        /****  price number to digital End ****/
+
+        /****  price number to dollar start ****/
+        $style = "class='price'";
+        preg_match_all('#<span ' . $style . ' data-dollari="(.*?)" eq_toman="(.*?)">(.*?)</span>#', $End, $dollar);
+        $price_to_dollar = $dollar[3][0];
+        /****  price number to dollar End ****/
+
+        /****  price number to tomans start ****/
+        preg_match_all('#<h4 class="xtomans">(.*?)<span class="(.*?)">(.*?)</span>(.*?)</h4>#', $End, $tomans);
+        $price_to_tomans = $tomans[3][0];
+        /****  price number to tomans End ****/
+
+
+        if (($in && $to && $number) == true) {
+            if (($price_to_digital && $price_to_dollar && $price_to_tomans) == true) {
+                $array = array('ok' => true,
+                    'in' => $in,
+                    'to' => $to,
+                    'number' => $number,
+                    'price_to_digital' => $price_to_digital,
+                    'price_to_dollar' => $price_to_dollar,
+                    'price_to_tomans' => $price_to_tomans
+                );
+                return json_encode($array);
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
+
+    public function GetDollarPrice() {
+        $response = Currency::usd();
+        return $response[0]->price;
+    }
+
+    public function COIN_TO_USD($currency) {
+        if ($currency == 'bitcoin') {
+
+            $response = Crypto::btc();
+
+        } elseif($currency == 'litecoin') {
+
+            $response = Crypto::ltc();
+
+        } elseif($currency == 'ethereum') {
+
+            $response = Crypto::eth();
+
+        } else {
+
+            return abort('403', 'ارز موردنظر پشتیبانی نمیشود.');
+
+        }
+
+        return $response->price;
+    }
+
+    public function CalculatePrice($currency, $amount, $usd_price, $output_currency = 'tomans') {
+        $TO_USD = $this->COIN_TO_USD($currency);
+        $price = $amount * $TO_USD;
+        if ($output_currency == 'tomans') {
+
+            return $price * $usd_price;
+
+        } elseif ($output_currency == 'dollar') {
+
+            return $price;
+
+        } else {
+            return abort('403', 'Bad Request.');
+        }
+    }
+
+    public function MakeTransaction(Request $request, $type = 'buy')
+    {
+        $request->validate([
+            'amount' => 'required|min:0.1',
+            'coin' => 'required'
+        ]);
+
+        $settings = [
+            'user_authorization_success_message' => Settings::where('name', 'user_authorization_success_message')->first(),
+            'user_authorization_failed_message' => Settings::where('name', 'user_authorization_failed_message')->first(),
+            'user_authorization_needed_message' => Settings::where('name', 'user_authorization_needed_message')->first(),
+            'price_calculation_method' => Settings::where('name', 'price_calculation_method')->first(),
+            'dollar_price' => Settings::where('name', 'dollar_price')->first(),
+            'public_btc_wallet' => Settings::where('name', 'public_btc_wallet')->first(),
+            'public_usdt_wallet' => Settings::where('name', 'public_usdt_wallet')->first(),
+        ];
+
+        $transaction = new Transaction();
+        $transaction->user_id = Auth::user()->id;
+        $transaction->amount = $request['amount'];
+
+        $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price']->value;
+
+        $payable = $this->CalculatePrice($request['coin'], $request['amount'], $usd_price, 'tomans');
+        $transaction->payable = $this->NormalizePrice($payable);
+        $transaction->description = 'تعداد :' . $request['amount'] . ' | ' . 'ارز موردنظر :' . $request['coin'];
+        $transaction->save();
+
+        $message = 'درخواست شما ثبت شد و از طریق بخش درخواست‌‌های فروش قابل پیگیری است.';
+        session(['status' => 'factored', 'message' => $message]);
+        return redirect(route('User > Transaction > Show', $transaction->id));
+    }
+
+    public function AddTX(Request $request, $id)
+    {
+        if ($request->isMethod('post')) {
+            $request->validate([
+                'tx_id' => 'required|min:5',
+                'transaction_id' => 'required'
+            ]);
+
+            if ($request['transaction_id'] != $id) {
+                return abort('403', 'Unauthorized action.');
+            }
+
+            $transaction = Transaction::where('id', $id)->update([
+                'tx_id' => $request['tx_id'],
+                'status' => 'waiting'
+            ]);
+            $this->MakeAlert(User::where('rule', 'admin')->first()->id, 'یک درخواست برای تایید انتقال ارز به شما آماده است. لطفا بررسی نمایید.', 'warning');
+
+            $transaction = Transaction::findOrFail($id);
+            return view('user.transaction.wait', compact('transaction'));
+
+        } elseif ($request->isMethod('get')) {
+            $settings = [
+                'user_authorization_success_message' => Settings::where('name', 'user_authorization_success_message')->first(),
+                'user_authorization_failed_message' => Settings::where('name', 'user_authorization_failed_message')->first(),
+                'user_authorization_needed_message' => Settings::where('name', 'user_authorization_needed_message')->first(),
+                'price_calculation_method' => Settings::where('name', 'price_calculation_method')->first(),
+                'dollar_price' => Settings::where('name', 'dollar_price')->first(),
+                'public_btc_wallet' => Settings::where('name', 'public_btc_wallet')->first(),
+                'public_usdt_wallet' => Settings::where('name', 'public_usdt_wallet')->first(),
+            ];
+            $transaction = Transaction::findOrFail($id);
+            return view('user.transaction.addtx', compact(['transaction', 'settings']));
+        } else {
+
+        }
+    }
+
+    public function ShowTransaction(Request $request, $id)
+    {
+        $transaction = Transaction::findOrFail($id);
+        if ($transaction->status == 'unpaid') {
+            return view('user.transaction.show', compact(['transaction']));
+        } elseif ($transaction->status == 'waiting') {
+            return view('user.transaction.wait', compact(['transaction']));
+        } else {
+            return abort(403, 'Bad request.');
+        }
+    }
+}
