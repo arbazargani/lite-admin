@@ -7,7 +7,7 @@
                 <ul>
                     <a href="#">
                         <li>
-                            <p class="progress-step-icon">1</p>
+                            <p class="progress-step-icon step-icon-active">1</p>
                             <p class="progress-step-txt">مقدار ارز</p>
                         </li>
                     </a>

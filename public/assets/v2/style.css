@@ -15,6 +15,8 @@
 @import url("assets/fonts/aileron/aileron.css");
 @import url("assets/fonts/raleway/raleway.css");
 
+@import url("assets/css/effects.css")
+
 :root {
     --color-green: #56BE89;
     --color-green2: #31e599;
@@ -754,7 +756,7 @@ html , body{
 #workstation{
     background: #FBFAFA;
     width: 100%;
-     min-height: calc(100% - 85px);
+    height: calc(100% - 85px);
     /* padding: 50px 0px 50px 50px; */
 
     display: flex;
@@ -1034,364 +1036,190 @@ form label{
 }
 
 
-
-
-
-
-/*** sell ***/
-
-.sell-wrap{
+/***** Admin-Settings *****/
+#admin-settings-wrap{
     width: 100%;
-    padding: 0px 0px;
+    display: flex;
+    flex-flow: row wrap;
+    direction: rtl;
 }
 
-
-.sell-progress-step{
+.admin-settings-right{
     background: #fefefe;
-    width: 100%;
-    margin: 0px auto;
-    padding: 25px 150px;
-    border-radius: 10px;
+    width: 500px;
+    margin: 20px;
+    padding: 30px 50px;
+    border-radius: 20px;
+    flex: 0 0 auto;
     box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.15);
 }
 
-.sell-progress-step ul{
+
+.admin-settings-right h3{
+
+}
+
+.admin-settings-nav{
+    width: 100%;
+    margin-top: 25px;
+}
+
+.settigns-bg{
+    position: absolute;
+    width: 100%;
+    font-size: 300px;
+    margin-top: 90px;
+    opacity: 0.10;
+    z-index: 1;
+}
+
+.admin-settings-nav ul{
+    position:relative;
     list-style: none;
     list-style-type: none;
-    direction: rtl;
-    display: flex;
-    flex-flow: row wrap;
-    justify-content: space-around;
-    align-items: center;
+    z-index: 2;
 }
 
-.sell-progress-step ul{
-    font-size: 45px;
-    color: #e2e5ec; ;
+
+.admin-settings-nav ul li{
+    width: 100%;
+    display: inline-block;
+    border-radius: 3px;
+    height: 30px;
+    padding-right: 15px;
+    margin: 5px 0px;
+
+    transition:  all 0.3s;
 }
 
-.sell-progress-step ul a li{
-    text-align: center;
+.admin-settings-nav ul li:hover{
+    background: rgba(0,0,0,0.05);
+}
+
+.admin-settings-nav ul li.active{
+}
+
+.admin-settings-nav ul li a{
+    display: block;
+    padding: 5px 0px;
+    font-family: "iranyekan";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    color: #7b7e8a;
+    line-height:25px;
+}
+
+.admin-settings-nav ul li.active a{
+    color: #000;
+}
+
+
+
+
+.admin-settings-left{
+    background: #fefefe;
+    width: 500px;
+    margin: 20px;
+    padding: 30px 50px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.15);
+    flex-grow: 1;
+}
+
+.admin-settings-form{
+    padding: 20px ;
+}
+
+.admin-settings-form form{
+}
+
+.admin-settings-form form label{
+    display: block;
+    margin-top: 10px;
+}
+
+.admin-settings-form form p{
     display: inline-block;
 }
 
-.sell-progress-step ul a li p.progress-step-icon{
-    background: #e2e5ec;
-    width: 65px; height: 65px;
-    line-height: 65px;
-    margin: 0px auto; margin-bottom: 5px;
-
-    border-radius: 50%;
-
-    font-family: "iranyekan";
-    font-size: 21px;
-    color: #fefefe;
-
-    transition: all 0.3s;
-}
-
-.step-icon-active{
-    background: #02b875 !important;
-}
-
-.sell-progress-step ul a li p.progress-step-icon:hover{
-    background: #02b875 ;
-}
-
-.sell-progress-bar-wrap{
-    background: #e2e5ec;
-    width: 100%; height: 10px;
-    border-radius: 5px;
-    margin-top: 25px;
-    direction: rtl;
-}
-
-.sell-progress-bar{
-    background: #02b875 ;
-    width:50%; height: 10px;
-
-    border-radius: 5px;
-    transition: all 0.3s;
-}
-
-.sell-progress-bar-1{
-    width: 7%;
-}
-
-.sell-progress-bar-2{
-    width: 35%;
-}
-
-.sell-progress-bar-3{
-    width: 63%;
-}
-
-.sell-progress-bar-4{
+.dollar-toggle-switch-wrap{
     width: 100%;
+    display: inline-block;
+    margin: 15px 0px;
 }
 
-
-#sell-step-1{
-    /* background: #fefefe; */
-    width: 100%;
-    border-radius: 30px;
-    padding: 15px 0px;
-    /* box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.15); */
-
-    display: flex;
-    flex-flow: row wrap;
-    align-items:flex-start;
-    justify-content: space-between;
-
-    direction: rtl;
-}
-
-.sell-tutorial-wrap{
-    background: #fefefe;
-    width: calc(60% - 10px);
-    border-radius: 10px;
-    padding: 100px 50px;
-    margin-left: 10px;
-
-    flex: 0 0 calc(60% - 10px);
-    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.15);
-}
-
-.sell-tutorial-wrap h3{
-    font-size: 24px;
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.sell-tutorial-wrap p{
-    display: block;
-    font-size: 14px;
-    text-align: right;
-}
-
-
-.sell-options{
-    /* background: #fefefe; */
-    background: rgba(255,255,255,0.15);
-    width: 40%;
-    border-radius: 10px;
-    padding: 50px 50px 50px;
-
-    flex: 0 0 40%;
-    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.15);
-}
-
-.sell-options-title{
-    width: 100%;
-    text-align: center;
-    margin-bottom: 30px;
-}
-
-.sell-options-title h3{
-    font-size: 22px;
-}
-
-.sell-input{
-    background: #fefefe;
-    min-width: 250px;
-    width: 100%;
-    padding: 25px 75px;
-    margin: 0px auto;
-    margin-bottom: 50px;
-    border-radius: 10px;
-
-    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.10);
-}
-
-.sell-input h4{
-    text-align: center;
-    font-size: 18px;
-    color: rgba(0, 0, 0, 0.65);
-    margin-top: 10px;
-    margin-bottom: 30px;
-}
-
-
-.sell-input form input{
-    background: transparent;
-
-    font-size: 24px;
-    color: rgba(0, 0, 0, 0.75);
-    text-align: left;
-    direction: ltr;
-
-    border: none;
-    border-radius: 0px;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.75);
-
-    transition: all 0.3s;
-}
-
-.sell-input form input:focus{
-    border: none;
-    box-shadow:unset;
-    border-bottom: 1px solid #5867dd !important;
-}
-
-.sell-coin-select{
-    width: 100%; height: 50px;
-    margin-bottom: 10px;
-}
-
-.sell-coin-select form div span , .sell-coin-select form div ul{
-    font-family: "iranyekan";
-}
-
-.sell-coin-select form div span::after {
-    /* content: "\e98a";
-    font-family: 'cryptofont';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 30px;
-    vertical-align: bottom;
-    color: #92CEFE;
-    float: right;
-    margin-left: 10px; */
-}
-
-.sale-details-wrap{
-    width: 100%;
-}
-
-.sale-details-wrap div{
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.sale-details-wrap div{
-    margin-bottom: 10px;
-}
-
-.sale-details-wrap div span{
-    font-family: "iranyekan";
-    font-weight: normal;
-    font-style: normal;
-    font-size: 14px;
-}
-
-.sell-output{
-    padding-top: 10px;
-    border-top: 1px solid rgba(0, 0, 0, 0.65);
-}
-
-.sell-output span{
-    font-size: 20px !important;
-}
-
-
-.sell-confirm{
-    width: 100%;
-    margin-top: 50px;
-    text-align: center;
-}
-
-.sell-confirm input{
-    width: 80%;
-}
-
-.sell-confirm::before{
-    content: "\f060";
-    font-family: 'FontAwesome';
-    font-weight: normal;
-    font-style: normal;
-    font-size: 16px;
-    vertical-align: bottom;
-    color: #fefefe;
+.dollar-toggle-switch-wrap label{
     float: left;
+}
+
+
+/**** Toggle Button ******/
+
+/* The switch - the box around the slider */
+.switch {
     position: relative;
-    left: 180px;
-    top: 14px;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
 }
 
-
-
-
-#sell-step-2{
-    background: #fefefe;
-    width: 100%;
-    padding: 50px;
-    border-radius: 10px;
-    direction: rtl;
-    display: flex;
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: space-between;
-
-    box-shadow: 0px 0px 30px 0px rgba(0, 0, 0, 0.10);
+/* Hide default HTML checkbox */
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
 }
 
-
-.sell-invoice-accept{
-
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
 }
 
-.sell-invoice-accept form input{
-    width: 600px;
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
 }
 
-.sell-invoice-wrap{
-    width: 50%;
-    padding: 20px ;
-    border: 1px solid rgba(0,0,0,1.00);
+input:checked + .slider {
+    background-color: #02b875;
 }
 
-.sell-invoice{
-
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
 }
 
-.sell-invoice-title{
-    width: 100%;
-    text-align: center;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
 }
 
-.sell-invoice-title h3{
-    margin-bottom: 25px;
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
 }
 
-
-.sell-invoice-info{
-    width: 100%;
+.slider.round:before {
+    border-radius: 50%;
 }
 
-.invoice-info-title{
-    font-weight: bold;
-}
-
-.sell-invoice-info .row{
-    width: 100%;
-}
-
-.sell-invoice-info .row div{
-    width: 50%;
-    padding-top: 15px;
-    float: right;
-}
-
-
-.sell-invoice-table-wrap{
-    width: 100%;
-    margin-top: 50px;
-    border: 1px solid rgba(0,0,0,1.00);
-}
-
-.sell-invoice-table-title{
-    text-align: center;
-}
-
-.sell-invoice-payment{
-    padding: 15px;
-    text-align: center;
-    border: 2px solid rgba(84,163,84,1.00);
-}
-
-.sell-invoice-payment p{
-    font-size: 20px;
+.admin-settings-form form input[type=submit] {
+    margin-top: 15px;
+    float: left;
 }

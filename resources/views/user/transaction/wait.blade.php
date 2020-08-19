@@ -7,21 +7,21 @@
                 <ul>
                     <a href="#">
                         <li>
-                            <p class="progress-step-icon">1</p>
+                            <p class="progress-step-icon step-icon-active">1</p>
                             <p class="progress-step-txt">مقدار ارز</p>
                         </li>
                     </a>
                     <i class="fas fa-horizontal-rule"></i>
                     <a href="#">
                         <li>
-                            <p class="progress-step-icon">2</p>
+                            <p class="progress-step-icon step-icon-active">2</p>
                             <p class="progress-step-txt">تایید فاکتور</p>
                         </li>
                     </a>
                     <i class="fas fa-horizontal-rule"></i>
                     <a href="#">
                         <li>
-                            <p class="progress-step-icon">3</p>
+                            <p class="progress-step-icon step-icon-active">3</p>
                             <p class="progress-step-txt">افزودن TXiD</p>
                         </li>
                     </a>
