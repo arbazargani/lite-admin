@@ -162,7 +162,8 @@ class AdminController extends Controller
 
     public function ShowPayments()
     {
-        $receipts = Receipt::where('status', 'paid')->get();
+        // $receipts = Receipt::where('status', 'paid')->get();
+        $receipts = Receipt::all();
         return view("admin.dashboard.receipts.index", compact(['receipts']));
     }
 

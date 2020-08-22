@@ -47,11 +47,11 @@
                     <label class="uk-form-label" for="form-horizontal-select">ارز موردنظر</label>
                     <div class="uk-form-controls">
                         <select class="uk-select" id="form-horizontal-select" name="coin">
-                            <option value="BTC">بیت کوین</option>
-                            <option value="BCH">بیت کوین کش</option>
-                            <option value="ETH">اتریوم</option>
-                            <option value="LTC">لایت کوین</option>
-                            <option value="USDT">تتر</option>
+                            <option value="bitcoin">بیت کوین</option>
+                            <!-- <option value="BCH">بیت کوین کش</option> -->
+                            <option value="ethereum">اتریوم</option>
+                            <option value="litecoin">لایت کوین</option>
+                            <!-- <option value="USDT">تتر</option> -->
                         </select>
                     </div>
                 </div>

@@ -109,7 +109,7 @@ class ReceiptController extends Controller
     public function CalculatePrice($currency, $amount, $output_currency = 'tomans', $usd_price) {
         $TO_USD = $this->COIN_TO_USD($currency);
         $price = $amount * $TO_USD;
-        if ($output_currency == 'toman') {
+        if ($output_currency == 'tomans') {
 
             return $price * $usd_price;
 

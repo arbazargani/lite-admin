@@ -1,92 +1,73 @@
 @extends('admin.template')
 
 @section('content')
-    <!-- section 2 - bread crumbs -->
-
-    <div class="uk-container uk-padding">
-        <div uk-grid>
-            <div class="uk-width-1-2">
-                <ul class="uk-breadcrumb">
-                    <li><a href="{{ route('Admin > Dashboard') }}">پنل مدیریت</a></li>
-                    <li><a href="">فاکتور‌های پرداخت‌شده</a></li>
-                </ul>
-            </div>
-
-            <div class="uk-width-1-2">
-                <span class="uk-float-left"><a href="" uk-icon="icon: cloud-download" uk-tooltip="بروزرسانی"></a></span>
-            </div>
-        </div>
-    </div>
-
-    <!-- section 2 - bread crumbs -->
-
-    <!-- section 3 - receipts series -->
-
-    <div class="uk-container uk-padding">
-        <div class="uk-card uk-card-default uk-card-body uk-border-rounded">
-        @if($receipts != null && count($receipts) > 0)
-            <!-- section - receipts -->
-                @foreach($receipts as $receipt)
-                    <div class="uk-padding uk-background-muted uk-margin-medium-bottom">
-                        <p class="uk-text-meta">#{{ $receipt->id }} | {{ $receipt->user->name }}
-                        @if($receipt->admin_action == 'accepted')
-                            <span class="uk-float-left uk-text-success">تایید شده</span>
-                        @else
-                            <span class="uk-float-left uk-text-danger">معلق</span>
-                        @endif
-                        </p>
-                        <hr>
-                        <div class="uk-alert-info" uk-alert>
-                            <p>{{ $receipt->description }} [  مبلغ پرداخت شده: {{ $receipt->payable }} ت |‌ تاریخ پرداخت:‌ {{ $receipt->paid_at }}  ]</p>
-                            <p>شماره تراکنش: {{ $receipt->payment->trans_id }}</p>
-                            <hr>
-                            <ul uk-accordion>
-                                <li>
-                                    <a class="uk-accordion-title uk-text-meta" href="#"><span uk-icon="chevron-right"></span> نمایش اطلاعات کاربر</a>
-                                    <div class="uk-accordion-content">
-                                        <p>آدرس ولت: <span class="uk-text-bolder">{{ $receipt->wallet }}</span></p>
-                                        <p>شماره تماس: <span class="uk-text-light">{{ $receipt->user->phone_number }}</span></p>
-                                        <p>ایمیل: <span class="uk-text-light">{{ $receipt->user->email }}</span></p>
-                                        @if($receipt->admin_action == 'waiting')
-                                        <hr>
-                                        <div class="uk-child-width-1-2@m" uk-grid>
-                                            <div>
-                                                <form action="{{ route("Admin > Receipts > Action", $receipt->id) }}" method="post">
-                                                    @csrf
-                                                    <input type="hidden" name="action" value="accepted">
-                                                    <button type="submit" class="uk-button uk-button-small uk-button-primary uk-width-1-1">
-                                                        <span uk-icon="check"></span> تایید و اتمام انتقال
-                                                    </button>
-                                                </form>
-                                            </div>
-
-                                            <div>
-                                                <form action="{{ route("Admin > Receipts > Action", $receipt->id) }}" method="post">
-                                                    @csrf
-                                                    <input type="hidden" name="action" value="rejected">
-                                                    <button type="submit" class="uk-button uk-button-small uk-button-danger uk-width-1-1">
-                                                        <span uk-icon="close"></span> رد انتقال
-                                                    </button>
-                                                </form>
-                                            </div>
-                                        </div>
-                                        @endif
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
+    <div id="workstation">
+		<div id="workspace">
+			<div class="workspace-wrap">
+                <div id="orders-wrap">
+                    <div class="orders-title">
+                        <h3>سفارشات</h3>
                     </div>
-                @endforeach
-            <!-- section - receipts -->
-            @else
-                <div class="uk-alert uk-akert-warning" uk-alert>
-                    <p>درخواستی در سامانه ثبت نشده است.</p>
+                    <div class="orders-table">
+                    @if($receipts != null && count($receipts) > 0)
+                    <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>کاربر</th>
+                                    <th>سفارش</th>
+                                    <th>مبلغ (تومان)</th>
+                                    <th>وضعیت سفارش</th>
+                                    <th>عملیات</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            @foreach($receipts as $receipt)
+                                <tr>
+                                    <td>#{{ $receipt->id }}</td>
+                                    <td>
+                                         <div class="order-table-user">
+                                             <p>{{ $receipt->user->name }}</p>
+                                             <p>{{ $receipt->user->email }}</p>
+                                             <p>{!! ($receipt->user->status == 'verified') ? '<span style="color: green">تایید شده</span>' : '<span style="color: red">در انتظار تایید</span>' !!}</p>
+                                         </div>
+                                    </td>
+                                    <td>
+                                        <div class="order-table-info">
+                                            <div><p><span></span>{{ $receipt->description }}</p></div>
+                                            <!-- <div><p><span>قیمت هر واحد: </span>11,580 USD</p></div> -->
+                                            <!-- <div><p><span>معادل: </span>74.78 USD</p></div> -->
+                                            <!-- <div><p><span>نرخ ارز: </span>23,880 Toman</p></div> -->
+                                            <div><p><span>تاریخ ایجاد: {{ Facades\Verta::instance($receipt->created_at) }}</span></p></div>
+                                        </div>
+                                    </td>
+                                    <td><p>{{ number_format($receipt->payable) }} ت</p></td>
+                                    <td>
+                                        <div class="order-table-status" style="direction: rtl; text-align: right">
+                                            <p>وضعیت سفارش: در حال انجام</p>
+                                            <p>وضعیت پرداخت: {!! (!is_null($receipt->paid_at)) ? '<span style="color: green">پرداخت شده</span>' : '<span style="color: red">در انتظار پرداخت</span>' !!}</p>
+                                            <p>تاریخ پرداخت: {{ (!is_null($receipt->paid_at)) ? Facades\Verta::instance($receipt->paid_at) : '-' }}</p>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <a class="button td-btn">جزئیات</a>
+                                    </td>
+                                </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="2"></td>
+                                    <td>‬</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        @else
+                        <p>درخواستی در سامانه ثبت نشده است.</p>
+                        @endif
+                    </div>
                 </div>
-            @endif
-        </div>
+			</div>
+		</div>
     </div>
-
-    <!-- section 3 - receipts series -->
-
-
 @endsection
