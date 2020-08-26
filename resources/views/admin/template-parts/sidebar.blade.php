@@ -16,8 +16,10 @@
             </a>
             <a href="#">
                 <li>
-                    <i class="fab fa-bitcoin"></i>
-                    <p>خرید ها</p>
+                    <a href="{{ route('Admin > Receipts > List') }}" style="color: rgba(134, 138, 168, 1)">
+                        <i class="fab fa-bitcoin"></i>
+                        <p>خرید ها</p>
+                    </a>
                 </li>
             </a>
             <a href="#">

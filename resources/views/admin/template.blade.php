@@ -23,7 +23,11 @@
     <script src="/assets/v2/assets/js/jquery-nice-select-1.1.0/js/jquery.js"></script>
     <script src="/assets/v2/assets/js/jquery-nice-select-1.1.0/js/jquery.nice-select.js"></script>
     <link rel="stylesheet" href="/assets/v2/assets/js/jquery-nice-select-1.1.0/css/nice-select.css">
-@include('admin.template-parts.head-scripts')
+
+    {{-- MicroModal Js --}}
+    <script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
+
+    @include('admin.template-parts.head-scripts')
 </head>
 <body>
 <div id="container">

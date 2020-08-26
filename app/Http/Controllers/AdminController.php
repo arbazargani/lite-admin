@@ -162,18 +162,30 @@ class AdminController extends Controller
 
     public function ShowPayments()
     {
-        // $receipts = Receipt::where('status', 'paid')->get();
-        $receipts = Receipt::all();
+        $receipts = Receipt::where('status', 'paid')->latest()->paginate(10);
         return view("admin.dashboard.receipts.index", compact(['receipts']));
     }
 
     public function PaymentDoAction(Request $request, $id)
     {
-
-        $receipt = Receipt::where('id', $id)->update([
-            'admin_action' => $request['action']
+        $request->validate([
+            'admin_action' => 'required'
         ]);
 
+        if ($request['admin_action'] == 'accept') {
+            $request->validate([
+                'tx_id' => 'required:min:7'
+            ]);
+            $receipt = Receipt::where('id', $id)->update([
+                'admin_action' => $request['admin_action'],
+                'admin_tx' => $request['tx_id']
+            ]);
+    
+        } else {
+            $receipt = Receipt::where('id', $id)->update([
+                'admin_action' => $request['admin_action']
+            ]);
+        }
         return back();
     }
 

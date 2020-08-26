@@ -25,6 +25,7 @@ class CreateReceiptsTable extends Migration
             $table->string('description')->nullable();
             $table->string('paid_at')->nullable();
             $table->string('admin_action')->default('waiting');
+            $table->string('admin_tx')->nullable();
             $table->string('hash')->nullable();
             $table->timestamps();
         });

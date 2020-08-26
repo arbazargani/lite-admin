@@ -149,4 +149,9 @@ class UserController extends Controller
         return view("user.panel.messages", compact(['alerts']));
     }
 
+    Public function RawTx($id) {
+        $receipt = Auth::user()->receipt->where('id', $id)->whereNotNull('admin_tx');
+        return (count($receipt) == 1) ? '<html><head><body><pre>'. $receipt[0]->admin_tx .'</pre></body></head></html>' : abort('404');
+    }
+
 }

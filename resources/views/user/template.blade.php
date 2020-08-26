@@ -10,7 +10,7 @@
     <title> {{ env('APP_NAME') }} </title>
 
     {{-- Assets and styles --}}
-    <link type="text/css" rel="stylesheet" media="all" href="/assets/v2/style.css">
+    <link type="text/css" rel="stylesheet" media="all" href="/assets/v2/user.css">
 
     <!--Font Awsome-->
     <link href="/assets/v2/assets/fonts/fontawesome-pro/css/all.css" rel="stylesheet">

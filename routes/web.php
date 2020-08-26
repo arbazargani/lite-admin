@@ -81,6 +81,8 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/receipt/manage', 'ReceiptController@Manage')->name('User > Receipt > Archive');
             Route::get('/receipt/show/{id}', 'ReceiptController@ShowReceipt')->name('User > Receipt > Show');
             Route::post('/receipt/pay/{id}', 'ReceiptController@PayReceipt')->name('User > Receipt > Pay');
+            // Route::post('/receipt/pay/{id}', 'PaymentController@Reques')->name('User > Receipt > Pay');
+            Route::get('/receipt/raw/tx/{id}', 'UserController@RawTx')->name('User > Receipt > Raw');
 
             Route::post('/transaction/make', 'TransactionController@MakeTransaction')->name('User > Transaction > Make');
             Route::get('/transaction/show/{id}', 'TransactionController@ShowTransaction')->name('User > Transaction > Show');

@@ -44,13 +44,50 @@
                                     <td><p>{{ number_format($receipt->payable) }} ت</p></td>
                                     <td>
                                         <div class="order-table-status" style="direction: rtl; text-align: right">
-                                            <p>وضعیت سفارش: در حال انجام</p>
+                                            <p>وضعیت سفارش: {{ is_null($receipt->admin_tx) ? 'در حال انجام' : 'انجام شده' }}</p>
                                             <p>وضعیت پرداخت: {!! (!is_null($receipt->paid_at)) ? '<span style="color: green">پرداخت شده</span>' : '<span style="color: red">در انتظار پرداخت</span>' !!}</p>
                                             <p>تاریخ پرداخت: {{ (!is_null($receipt->paid_at)) ? Facades\Verta::instance($receipt->paid_at) : '-' }}</p>
                                         </div>
                                     </td>
                                     <td>
-                                        <a class="button td-btn">جزئیات</a>
+                                        @if(is_null($receipt->admin_tx))
+                                        <form action="{{ route('Admin > Receipts > Action', $receipt->id) }}" method="POST">
+                                            @csrf
+                                            <select name="admin_action" id="">
+                                                <option value="accept">تایید</option>
+                                                <option value="reject">عدم تایید</option>
+                                            </select>
+                                            <input type="text" name="tx_id" style="width: 100px" placeholder="tx_id">
+                                            <button class="button td-btn" type="submit">افزودن TX_ID</button>
+                                        </form>
+                                        @else
+                                        <span>اتمام | <a style="color: green" href="{{ route('User > Receipt > Raw', $receipt->id) }}">نمایش TX</a></span>
+                                        <button data-micromodal-trigger="receipt-{{ $receipt->id }}-modal">test</button>
+                                        <!-- [1] -->
+                                        <div id="receipt-{{ $receipt->id }}-modal" aria-hidden="true">
+                                            <!-- [2] -->
+                                            <div tabindex="-1" data-micromodal-close>
+                                                <!-- [3] -->
+                                                <div role="dialog" aria-modal="true" aria-labelledby="modal-1-title" >
+                                            
+                                            
+                                                    <header>
+                                                    <h2 id="modal-1-title">
+                                                        Modal Title
+                                                    </h2>
+                                            
+                                                    <!-- [4] -->
+                                                    <button aria-label="Close modal" data-micromodal-close></button>
+                                                    </header>
+                                            
+                                                    <div id="receipt-{{ $receipt->id }}-modal-content">
+                                                        Modal Content
+                                                    </div>
+                                            
+                                                </div>
+                                            </div>
+                                        </div>
+                                        @endif
                                     </td>
                                 </tr>
                                 @endforeach
@@ -58,10 +95,11 @@
                             <tfoot>
                                 <tr>
                                     <td colspan="2"></td>
-                                    <td>‬</td>
                                 </tr>
                             </tfoot>
                         </table>
+                        <script>MicroModal.init();</script>
+                        ‬{!! $receipts->links('vendor.pagination.simple-default') !!}
                         @else
                         <p>درخواستی در سامانه ثبت نشده است.</p>
                         @endif
