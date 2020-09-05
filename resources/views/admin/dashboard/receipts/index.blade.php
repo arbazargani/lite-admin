@@ -1,6 +1,15 @@
 @extends('admin.template')
 
 @section('content')
+<style>
+    .nice-select {
+        width: 100% !important;
+        text-align: right !important;
+        direction: rtl !important;
+        height: min-content;
+        margin-bottom: 4px;
+    }
+</style>
     <div id="workstation">
 		<div id="workspace">
 			<div class="workspace-wrap">
@@ -45,7 +54,7 @@
                                     <td>
                                         <div class="order-table-status" style="direction: rtl; text-align: right">
                                             <p>وضعیت سفارش: {{ is_null($receipt->admin_tx) ? 'در حال انجام' : 'انجام شده' }}</p>
-                                            <p>وضعیت پرداخت: {!! (!is_null($receipt->paid_at)) ? '<span style="color: green">پرداخت شده</span>' : '<span style="color: red">در انتظار پرداخت</span>' !!}</p>
+                                            <p>وضعیت پرداخت: {!! (!is_null($receipt->paid_at)) ? '<span style="color: green">پرداخت شده</span>' : '<span style="color: red; font-weight: 800">در انتظار پرداخت</span>' !!}</p>
                                             <p>تاریخ پرداخت: {{ (!is_null($receipt->paid_at)) ? Facades\Verta::instance($receipt->paid_at) : '-' }}</p>
                                         </div>
                                     </td>
@@ -53,40 +62,15 @@
                                         @if(is_null($receipt->admin_tx))
                                         <form action="{{ route('Admin > Receipts > Action', $receipt->id) }}" method="POST">
                                             @csrf
-                                            <select name="admin_action" id="">
+                                            <select name="admin_action" id>
                                                 <option value="accept">تایید</option>
                                                 <option value="reject">عدم تایید</option>
                                             </select>
-                                            <input type="text" name="tx_id" style="width: 100px" placeholder="tx_id">
-                                            <button class="button td-btn" type="submit">افزودن TX_ID</button>
+                                            <input type="text" name="tx_id" placeholder="tx_id">
+                                            <button class="button td-btn" style="width: auto" type="submit">افزودن TX_ID</button>
                                         </form>
                                         @else
-                                        <span>اتمام | <a style="color: green" href="{{ route('User > Receipt > Raw', $receipt->id) }}">نمایش TX</a></span>
-                                        <button data-micromodal-trigger="receipt-{{ $receipt->id }}-modal">test</button>
-                                        <!-- [1] -->
-                                        <div id="receipt-{{ $receipt->id }}-modal" aria-hidden="true">
-                                            <!-- [2] -->
-                                            <div tabindex="-1" data-micromodal-close>
-                                                <!-- [3] -->
-                                                <div role="dialog" aria-modal="true" aria-labelledby="modal-1-title" >
-                                            
-                                            
-                                                    <header>
-                                                    <h2 id="modal-1-title">
-                                                        Modal Title
-                                                    </h2>
-                                            
-                                                    <!-- [4] -->
-                                                    <button aria-label="Close modal" data-micromodal-close></button>
-                                                    </header>
-                                            
-                                                    <div id="receipt-{{ $receipt->id }}-modal-content">
-                                                        Modal Content
-                                                    </div>
-                                            
-                                                </div>
-                                            </div>
-                                        </div>
+                                        <span>اتمام | <span style="color: green" onclick="window.open('{{ route('User > Receipt > Raw', $receipt->hash) }}','name','width=600,height=400')">نمایش TX</span></span>
                                         @endif
                                     </td>
                                 </tr>

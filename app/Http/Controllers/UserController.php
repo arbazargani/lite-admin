@@ -149,9 +149,22 @@ class UserController extends Controller
         return view("user.panel.messages", compact(['alerts']));
     }
 
-    Public function RawTx($id) {
-        $receipt = Auth::user()->receipt->where('id', $id)->whereNotNull('admin_tx');
-        return (count($receipt) == 1) ? '<html><head><body><pre>'. $receipt[0]->admin_tx .'</pre></body></head></html>' : abort('404');
+    Public function RawTx($hash) {
+        $receipt = Receipt::where('hash', $hash)->whereNotNull('admin_tx')->first();
+        
+        return (!is_null($receipt) == 1) ? '<html><head><body><pre>'. $receipt->admin_tx .'</pre></body></head></html>' : abort('403', 'make screenshot and contact this state to system administrator.');
     }
 
+
+    public function BuyHistory() {
+        $receipts = User::find(Auth::id())->receipt;
+        $unpaid_receipts = User::find(Auth::id())->receipt->sum('payable');
+        $sell_requests = User::find(Auth::id())->transaction;
+        $alerts = User::find(Auth::id())->alert->where('read', 0);
+        return view("user.receipts.history", compact(['receipts', 'unpaid_receipts', 'alerts', 'sell_requests']));
+    }
+
+    public function SellHistory() {
+
+    }
 }

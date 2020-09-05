@@ -23,6 +23,7 @@ class CreateTransactionsTable extends Migration
             $table->foreign('user_id')->references('id')->on('users');
             $table->string('description')->nullable();
             $table->string('paid_at')->nullable();
+            $table->string('pay_tracking_id')->nullable();
             $table->string('hash')->nullable();
             $table->timestamps();
         });

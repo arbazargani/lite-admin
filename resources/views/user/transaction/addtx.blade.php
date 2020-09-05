@@ -59,10 +59,10 @@
                     </div>
                 </div>
                 <div>
-                    <form action="{{ route('User > Transaction > ADD Tx ID', $transaction->id) }}" method="post" style="text-align: center">
+                    <form action="{{ route('User > Transaction > ADD Tx ID', $transaction->hash) }}" method="post" style="text-align: center">
                         @csrf
                         <input type="text" name="tx_id" placeholder="شناسه TXID انتقال را وارد نمایید." required>
-                        <input type="hidden" name="transaction_id" value="{{ $transaction->id }}">
+                        <input type="hidden" name="transaction_id" value="{{ $transaction->hash }}">
                         <br>
                         <button type="submit" class="btn1">ثبت</button>
                     </form>

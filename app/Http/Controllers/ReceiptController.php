@@ -153,6 +153,9 @@ class ReceiptController extends Controller
         $receipt->description = 'تعداد :' . $request['amount'] . ' | ' . 'ارز موردنظر :' . $request['coin'];
         $receipt->save();
 
+        $receipt->hash = sha1($receipt->id);
+        $receipt->save();
+
         $message = 'درخواست شما ثبت شد و از طریق بخش فاکتورها قابل پیگیری است.';
         session(['status' => 'factored', 'message' => $message]);
         return redirect(route('User > Panel'));

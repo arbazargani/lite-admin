@@ -57,10 +57,9 @@
                                         @csrf
                                         <button type="submit" class="button td-btn">پرداخت</button>
                                     </form>
-                                    @elseif(!is_null($receipt->admin_tx) && $receipt->admin_action == 'accept')
-                                    
-                                    <span>اتمام | <a style="color: green" href="{{ route('User > Receipt > Raw', $receipt->id) }}">نمایش TX</a></span>
-
+                                    @endif
+                                    @if(!is_null($receipt->admin_tx) && $receipt->admin_action == 'accept')
+                                    <span>اتمام | <a style="color: green" href="{{ route('User > Receipt > Raw', $receipt->hash) }}">نمایش TX</a></span>
                                     @endif
                                     
                                 </td>

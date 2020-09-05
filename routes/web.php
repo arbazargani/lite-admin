@@ -70,7 +70,9 @@ Route::middleware(['auth'])->group(function () {
 
         Route::middleware(['IsVerified'])->group(function () {
             Route::get('/buy', 'UserController@BuyCoin')->name('User > Buy Coin');
+            Route::get('/buy/history', 'UserController@BuyHistory')->name('User > Buy Coin');
             Route::get('/sell', 'UserController@SellCoin')->name('User > Sell Coin');
+            Route::get('/sell/history', 'UserController@SellHistory')->name('User > Buy Coin');
             Route::get('/transaction/verify');
 
             Route::get('/exchange', 'ExchangeController@ExchangeCoin')->name('User > Exchange Coin');
@@ -82,11 +84,14 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/receipt/show/{id}', 'ReceiptController@ShowReceipt')->name('User > Receipt > Show');
             Route::post('/receipt/pay/{id}', 'ReceiptController@PayReceipt')->name('User > Receipt > Pay');
             // Route::post('/receipt/pay/{id}', 'PaymentController@Reques')->name('User > Receipt > Pay');
-            Route::get('/receipt/raw/tx/{id}', 'UserController@RawTx')->name('User > Receipt > Raw');
+            Route::get('/receipt/raw/tx/{hash}', 'UserController@RawTx')->name('User > Receipt > Raw');
 
             Route::post('/transaction/make', 'TransactionController@MakeTransaction')->name('User > Transaction > Make');
-            Route::get('/transaction/show/{id}', 'TransactionController@ShowTransaction')->name('User > Transaction > Show');
-            Route::any('/transaction/add_tx/{id}', 'TransactionController@AddTX')->name('User > Transaction > ADD Tx ID');
+            Route::get('/transaction/manage', 'TransactionController@Manage')->name('User > Transaction > Archive');
+            // Route::get('/transaction/show/{id}', 'TransactionController@ShowTransaction')->name('User > Transaction > Show');
+            Route::get('/transaction/show/{hash}', 'TransactionController@ShowTransaction')->name('User > Transaction > Show');
+            // Route::any('/transaction/add_tx/{id}', 'TransactionController@AddTX')->name('User > Transaction > ADD Tx ID');
+            Route::any('/transaction/add_tx/{hash}', 'TransactionController@AddTX')->name('User > Transaction > ADD Tx ID');
         });
     });
 

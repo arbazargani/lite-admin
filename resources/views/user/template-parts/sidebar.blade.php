@@ -14,13 +14,13 @@
                     <p>پروفایل</p>
                 </li>
             </a>
-            <a href="#">
+            <a href="{{ route("User > Receipt > Archive") }}">
                 <li>
                     <i class="fab fa-bitcoin"></i>
                     <p>خرید ها</p>
                 </li>
             </a>
-            <a href="#">
+            <a href="{{ route("User > Transaction > Archive") }}">
                 <li>
                     <i class="fal fa-donate"></i>
                     <p>فروش ها</p>

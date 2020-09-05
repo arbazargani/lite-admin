@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use OneAPI\Laravel\API\Crypto;
 use OneAPI\Laravel\API\Currency;
+use Carbon\Carbon;
 
 use App\Transaction;
 use App\StringTrait;
@@ -150,30 +151,41 @@ class TransactionController extends Controller
         $transaction->description = 'تعداد :' . $request['amount'] . ' | ' . 'ارز موردنظر :' . $request['coin'];
         $transaction->save();
 
+        $transaction->hash = sha1($transaction->id);
+        $transaction->save();
+
+
         $message = 'درخواست شما ثبت شد و از طریق بخش درخواست‌‌های فروش قابل پیگیری است.';
         session(['status' => 'factored', 'message' => $message]);
-        return redirect(route('User > Transaction > Show', $transaction->id));
+        return redirect(route('User > Transaction > Show', $transaction->hash));
     }
 
-    public function AddTX(Request $request, $id)
+    public function AddTX(Request $request, $hash)
     {
+        $transaction = Transaction::where('hash', $hash)->first();
+
+        if ( is_null($transaction) ) {
+            return abort(404);
+        }
+
         if ($request->isMethod('post')) {
             $request->validate([
                 'tx_id' => 'required|min:5',
                 'transaction_id' => 'required'
             ]);
 
-            if ($request['transaction_id'] != $id) {
+            if ($request['transaction_id'] != $hash) {
                 return abort('403', 'Unauthorized action.');
             }
 
-            $transaction = Transaction::where('id', $id)->update([
+            $transaction = Transaction::where('hash', $hash)->update([
                 'tx_id' => $request['tx_id'],
                 'status' => 'waiting'
             ]);
             $this->MakeAlert(User::where('rule', 'admin')->first()->id, 'یک درخواست برای تایید انتقال ارز به شما آماده است. لطفا بررسی نمایید.', 'warning');
 
-            $transaction = Transaction::findOrFail($id);
+            // $transaction = Transaction::findOrFail($id);
+            $transaction = Transaction::where('hash', $hash)->first();
             return view('user.transaction.wait', compact('transaction'));
 
         } elseif ($request->isMethod('get')) {
@@ -186,16 +198,24 @@ class TransactionController extends Controller
                 'public_btc_wallet' => Settings::where('name', 'public_btc_wallet')->first(),
                 'public_usdt_wallet' => Settings::where('name', 'public_usdt_wallet')->first(),
             ];
-            $transaction = Transaction::findOrFail($id);
+            // $transaction = Transaction::findOrFail($id);
+            $transaction = Transaction::where('hash', $hash)->first();
             return view('user.transaction.addtx', compact(['transaction', 'settings']));
         } else {
-
+            return redirect('/');
         }
     }
 
-    public function ShowTransaction(Request $request, $id)
+    public function ShowTransaction(Request $request, $hash)
     {
-        $transaction = Transaction::findOrFail($id);
+        $transaction = Transaction::where('hash', $hash)->first();
+        if ( is_null($transaction) ) {
+            return abort(404);
+        }
+
+        $time = Carbon::parse($transaction->created_at);
+        $time->addMinutes(20);
+
         if ($transaction->status == 'unpaid') {
             return view('user.transaction.show', compact(['transaction']));
         } elseif ($transaction->status == 'waiting') {
@@ -203,5 +223,10 @@ class TransactionController extends Controller
         } else {
             return abort(403, 'Bad request.');
         }
+    }
+
+    public function Manage() {
+        $transactions = User::find(Auth::id())->transaction()->latest()->paginate(10);
+        return view('user.transaction.manage', compact(['transactions']));
     }
 }

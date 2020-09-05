@@ -38,6 +38,7 @@
                 </div>
             </div>
         </div>
+        <br>
         <div id="sell-step-2">
             <style>
                 .sell-invoice-wrap {
@@ -110,7 +111,19 @@
             </div>
             <br>
             <div class="sell-invoice-accept">
-                <a href="{{ route('User > Transaction > ADD Tx ID', $transaction->id) }}" class="btn1"> تایید فاکتور و ثبت TX ID</a>
+                @php
+                    $exptime = \Carbon\Carbon::parse($transaction->created_at)->addMinutes(20);
+                    $exptime->addMinute(20);
+                    $now = \Carbon\Carbon::parse(date("Y-m-d H:i:s"));
+                @endphp
+                @if( $now > $exptime )
+                    <p>مدت زمان افزودن TxID با توجه به قوانین سایت ۲۰ دقیقه پس از ایجاد صورتحساب می‌باشد.</p>
+                    <p>بدین منظور لطفا از بخش <a href="{{ route("User > Sell Coin") }}">فروش</a> یک صورتحساب جدید ایجاد نمایید.</p>
+                @else
+                    <div>
+                        <a href="{{ route('User > Transaction > ADD Tx ID', $transaction->hash) }}" class="btn1"> تایید فاکتور و ثبت TxID</a>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
