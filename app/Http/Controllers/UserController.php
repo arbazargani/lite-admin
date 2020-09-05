@@ -41,10 +41,12 @@ class UserController extends Controller
     public function Index()
     {
         $receipts = User::find(Auth::id())->receipt;
+        $transactions = User::find(Auth::id())->transaction;
+        // return $transactions;
         $unpaid_receipts = User::find(Auth::id())->receipt->sum('payable');
         $sell_requests = User::find(Auth::id())->transaction;
         $alerts = User::find(Auth::id())->alert->where('read', 0);
-        return view("user.panel.index", compact(['receipts', 'unpaid_receipts', 'alerts', 'sell_requests']));
+        return view("user.panel.index", compact(['receipts', 'unpaid_receipts', 'alerts', 'sell_requests', 'transactions']));
     }
 
     public function Verfication(Request $request)

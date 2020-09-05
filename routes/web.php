@@ -23,10 +23,10 @@ Route::get('/logout', function () {
     return abort('404');
 });
 
-// Route::get('/', 'PublicController@Index')->name('Public > Home');
-Route::get('/', function() {
-    return view('public.home.soon');
-});
+Route::get('/', 'PublicController@Index')->name('Public > Home');
+// Route::get('/', function() {
+//     return view('public.home.soon');
+// });
 
 Route::middleware(['auth', 'HasAdminAccess'])->group(function () {
 
@@ -95,6 +95,7 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/transaction/show/{hash}', 'TransactionController@ShowTransaction')->name('User > Transaction > Show');
             // Route::any('/transaction/add_tx/{id}', 'TransactionController@AddTX')->name('User > Transaction > ADD Tx ID');
             Route::any('/transaction/add_tx/{hash}', 'TransactionController@AddTX')->name('User > Transaction > ADD Tx ID');
+            Route::get('/transaction/raw/tx/{hash}', 'TransactionController@RawTx')->name('User > Transaction > Raw');
         });
     });
 

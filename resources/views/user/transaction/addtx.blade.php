@@ -46,6 +46,7 @@
                 }
             </style>
             <div class="wrapper">
+                @if(is_null($transaction->tx_id))
                 <div style="padding: 2px 10px 2px 10px; margin-bottom: 7px;">
                     <div style="width: 45%; float: left">
                         <h2>ولت بیت‌کوین</h2>
@@ -67,6 +68,11 @@
                         <button type="submit" class="btn1">ثبت</button>
                     </form>
                 </div>
+                @else
+                <div>
+                    <p>شناسه <span style="background: #f3f3f3; padding: 0.5%; border: 1px solid green; border-radius: 3px; color: green;">{{ $transaction->tx_id }}</span> برای این پرداخت ثبت شده است.</p>
+                </div>
+                @endif
             </div>
         </div>
     </div>

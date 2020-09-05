@@ -77,6 +77,74 @@
                     <p>درخواستی در سامانه ثبت نشده است.</p>
                     @endif
                 </div>
+
+                <hr>
+                <div style="margin-bottom: 95px;">
+                    <div style="float: right">
+                        <h5>درخواست‌های فروش</h5>
+                    </div>
+                    <div style="float: left">
+                        <a href="{{ route('User > Sell Coin') }}"><button class="btn1 info-btn" type="submit">ثبت درخواست</button></a>
+                    </div>
+                </div>
+                <div class="orders-table">
+                @if($transactions != null && count($transactions) > 0)
+                <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>سفارش</th>
+                                <th>مبلغ (تومان)</th>
+                                <th>TxID</th>
+                                <th>وضعیت سفارش</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($transactions as $transaction)
+                            <tr>
+                                <td>{{ $transaction->id }}</td>
+                                <td>
+                                     <div class="order-table-user">
+                                        <div><p><span></span>{{ $transaction->description }}</p></div>
+                                        <div><p><span>تاریخ ایجاد: {{ Facades\Verta::instance($transaction->created_at) }}</span></p></div> 
+                                     </div>
+                                </td>
+                                <td><p>{{ number_format($transaction->payable) }} ت</p></td>
+                                <td>
+                                    <div class="order-table-info">
+                                        @if((!is_null($transaction->tx_id)))
+                                        <p><span onclick="window.open('{{ route('User > Transaction > Raw', $transaction->hash) }}','name','width=600,height=400')">نمایش</span></p>
+                                        @else
+                                        <p><a href="{{ route('User > Transaction > ADD Tx ID', $transaction->hash) }}">ثبت</a></p>
+                                        @endif
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="order-table-status" style="direction: rtl; text-align: right">
+                                        @if($transaction->status == 'verified')
+                                        <p>{!!  '<span style="color: green">تایید شده</span>' !!}</p>
+                                        @elseif($transaction->status == 'rejected')
+                                        <p>{!!  '<span style="color: red">درخواست رد شده</span>' !!}</p>
+                                        @else
+                                        <p>معلق</p>
+                                        @endif
+                                    </div>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="2"></td>
+                                <td>‬</td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                    @else
+                    <p>درخواستی در سامانه ثبت نشده است.</p>
+                    @endif
+                </div>
+
             </div>
         </div>
     </div>

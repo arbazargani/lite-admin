@@ -229,4 +229,10 @@ class TransactionController extends Controller
         $transactions = User::find(Auth::id())->transaction()->latest()->paginate(10);
         return view('user.transaction.manage', compact(['transactions']));
     }
+
+    Public function RawTx($hash) {
+        $transaction = Transaction::where('hash', $hash)->whereNotNull('tx_id')->first();
+        
+        return (!is_null($transaction) == 1) ? '<html><head><body><pre>'. $transaction->tx_id .'</pre></body></head></html>' : abort('403', 'make screenshot and contact this state to system administrator.');
+    }
 }
