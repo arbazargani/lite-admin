@@ -23,7 +23,10 @@ Route::get('/logout', function () {
     return abort('404');
 });
 
-Route::get('/', 'PublicController@Index')->name('Public > Home');
+// Route::get('/', 'PublicController@Index')->name('Public > Home');
+Route::get('/', function() {
+    return view('public.home.soon');
+});
 
 Route::middleware(['auth', 'HasAdminAccess'])->group(function () {
 
