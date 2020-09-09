@@ -67,6 +67,9 @@
                                         <!-- <p>تصویر کارت ملی</p> -->
                                         <input type="file" name="national_card" id="national_card" class="my-fileinput inputfile inputfile-1" data-multiple-caption="{count} files selected" multiple="">
 										<label for="national_card"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg> <span>تصویر کارت ملی</span></label>
+										@error('national_card')
+											<p style="color: red;">{{ $message }}</span>
+										@enderror
                                     </div>
 								</div>
 							</div>
@@ -79,6 +82,9 @@
                                         <!-- <p>تصویر کارت ملی</p> -->
                                         <input type="file" name="person_national_card" id="person_national_card" class="my-fileinput inputfile inputfile-1" data-multiple-caption="{count} files selected" multiple="">
 										<label for="person_national_card"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg> <span>سلفی با کارت ملی</span></label>
+										@error('person_national_card')
+											<p style="color: red;">{{ $message }}</span>
+										@enderror
                                     </div>
                                 </div>
                             </div>
@@ -91,6 +97,9 @@
                                         <!-- <p>تصویر شناسنامه</p> -->
                                         <input type="file" name="birth_certificate" id="birth_certificate" class="my-fileinput inputfile inputfile-1" data-multiple-caption="{count} files selected" multiple="">
 										<label for="birth_certificate"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg> <span>تصویر شناسنامه</span></label>
+										@error('birth_certificate')
+											<p style="color: red;">{{ $message }}</span>
+										@enderror
                                     </div>
                                 </div>
 							</div>
@@ -103,6 +112,9 @@
                                         <!-- <p>تصویر شناسنامه</p> -->
                                         <input type="file" name="person_birth_certificate" id="person_birth_certificate" class="my-fileinput inputfile inputfile-1" data-multiple-caption="{count} files selected" multiple="">
 										<label for="person_birth_certificate"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="17" viewBox="0 0 20 17"><path d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z"></path></svg> <span>سلفی با شناسنامه</span></label>
+										@error('person_birth_certificate')
+											<p style="color: red;">{{ $message }}</span>
+										@enderror
                                     </div>
                                 </div>
 							</div>
@@ -138,14 +150,23 @@
 							<div class="form-row">
 								<div class="form-holder w-100">
 									<input type="text" placeholder="آدرس" class="form-control" name="home_address">
+									@error('home_address')
+										<p style="color: red;">{{ $message }}</span>
+									@enderror
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-holder">
 									<input type="text" placeholder="شهر" class="form-control" name="city">
+									@error('city')
+										<p style="color: red;">{{ $message }}</span>
+									@enderror
 								</div>
 								<div class="form-holder">
 									<input type="text" placeholder="شماره ثابت" class="form-control" name="home_number">
+									@error('home_number')
+										<p style="color: red;">{{ $message }}</span>
+									@enderror
 								</div>
 							</div>
 
@@ -174,14 +195,23 @@
 							<div class="form-row">
 								<div class="form-holder">
 									<input type="text" placeholder="شماره کارت" class="form-control" name="credit_card">
+									@error('credit_card')
+										<p style="color: red;">{{ $message }}</span>
+									@enderror
 								</div>
 								<div class="form-holder">
 									<input type="text" placeholder="شماره حساب" class="form-control" name="credit_account">
+									@error('credit_account')
+										<p style="color: red;">{{ $message }}</span>
+									@enderror
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-holder w-100">
 									<input type="text" placeholder="شماره شبا" class="form-control" name="sheba_account">
+									@error('sheba_account')
+										<p style="color: red;">{{ $message }}</span>
+									@enderror
 								</div>
 							</div>
 							{{-- <div class="form-row">
@@ -229,32 +259,7 @@
 			<img src="https://thumbs.gfycat.com/ShyCautiousAfricanpiedkingfisher-size_restricted.gif" alt="" srcset="" style="width: 15px; height: auto; vertical-align: middle">
 			مدارک شما تایید شده است. می‌توانید از امکانات پنل استفاده نمایید.</p>
 			@endif
-			@if ($errors->any())
-			<!-- Toast JS  -->
-			<script src="/assets/auth/toastify/toastify.js"></script>
-			<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-			<link rel="stylesheet" href="/assets/auth/toastify/toastify.css">
-			<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-			<script>
-				Toastify({
-					text: '<ul>@foreach ($errors->all() as $error)<li>{{$error}}</li>@endforeach</ul>',
-					// Toast position - top or bottom
-					gravity: 'top',
-					// Toast position - left or right
-					positionLeft: false,
-					position: 'center',
-					// Background color
-					backgroundColor: "linear-gradient(135deg, #73a5ff, #5477f5)",
-					// Prevents dismissing of toast on hover
-					stopOnFocus: true,
-					duration: 5000,
-					// close: true,
-
-				}).showToast();
-			</script>
-		@endif
 		</div>
-		
 		<!-- JQUERY -->
 		<script src="/assets/auth/js/jquery-3.3.1.min.js"></script>
 
@@ -266,5 +271,6 @@
 		<!-- Custom File Input JS  -->
 		<script src="/assets/auth/js/custom-file-input.js"></script>
 
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 </body>
 </html>

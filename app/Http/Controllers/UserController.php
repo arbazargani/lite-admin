@@ -28,7 +28,7 @@ class UserController extends Controller
             // Get just file extention
             $imageExtention = $request->file($userFile)->getClientOriginalExtension();
             // Make unique file name
-            $fileName = $imageName . '_' . time() . '-' . Auth::user()->id . '.' . $imageExtention;
+            $fileName = str_shuffle($imageName) . '_' . time() . '-' . Auth::user()->id . '.' . $imageExtention;
             // Store for public uses
             $path = $request->file($userFile)->storeAs('public/uploads/certifications', $fileName);
 
@@ -66,7 +66,7 @@ class UserController extends Controller
                 'national_code' => 'required|digits:10',
                 'credit_card' => 'required|digits:16',
                 'credit_account' => 'required|digits:10',
-//                'sheba_account' => 'required|digits:24',
+                'sheba_account' => 'required|digits:24',
                 'home_address' => 'required|min:5',
             ]);
 
@@ -120,7 +120,9 @@ class UserController extends Controller
             $user->home_number = $request['home_number'];
             $user->credit_card = $request['credit_card'];
             $user->credit_account = $request['credit_account'];
+            $user->sheba_account = $request['sheba_account'];
             $user->home_address = $request['home_address'];
+            $user->gender = $request['gender'];
             $user->save();
 
             $this->MakeAlert(User::where('rule', 'admin')->first()->id, 'کاربری برای احراز حویت درخواست داده است.', 'success');

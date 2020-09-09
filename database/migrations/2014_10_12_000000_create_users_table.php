@@ -26,14 +26,14 @@ class CreateUsersTable extends Migration
             $table->string('person_birth_certificate')->nullable(); //new item
             $table->string('national_card')->nullable();
             $table->string('person_national_card')->nullable();     //new item
-            $table->string('national_code')->nullable();
-            $table->string('phone_number')->nullable();
-            $table->string('home_number')->nullable();              //new item
-            $table->string('credit_card')->nullable();              //new item
-            $table->string('credit_account')->nullable();           //new item
-            $table->string('sheba_account')->nullable();           //new item
+            $table->string('national_code')->nullable()->uniqe();
+            $table->string('phone_number')->nullable()->uniqe();
+            $table->string('home_number')->nullable()->uniqe();              //new item
+            $table->string('credit_card')->nullable()->uniqe();              //new item
+            $table->string('credit_account')->nullable()->uniqe();           //new item
+            $table->string('sheba_account')->nullable()->uniqe();           //new item
             $table->string('home_address')->nullable();             //new item
-            $table->string('wallet_address')->nullable();
+            $table->string('wallet_address')->nullable()->uniqe();
             $table->string('amount')->nullable();
             $table->rememberToken();
             $table->timestamps();

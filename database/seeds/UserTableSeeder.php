@@ -54,5 +54,16 @@ class UserTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+         // User: Amireza Bazargani
+         DB::table('users')->insert([
+            'name' => 'امیرضا بازرگانی',
+            'email' => 'amir@amir.ir',
+            'password' => bcrypt('amir'),
+            'rule' => 'user',
+            'status' => 'suspended',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }
