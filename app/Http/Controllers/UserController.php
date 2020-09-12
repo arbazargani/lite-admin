@@ -133,12 +133,13 @@ class UserController extends Controller
 
     public function BuyCoin()
     {
+        $usd_price = Settings::where('name', 'dollar_price_buy')->first();
         return view("user.panel.buy");
     }
 
     public function SellCoin()
     {
-        $usd_price = Settings::where('name', 'dollar_price')->first();
+        $usd_price = Settings::where('name', 'dollar_price_sell')->first();
         return view("user.panel.sell", compact('usd_price'));
     }
 

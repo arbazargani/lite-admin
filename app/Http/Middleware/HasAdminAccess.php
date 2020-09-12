@@ -16,7 +16,7 @@ class HasAdminAccess
      */
     public function handle($request, Closure $next)
     {
-        if (Auth::user() && Auth::user()->rule == 'admin') {
+        if (Auth::user() && Auth::user()->rule == 'admin' || Auth::user()->rule == 'root') {
             return $next($request);
         } else {
             return abort(403, 'Unauthorized action.');

@@ -13,7 +13,8 @@ class SettingsController extends Controller
             'user_authorization_failed_message' => Settings::where('name', 'user_authorization_failed_message')->first(),
             'user_authorization_needed_message' => Settings::where('name', 'user_authorization_needed_message')->first(),
             'price_calculation_method' => Settings::where('name', 'price_calculation_method')->first(),
-            'dollar_price' => Settings::where('name', 'dollar_price')->first(),
+            'dollar_price_buy' => Settings::where('name', 'dollar_price_buy')->first(),
+            'dollar_price_sell' => Settings::where('name', 'dollar_price_sell')->first(),
             'public_btc_wallet' => Settings::where('name', 'public_btc_wallet')->first(),
             'public_usdt_wallet' => Settings::where('name', 'public_usdt_wallet')->first(),
         ];
@@ -28,7 +29,8 @@ class SettingsController extends Controller
             'user_authorization_failed_message' => 'min:10',
             'user_authorization_needed_message' => 'min:10',
 //            'price_calculation_method' => 'required',
-            'dollar_price' => 'required|numeric|min:2',
+            'dollar_price_buy' => 'required|numeric|min:2',
+            'dollar_price_sell' => 'required|numeric|min:2',
             'public_btc_wallet' => 'min:10',
             'public_usdt_wallet' => 'min:10',
         ]);
@@ -38,7 +40,8 @@ class SettingsController extends Controller
         Settings::where('name', 'user_authorization_needed_message')->update(['value' => $request['user_authorization_needed_message']]);
         $method = ($request->has('price_calculation_method') && $request['price_calculation_method'] == 1) ? 'custom' : 'auto';
         Settings::where('name', 'price_calculation_method')->update(['value' => $method]);
-        Settings::where('name', 'dollar_price')->update(['value' => $request['dollar_price']]);
+        Settings::where('name', 'dollar_price_buy')->update(['value' => $request['dollar_price_buy']]);
+        Settings::where('name', 'dollar_price_sell')->update(['value' => $request['dollar_price_sell']]);
         Settings::where('name', 'public_btc_wallet')->update(['value' => $request['public_btc_wallet']]);
         Settings::where('name', 'public_usdt_wallet')->update(['value' => $request['public_usdt_wallet']]);
 

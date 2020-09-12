@@ -45,8 +45,11 @@
                                     </label>
                                 </div>
 
-                                <label>قیمت دلار (تومان):</label>
-                                <input type="text" name="dollar_price" id="" value="{{ $settings['dollar_price']->value }}">
+                                <label>قیمت خرید دلار (تومان):</label>
+                                <input type="text" name="dollar_price_buy" id="" value="{{ $settings['dollar_price_buy']->value }}">
+
+                                <label>قیمت فروش دلار (تومان):</label>
+                                <input type="text" name="dollar_price_sell" id="" value="{{ $settings['dollar_price_sell']->value }}">
 
                                 <label>ولت BTC:</label>
                                 <input type="text" name="public_btc_wallet" id="" value="{{ $settings['public_btc_wallet']->value }}">

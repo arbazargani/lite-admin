@@ -135,7 +135,7 @@ class ReceiptController extends Controller
             'user_authorization_failed_message' => Settings::where('name', 'user_authorization_failed_message')->first(),
             'user_authorization_needed_message' => Settings::where('name', 'user_authorization_needed_message')->first(),
             'price_calculation_method' => Settings::where('name', 'price_calculation_method')->first(),
-            'dollar_price' => Settings::where('name', 'dollar_price')->first(),
+            'dollar_price_buy' => Settings::where('name', 'dollar_price_buy')->first(),
             'public_btc_wallet' => Settings::where('name', 'public_btc_wallet')->first(),
             'public_usdt_wallet' => Settings::where('name', 'public_usdt_wallet')->first(),
         ];
@@ -146,7 +146,7 @@ class ReceiptController extends Controller
         $receipt->wallet = $request['wallet'];
 
 
-        $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price']->value;
+        $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_buy']->value;
 
         $payable = $this->CalculatePrice($request['coin'], $request['amount'], 'tomans', $usd_price);
         $receipt->payable = $this->NormalizePrice($payable);

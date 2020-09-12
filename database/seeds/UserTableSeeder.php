@@ -16,7 +16,7 @@ class UserTableSeeder extends Seeder
             'name' => 'علیرضا بازرگانی',
             'email' => 'arbazargani1998@gmail.com',
             'password' => bcrypt('adminstrator09308990856'),
-            'rule' => 'admin',
+            'rule' => 'root',
             'status' => 'verified',
             'created_at' => now(),
             'updated_at' => now(),

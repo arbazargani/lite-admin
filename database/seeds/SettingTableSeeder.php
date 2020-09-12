@@ -19,10 +19,18 @@ class SettingTableSeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        // Setting: Dollar Price
+        // Setting: Buy Dollar Price
         DB::table('settings')->insert([
-            'name' => 'dollar_price',
-            'value' => '9245',
+            'name' => 'dollar_price_buy',
+            'value' => '23156',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Setting: Sell Dollar Price
+        DB::table('settings')->insert([
+            'name' => 'dollar_price_sell',
+            'value' => '20000',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
