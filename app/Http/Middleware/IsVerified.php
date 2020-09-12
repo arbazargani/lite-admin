@@ -19,7 +19,8 @@ class IsVerified
         if (Auth::user() && Auth::user()->status == 'verified') {
             return $next($request);
         } else {
-            return abort(403, 'Unauthorized action.');
+            // return abort(403, 'Unauthorized action.');
+            return redirect(route('User > Verification'));
         }
     }
 }

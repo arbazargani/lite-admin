@@ -125,7 +125,7 @@ class UserController extends Controller
             $user->gender = $request['gender'];
             $user->save();
 
-            $this->MakeAlert(User::where('rule', 'admin')->first()->id, 'کاربری برای احراز حویت درخواست داده است.', 'success');
+            $this->MakeAlert(User::where('rule', 'admin')->first()->id, 'کاربر' . "|" .$user->id. "|" . 'برای احراز هویت درخواست داده است.', 'success');
 
             return redirect()->back();
         }

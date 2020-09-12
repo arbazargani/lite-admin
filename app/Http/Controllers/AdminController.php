@@ -142,9 +142,13 @@ class AdminController extends Controller
 
             if ($request->has('action') && $request['action'] == 'accept') {
                 $transaction->status = 'verified';
+                $transaction->pay_tracking_id = $request['pay_tracking_id'];
                 $message = 'تراکنش با موفقیت تایید شد.';
                 session(['status' => 'accepted', 'message' => $message]);
                 $this->MakeAlert($transaction->user->id, 'درخواست فروش شما به تایید کارشناس سامانه رسید.', 'success');
+                $transaction->save();
+                $transaction->paid_at = $transaction->updated_at;
+
             } elseif ($request->has('action') && $request['action'] == 'reject') {
                 $transaction->status = 'rejected';
                 $message = 'تراکنش موردنظر تایید نشد.';

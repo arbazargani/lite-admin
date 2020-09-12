@@ -22,7 +22,7 @@
                     </a>
                 </li>
             </a>
-            <a href="#">
+            <a href="{{ route('Admin > Transactions > Verification List') }}" style="color: rgba(134, 138, 168, 1)">
                 <li>
                     <i class="fal fa-donate"></i>
                     <p>فروش ها</p>

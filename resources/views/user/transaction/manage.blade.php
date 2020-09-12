@@ -44,10 +44,25 @@
                                 </td>
                                 <td>
                                     <div class="order-table-status" style="direction: rtl; text-align: right">
-                                        <p>{!! (!is_null($transaction->paid_at) && !is_null($transaction->pay_tracking_id)) ? '<span style="color: green"><a href="#">پرداخت شده</a></span>' : '<span style="color: red">در انتظار پرداخت</span>' !!}</p>
+                                        <p>
+                                            @if($transaction->status != 'rejected')
+                                                {!! (!is_null($transaction->paid_at) && !is_null($transaction->pay_tracking_id)) ? '<span style="color: green">پرداخت شده</span>' : '<span style="color: red">در انتظار پرداخت</span>' !!}
+                                            @else
+                                                <span>رد شده</span>
+                                            @endif
+                                        </p>
                                     </div>
                                 </td>
-                                <td><p>{!! (!is_null($transaction->tx_id) && !is_null($transaction->pay_tracking_id)) ? '<span style="color: green"><a href="#">نمایش شناسه پرداخت</a></span>' : '<span style="color: red">-</span>' !!}</p></td>
+                                <td>
+                                    <p>
+                                        @if(!is_null($transaction->tx_id) && !is_null($transaction->pay_tracking_id))
+                                            <span onclick="window.open('{{ route('User > Transaction > Tracking ID > Raw', $transaction->hash) }}', 'name','width=600,height=400')">نمایش شناسه پرداخت</span>
+                                        @else
+                                            <span style="color: red">-</span>
+                                        @endif
+                                    </p>
+                                </td>
+                                
                             </tr>
                             @endforeach
                         </tbody>

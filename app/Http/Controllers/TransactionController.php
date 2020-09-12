@@ -235,4 +235,10 @@ class TransactionController extends Controller
         
         return (!is_null($transaction) == 1) ? '<html><head><body><pre>'. $transaction->tx_id .'</pre></body></head></html>' : abort('403', 'make screenshot and contact this state to system administrator.');
     }
+
+    public function RawTrackingID($hash) {
+        $transaction = Transaction::where('hash', $hash)->whereNotNull('pay_tracking_id')->first();
+        
+        return (!is_null($transaction) == 1) ? '<html><head><body><pre>'. $transaction->pay_tracking_id .'</pre></body></head></html>' : abort('403', 'make screenshot and contact this state to system administrator.');
+    }
 }

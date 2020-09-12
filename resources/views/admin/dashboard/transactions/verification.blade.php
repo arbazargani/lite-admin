@@ -38,7 +38,7 @@
                                 <th>مبلغ</th>
                                 <th>تاریخ ثبت درخواست</th>
                                 <th>TX ID</th>
-                                <th>وضعیت</th>
+                                <th>شناسه</th>
                                 <th>عملیات</th>
                             </tr>
                         </thead>
@@ -46,21 +46,30 @@
                         @foreach( $transactions->reverse() as $transaction )
                         <tr>
                             <td>{{ $transaction->id }}</td>
-                            <td>{!! $transaction->user->status == 'verified' ? 'y' : 'n' !!} {{ $transaction->user->name }}</td>
+                            <td><a href="{{ route('Admin > User > Edit', $transaction->user->id) }}" target="_blank">{{ $transaction->user->name }}</a></td>
                             <td>{{ $transaction->description }}</td>
                             <td>{{ number_format($transaction->payable) }}</td>
                             <td>{{ Facades\Verta::instance($transaction->created_at) }}</td>
                             <td>
-                                <p>{!! (!is_null($transaction->tx_id)) ? '<a href="' . route('User > Transaction > Raw', $transaction->hash) . '">نمایش</a>' : '<a href="' . route('User > Transaction > Show', $transaction->hash) . '">ثبت</a>' !!}</p>
+                                <p>
+                                    @if(!is_null($transaction->tx_id))
+                                        <span onclick="window.open('{{ route('User > Transaction > Raw', $transaction->hash) }}', 'name','width=600,height=400')">نمایش</span>
+                                    @else
+                                        <span>ثبت نشده</span>
+                                    @endif
+                                </p>
                             </td>
-                            <td>{{ $transaction->status }}</td>
+                            
+                            <td>
+                                <input type="text" name="pay_tracking_id" placeholder="شناسه پرداخت" style="max-width: 160px;" form="accept_form_{{ $transaction->hash }}" required>
+                            </td>
                             <td>
                             <form action="{{ route('Admin > Transactions > Verify Transaction', $transaction->id) }}" style="display: inline-block; vertical-align: middle;" method="post">
                                 @csrf
                                 <input type="hidden" name="action" value="reject">
                                 <button type="submit" class="button td-btn del-btn" type="button"><i class="fas fa-times"></i></button>
                             </form>
-                            <form action="{{ route('Admin > Transactions > Verify Transaction', $transaction->id) }}" style="display: inline-block; vertical-align: middle;" method="post">
+                            <form action="{{ route('Admin > Transactions > Verify Transaction', $transaction->id) }}" style="display: inline-block; vertical-align: middle;" method="post" id="accept_form_{{ $transaction->hash }}">
                                 @csrf
                                 <input type="hidden" name="action" value="accept">
                                 <button type="submit" class="button td-btn" type="button"><i class="fas fa-check"></i></button>

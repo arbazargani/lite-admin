@@ -28,7 +28,17 @@
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->phone_number }}</td>
                             <td>{{ $user->national_code }}</td>
-                            <td>{!! ($user->status) == 'verified' ? '<span class="text-green">تایید شده</span>' : '<span class="text-tomato">در انتظار تایید</span>' !!}</td>
+                            <td>
+                            @if($user->status == 'suspended')
+                                <span style="color: gray">محدود</span>
+                            @endif
+                            @if($user->status == 'waiting')
+                            <span style="color: orange">در انتظار تایید</span>
+                            @endif
+                            @if($user->status == 'verified')
+                                <span style="color: green">تایید شده</span>
+                            @endif
+                            </td>
                             <td>
                                 @if($user->rule != 'admin')
 
@@ -59,6 +69,9 @@
                     </tr>
                     </tfoot>
                 </table>
+                <div>
+                    ‬{!! $users->links('vendor.pagination.simple-default') !!}
+                </div>
             @else
                 <p>کاربری در سامانه موجود نیست.</p>
             @endif

@@ -73,9 +73,9 @@ Route::middleware(['auth'])->group(function () {
 
         Route::middleware(['IsVerified'])->group(function () {
             Route::get('/buy', 'UserController@BuyCoin')->name('User > Buy Coin');
-            Route::get('/buy/history', 'UserController@BuyHistory')->name('User > Buy Coin');
+            Route::get('/buy/history', 'UserController@BuyHistory')->name('User > Buy History');
             Route::get('/sell', 'UserController@SellCoin')->name('User > Sell Coin');
-            Route::get('/sell/history', 'UserController@SellHistory')->name('User > Buy Coin');
+            Route::get('/sell/history', 'UserController@SellHistory')->name('User > Sell History');
             Route::get('/transaction/verify');
 
             Route::get('/exchange', 'ExchangeController@ExchangeCoin')->name('User > Exchange Coin');
@@ -96,6 +96,7 @@ Route::middleware(['auth'])->group(function () {
             // Route::any('/transaction/add_tx/{id}', 'TransactionController@AddTX')->name('User > Transaction > ADD Tx ID');
             Route::any('/transaction/add_tx/{hash}', 'TransactionController@AddTX')->name('User > Transaction > ADD Tx ID');
             Route::get('/transaction/raw/tx/{hash}', 'TransactionController@RawTx')->name('User > Transaction > Raw');
+            Route::get('/transaction/raw/tracking_id/{hash}', 'TransactionController@RawTrackingID')->name('User > Transaction > Tracking ID > Raw');
         });
     });
 
