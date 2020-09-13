@@ -46,6 +46,12 @@
                     <p>تیکت ها</p>
                 </li>
             </a>
+            <a href="{{ route('logout') }}">
+                <li>
+                    <i class="fas fa-sign-out-alt"></i>
+                    <p>خروج</p>
+                </li>
+            </a>
         </ul>
     </div>
 </div>

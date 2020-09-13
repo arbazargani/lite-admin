@@ -8,7 +8,7 @@
                     <p>داشبورد</p>
                 </li>
             </a>
-            <a href="">
+            <a href="{{ route("User > Profile") }}">
                 <li>
                     <i class="fal fa-user"></i>
                     <p>پروفایل</p>
@@ -36,6 +36,12 @@
                 <li>
                     <i class="fal fa-question"></i>
                     <p>تیکت ها</p>
+                </li>
+            </a>
+            <a href="{{ route('logout') }}">
+                <li>
+                    <i class="fas fa-sign-out-alt"></i>
+                    <p>خروج</p>
                 </li>
             </a>
         </ul>

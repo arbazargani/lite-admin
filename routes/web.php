@@ -15,15 +15,23 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 
+Route::get('/register', function() {
+    if (Auth::check()) {
+        return abort('404');
+    }
+    return redirect(route('login'));
+})->name('register');
+
 Route::get('/logout', function () {
     if (Auth::check()) {
         Auth::logout();
         return redirect('/');
     }
     return abort('404');
-});
+})->name('logout');
 
 Route::get('/', 'PublicController@Index')->name('Public > Home');
+
 // Route::get('/', function() {
 //     return view('public.home.soon');
 // });
@@ -97,6 +105,9 @@ Route::middleware(['auth'])->group(function () {
             Route::any('/transaction/add_tx/{hash}', 'TransactionController@AddTX')->name('User > Transaction > ADD Tx ID');
             Route::get('/transaction/raw/tx/{hash}', 'TransactionController@RawTx')->name('User > Transaction > Raw');
             Route::get('/transaction/raw/tracking_id/{hash}', 'TransactionController@RawTrackingID')->name('User > Transaction > Tracking ID > Raw');
+
+            Route::get('/profile', 'UserController@Profile')->name('User > Profile');
+            Route::post('/profile/update', 'UserController@UpdateProfile')->name('User > Profile > Update');
         });
     });
 

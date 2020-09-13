@@ -67,7 +67,105 @@
 --}}
 
 <div class="workspace-wrap">
-    @content
+    <div id="workstation">
+		<div id="workspace">
+			<div class="workspace-wrap">
+                <div id="orders-wrap">
+                    <div class="orders-table has-child">
+                        <style scoped>
+                            .has-child {
+                                text-align: center;
+                            }
+                            .has-child div {
+                                width: 30%;
+                                margin: 1%;
+                                padding: 2%;
+                                border-radius: 7px;
+                                display: inline-block;
+                                color: white;
+                            }
+                            .has-child div p {
+                                text-align: right;
+                                color: white;
+                            }
+                            .has-child div a {
+                                text-align: left !important;
+                                float: left;
+                                color: white;
+                            }
+                            .redbg {
+                                background: #e74c3c;
+                            }
+                            .bluebg {
+                                background: #3498db;
+                            }
+                            .orangebg {
+                                background: #f1c40f;
+                            }
+                        </style>
+                        
+                            <div class="redbg">
+                                <p><i class="fal fa-donate" style="font-size: 25px;"></i> فروش روز</p>
+                                <a>{{ number_format($today_sells) }}</a>
+                            </div>
+
+                            <div class="bluebg">
+                                <p><i class="fas fa-receipt" style="font-size: 25px;"></i> فاکتورهای امروز</p>
+                                <a>{{ $today_receipts }}</a>
+                            </div>
+
+                            <div class="orangebg">
+                                <p><i class="fal fa-users" style="font-size: 25px;"></i> کاربران فعال</p>
+                                <a>{{ $active_users }}</a>
+                            </div>
+                        
+                    </div>
+
+                    <hr>
+                    
+                    <div class="orders-table">
+                        <style scoped>
+                            div.alert {
+                                padding: 2% 3%;
+                                background: #d6eff7;
+                                border-radius: 10px;
+                                margin-bottom: 10px;
+                            }
+                            ul.info-list {
+                                direction: rtl;
+                                text-align: right;
+                            }
+                            .da {
+                                padding: 4px;
+                                background: #ffcbcb;
+                                font-size: 13px;
+                            }
+                            .ac {
+                                padding: 4px;
+                                background: #cbffe5;
+                                font-size: 13px;
+                            }
+                            .cp {
+                                padding: 4px;
+                                background: #ffe5cb;
+                                font-size: 13px;
+                            }
+                        </style>
+                        <ul class="info-list">
+                            <li><p>ماژول کاربران <span class="ac">فعال</span></p></li>
+                            <li><p>ماژول خریدها <span class="ac">فعال</span></p></li>
+                            <li><p>ماژول فروش‌ها <span class="ac">فعال</span></p></li>
+                            <li><p>ماژول بلاگ <span class="cp">در حال آماده‌سازی</span></p></li>
+                            <li><p>ماژول لاگ <span class="da">غیر فعال</span></p></li>
+                            <li><p>ماژول اکسچنج <span class="da">غیر فعال</span></p></li>
+                            <li><p>ماژول تنظیمات <span class="ac">فعال</span></p></li>
+                            <li><p>ماژول تیکت <span class="cp">در حال آماده‌سازی</span></p></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 @endsection

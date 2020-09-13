@@ -1,0 +1,416 @@
+/* CSS Document */
+/******************************
+*****  Title: Crypto       ****
+*****  Version: Beta 1.0.0.0 **
+*****  Author: Saeed Kh *******
+*******************************/
+@import url("assets/fonts/kalameh/import.css");
+@import url("assets/fonts/tahmtan/tahmtan.css");
+@import url("assets/fonts/iranyekan/css/fontiran.css");
+@import url("assets/fonts/Dana-Semipro/dana.css");
+@import url("assets/fonts/anjoman8W/anjoman.css");
+@import url("assets/fonts/fotawsome/font-awesome.min.css");
+
+@import url("assets/fonts/roboto/roboto.css");
+@import url("assets/fonts/aileron/aileron.css");
+@import url("assets/fonts/raleway/raleway.css");
+
+:root {
+    --color-green: #56BE89;
+	  --color-green2: #31e599;
+    --color-white: #F1FAF6;
+    --color-blue: #31335D;
+    --color-black: #242539;
+    --color-grey: #EEEFF5;
+}
+
+*{
+	margin: 0px; padding: 0px;
+	-webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box; 
+	vertical-align: baseline;
+}
+a{
+	text-decoration: none;
+	color: #000;
+}
+html{
+	scroll-behavior: smooth;
+	scrollbar-color: dark;
+}
+.clearfix:before,.clearfix:after{
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+.clearfix:after{
+  clear: both;
+}
+/**************
+ * 3          *
+ * IE 6/7 only*
+ **************/
+.clearfix{
+  *zoom: 1;
+}
+
+
+.btn1{
+	background: var(--color-green2);
+	padding: 10px 15px;
+    border-radius: 5px;
+
+    font-family: "iranyekan";
+	font-style: normal;
+	font-weight: normal;
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.95);
+    text-align: center;
+	
+	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.15);
+}
+
+html , body{
+    width: 100%; height: 100%;
+    background: url(src/img/bg3.jpg);
+	background-size: cover;
+    /* background:#242539; */
+}
+
+:focus {
+  outline: none; 
+}
+
+textarea {
+  resize: none; 
+}
+
+input, textarea, select, button {
+  font-family: "iranyekan";
+  font-size: 15px; 
+}
+
+p , a , h1 , h2 , h3 , h4 , h5{
+  font-family: "iranyekan";
+  font-style: normal;
+  font-weight: normal;
+  color: #999;
+  direction: rtl;
+}
+
+h1{
+  font-size: 28px;
+}
+h2{
+  font-size: 24px;
+}
+h3{
+  font-size: 22px;
+}
+h4{
+  font-size: 20px;
+}
+h5{
+  font-size: 18px;
+}
+
+
+img {
+  max-width: 100%; 
+}
+
+/* Let's start this */
+
+
+@media only screen and (max-width: 1024px) {
+  #main{
+    flex-flow: column wrap;
+  }
+  #main div{
+    width: 100%;
+  }
+
+  .txt-wrap{
+    padding-top: 30px !important;
+  }
+}
+
+
+#main{
+  width: 100%; height: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+  justify-content: center;
+  padding: 25px;
+}
+
+.box-wrap{
+  background: #fefefe;
+  width: 1200px; height: auto;
+  border-radius: 50px;
+  
+  display: flex;
+  flex-flow: row wrap;
+
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.15);
+}
+
+.img-wrap{
+  width: 50%;
+  border-radius: 50px;
+
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.15);
+}
+
+.img-wrap img{
+  border-radius: 50px;
+  vertical-align: middle;
+}
+
+.txt-wrap{
+  width: 50%;
+  padding: 35px; padding-top: 100px;
+}
+
+.txt-wrap div h2{
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+
+.form-toggle{
+  max-width: 280px;
+  margin: 0px auto; margin-bottom: 30px;
+  padding: 3px;
+  border: 4px solid rgba(146 , 207 , 237 , 0.5);
+  border-radius: 15px;
+
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+}
+
+.form-toggle div{
+  width: 48%; height: 100%;
+  text-align: center;
+  padding: 15px 25px;
+
+  border-radius: 10px;
+}
+
+.form-toggle span{
+  border-radius: 5px;
+  border-right: 4px solid rgba(146 , 207 , 237 , 0.75);
+}
+
+.form-toggle div a{
+  font-size: 20px;
+}
+
+.form-toggle div.active{
+  background: rgba(146 , 207 , 237 , 0.5);
+}
+
+.form-toggle div.active a{
+  color: #8a8888;
+}
+
+
+.form-wrap{
+  max-width: 380px;
+  margin: 0px auto;
+}
+
+.form-wrap input{
+  margin-bottom: 20px;
+}
+
+input[type="checkbox"], input[type="radio"] {
+  width: 17px;
+  display: block;
+  float: right;
+  margin-right: -34px;
+  opacity: 0;
+  z-index: -1;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  -ms-appearance: none;
+}
+
+input[type="checkbox"] + label::before, input[type="radio"] + label::before {
+  content: '';
+  background: rgba(144, 144, 144, 0.075);
+  width: 20px;
+  height: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  line-height: 20px;
+  text-align: center;
+  border-radius: 4px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  float: right;
+  margin-left: 10px;
+}
+
+input[type="checkbox"]:checked + label::before, input[type="radio"]:checked + label::before {
+  content: '\f00c';
+}
+input[type="checkbox"]:checked + label::before, input[type="radio"]:checked + label::before {
+  background-color: #54a354;
+  border-color: #54a354;
+  color: #ffffff;
+}
+
+input[type="checkbox"] + label::before, input[type="radio"] + label::before {
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  font-family: FontAwesome;
+  font-style: normal;
+  font-weight: normal;
+  text-transform: none !important;
+}
+
+input[type="text"]{
+  font-family: "iranyekan";
+  font-style: normal ;
+  font-weight: normal;
+  direction: rtl;
+  height: 37px;
+  border: none;
+  border-bottom: 2px solid #e6e6e6;
+  width: 100%;
+  color: #666;
+
+  transition: all 0.3s;
+}
+
+input[type="text"]:focus{
+  border-bottom: 2px solid #02b875;
+}
+
+input[type="email"]{
+  font-family: "iranyekan";
+  font-style: normal ;
+  font-weight: normal;
+  direction: rtl;
+  height: 37px;
+  border: none;
+  border-bottom: 2px solid #e6e6e6;
+  width: 100%;
+  color: #666;
+
+  transition: all 0.3s;
+}
+
+input[type="email"]:focus{
+  border-bottom: 2px solid #02b875;
+}
+
+input[type="password"]{
+  font-family: "iranyekan";
+  font-style: normal ;
+  font-weight: normal;
+  direction: rtl;
+  height: 37px;
+  border: none;
+  border-bottom: 2px solid #e6e6e6;
+  width: 100%;
+  color: #666;
+
+  transition: all 0.3s;
+}
+
+input[type="password"]:focus{
+  border-bottom: 2px solid #02b875;
+}
+
+.req::after{
+
+  content: " *";
+
+  font-family: "iranyekan";
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+
+  color: crimson;
+}
+
+.btn1{
+	background: #02b875 ;
+	display: inline-block;
+	margin: 0px 5px;
+	padding: 12px 27px;
+	vertical-align: baseline;
+
+	font-family: "iranyekan";
+	font-size: 14px;
+	font-style: normal;
+	font-weight: normal;
+	text-align: center;
+	text-decoration: none;
+	color: #fefefe;
+	direction: rtl;
+
+	white-space: nowrap;
+	
+	outline: none;
+	border: 0;
+
+	-moz-transition: all 0.2s ease-in-out;
+	-webkit-transition: all 0.2s ease-in-out;
+	-ms-transition: all 0.2s ease-in-out;
+	-o-transition: all 0.2s ease-in-out;
+	transition: all 0.2s ease-in-out;
+
+
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	-ms-appearance: none;
+	appearance: none;
+
+	cursor: pointer;
+	border-radius: 25px;
+	box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.25);
+}
+
+.btn1:hover{
+	background: #02af6f ;
+}
+
+.btn1:active{
+	background: #039d64 ;
+	transform: scale(0.95);
+}
+
+
+.remember{
+  display: block;
+  text-align: right;
+  margin-bottom: 30px;
+}
+
+.remember label p{
+  display: inline-block;
+}
+
+.submit{
+  text-align: center;
+}
+
+
+.show{
+  display: block !important;
+  animation: toggle 0.5s ;
+}
+.hide{
+  display: none !important;
+  animation: toggle 0.5s ;
+}
+
+@keyframes toggle{
+  0% {opacity: 0;}
+  100% {opacity: 1;}
+}

@@ -172,4 +172,34 @@ class UserController extends Controller
     public function SellHistory() {
 
     }
+
+    public function Profile(Request $request) {
+        $user = User::find(Auth::id());
+        $transactions_count = $user->receipt()->where('status', 'paid')->count();
+        $latest_transactions = $user->payment()->latest()->paginate(7);
+        return view('user.panel.profile', compact(['user', 'transactions_count', 'latest_transactions']));
+    }
+
+    public function UpdateProfile(Request $request) {
+        $request->validate([
+            'phone_number' => 'required|digits:11',
+            'home_number' => 'required|digits:11',
+            'national_code' => 'required|digits:10',
+            'credit_card' => 'required|digits:16',
+            'credit_account' => 'required|digits:10',
+            'sheba_account' => 'required|digits:24',
+            'home_address' => 'required|min:5',
+        ]);
+
+        User::where('id', Auth::id())->update([
+            'phone_number' => $request['phone_number'],
+            'home_number' => $request['home_number'],
+            'home_address' => $request['home_address'],
+            'national_code' => $request['national_code'],
+            'credit_card' => $request['credit_card'],
+            'credit_account' => $request['credit_account'],
+            'sheba_account' => $request['sheba_account']
+        ]);
+        return back();
+    }
 }

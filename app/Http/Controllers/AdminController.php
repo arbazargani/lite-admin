@@ -39,8 +39,10 @@ class AdminController extends Controller
         // $BTC_IRR = $this->GetPrice();
         $alerts = User::find(Auth::id())->alert->where('read', 0)->count();
         $today_sells = Receipt::whereDate('created_at', Carbon::today())->where('status', 'paid')->get()->sum('payable');
+        $today_receipts = Receipt::whereDate('created_at', Carbon::today())->get()->count();
+        $active_users = User::where('status', 'verified')->where('rule', 'user')->get()->count();
 
-        return view('admin.dashboard.index', compact(['payments', 'alerts', 'today_sells']));
+        return view('admin.dashboard.index', compact(['payments', 'alerts', 'today_sells', 'today_receipts', 'active_users']));
     }
 
     public function ManageUsers()

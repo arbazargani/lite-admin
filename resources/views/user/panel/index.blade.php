@@ -6,6 +6,46 @@
         <div class="workspace-wrap">
             <div id="orders-wrap">
                 <div class="orders-title">
+                    @if( (Auth::check() && Auth::user()->status == 'suspended') || (Auth::check() && Auth::user()->status == 'waiting') || count($alerts) > 0)
+                    <div class="alert">
+                        <style scoped>
+                            div.alert {
+                                padding: 2% 3%;
+                                background: #d6eff7;
+                                border-radius: 10px;
+                                margin-bottom: 10px;
+                            }
+                            ul.alert-list {
+                                direction: rtl;
+                                text-align: right;
+                            }
+                        </style>
+                        @if(Auth::check() && Auth::user()->status == 'suspended')
+                        <ul class="alert-list">
+                            <li><p>اکانت شما تایید نشده است. <a href="{{ route('User > Verification') }}">احراز هویت</a></p></li>
+                        </ul>
+                        @endif
+                        @if (Auth::check() && Auth::user()->status == 'waiting')
+                        <ul class="alert-list">
+                            <li><p>لطفا منتظر تایید مدارک توسط کارشناس سامانه باشید.</p></li>
+                        </ul>
+                        @endif
+                        @if (count($alerts) > 0)
+                        <ul class="alert-list">
+                            @foreach ($alerts as $alert)
+                            <li>
+                                <p>
+                                {{ $alert->content }}
+                                @if($alert->read == 0)
+                                <a href="{{ route("Alert > Check", $alert->id) }}"><span class="uk-label uk-label-success uk-float-left"><span uk-icon="check"></span> خوانده شده</span></a>
+                                @endif
+                                </p>
+                            </li>
+                            @endforeach
+                        </ul>  
+                        @endif
+                    </div>
+                    @endif
                     <h3>پنل کاربری</h3>
                 </div>
                 <hr>
