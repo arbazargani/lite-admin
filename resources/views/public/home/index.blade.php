@@ -29,7 +29,7 @@
 						<a href="{{ route('User > Panel') }}" class="btn1">
 							<li>پنل کاربری</li>
 						</a>
-						<a href="#">
+						<a href="https://blog.cryptiner.com/%d9%81%d8%b1%d9%88%d8%b4%da%af%d8%a7%d9%87/">
 							<li>فروشگاه</li>
 						</a>
 						<a href="#">
