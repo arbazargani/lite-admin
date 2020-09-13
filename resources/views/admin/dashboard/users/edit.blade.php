@@ -158,6 +158,7 @@
             </div>
 
             <div id="user-message" class="user-left-box-tabs">
+                <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
                 <textarea name="content" id="content" cols="30" rows="10" placeholder="ارسال پیام شخصی برای کاربر"></textarea>
             </div>
             
