@@ -52,6 +52,9 @@
                     <a href="#" class="user-left-box-tab-links" onclick="openCity(event, 'user-personal-transactions')">
                         <li>تراکنش ها</li>
                     </a>
+                    <a href="#" class="user-left-box-tab-links" onclick="openCity(event, 'user-message')">
+                        <li>ارسال پیام خصوصی</li>
+                    </a>
                     <a href="#" class="user-left-box-tab-links" onclick="openCity(event, 'user-personal-passwords')">
                         <li>تغییر رمز عبور</li>
                     </a>
@@ -154,6 +157,10 @@
                 </div>
             </div>
 
+            <div id="user-message" class="user-left-box-tabs">
+                <textarea name="content" id="content" cols="30" rows="10" placeholder="ارسال پیام شخصی برای کاربر"></textarea>
+            </div>
+            
             <div id="user-personal-passwords" class="user-left-box-tabs">
                 <form class="user-personal-passwords-form">
                     <label for="user-name">پسورد جدید: </label>

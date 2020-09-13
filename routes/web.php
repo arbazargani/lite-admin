@@ -42,6 +42,8 @@ Route::middleware(['auth', 'HasAdminAccess'])->group(function () {
         Route::get('/', 'AdminController@Index')->name('Admin > Dashboard');
         Route::get('/messages', 'AdminController@ShowMessages')->name('Admin > Messages');
 
+        Route::post('/messeges/unicast/{id}', 'AdminController@UnicastMessage')->name('Admin > Messages > Unicast');
+
         Route::get('/users/manage', 'AdminController@ManageUsers')->name('Admin > Users > Manage');
 
         Route::get('/users/edit/{id}', 'AdminController@EditUser')->name('Admin > User > Edit');

@@ -206,4 +206,12 @@ class AdminController extends Controller
         $user = User::where('id', $id)->update(['status' => 'verified']);
         return back();
     }
+
+    public function UnicastMessage(Request $request, $id) {
+        $this->MakeAlert($id, $request['content'], 'danger');
+    }
+
+    public function BroadcastMessage(Request $request, $id) {
+        $this->MakeAlert($id, $request['content'], 'danger', true);
+    }
 }

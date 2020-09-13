@@ -96,7 +96,7 @@
 			<div class="result">
 				<form>
 					<p>شما دریافت می کنید:</p>
-					<p id="buy-tomans" name="coin-value" style="border-bottom: 1px solid; text-align: left; font-size: 2.4rem" readonly><img id="buy-tomans-loader" src="/assets/wallets/ajax-loader.gif" style="width: 18px; vertical-align: sub; display: none"></p>
+					<img id="buy-tomans-loader" src="/assets/wallets/ajax-loader.gif" style="width: 18px; vertical-align: sub; display: none"><p id="buy-tomans" name="coin-value" style="border-bottom: 1px solid; text-align: left; font-size: 2.4rem" readonly></p>
 				</form>
 			</div>
 		</div>
@@ -125,7 +125,7 @@
 			<div class="result">
 				<form>
 					<p>شما دریافت می کنید:</p>
-					<p id="sell-tomans" name="coin-value" style="border-bottom: 1px solid; text-align: left; font-size: 2.4rem" readonly><img id="sell-tomans-loader" src="/assets/wallets/ajax-loader.gif" style="width: 18px; vertical-align: sub; display: none"></p>
+					<img id="sell-tomans-loader" src="/assets/wallets/ajax-loader.gif" style="width: 18px; vertical-align: sub; display: none"><p id="sell-tomans" name="coin-value" style="border-bottom: 1px solid; text-align: left; font-size: 2.4rem" readonly></p>
 				</form>
 			</div>
 		</div>
@@ -142,6 +142,7 @@
             if (document.getElementById(type+"-amount").value == "") {
                 return;
 			}
+			
             if (document.getElementById(type+"-tomans-loader").style.display !== null && document.getElementById(type+"-tomans-loader").style.display !== "inline") {
                 document.getElementById(type+"-tomans-loader").style.display = "inline";
             }

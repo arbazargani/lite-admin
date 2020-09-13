@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title> کریپتو | Crypto </title>
+    <title> کریپتاینر | Cryptiner </title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link type="text/css" rel="stylesheet" media="all" href="/assets/v2/login.css">
     <script>
@@ -38,6 +38,24 @@
             font-size: 12px;
             margin: -10px 10px 15px 0px;
         }
+        .message-box{
+            background: rgba(255, 58, 45 , 0.8);
+            max-width: 380px;
+            margin: 0px auto; margin-bottom: 20px;
+            padding: 20px 40px;
+            direction: rtl;
+
+            border-radius: 5px;
+
+            }
+
+            .message-box ul li{
+            font-family: "iranyekan";
+            font-style: normal;
+            font-weight: normal;
+            font-size: 14px;
+            color: #fefefe;
+            }
     </style>
 </head>
 <body>
@@ -47,17 +65,17 @@
             <img src="/assets/v2/src/img/login-slide.jpg" alt="Login Slide" />
         </div>
         <div class="txt-wrap">
-            <div class="login-wrap show">
+            <div class="login-wrap @if(Request::url() == route('register')) hide @else show @endif">
                 <h2>ورود به سایت</h2>
                 <div class="form-toggle">
                     <div data-type="log" class="active" onclick="toggle_panel(this)">
-                        <a href="#">
+                        <a href="#login">
                             ورود
                         </a>
                     </div>
                     <span></span>
                     <div data-type="reg" onclick="toggle_panel(this)">
-                        <a href="#">
+                        <a href="#register">
                             ثبت نام
                         </a>
                     </div>
@@ -90,22 +108,30 @@
                     </div>
                 </div>
             </div>
-            <div class="register-wrap hide">
+            <div class="register-wrap @if(Request::url() == route('login')) hide @else show @endif">
                 <h2>ثبت نام در سایت</h2>
                 <div class="form-toggle">
                     <div data-type="log" onclick="toggle_panel(this)">
-                        <a href="#">
+                        <a href="#rlogin">
                             ورود
                         </a>
                     </div>
                     <span></span>
                     <div data-type="reg" class="active" onclick="toggle_panel(this)">
-                        <a href="#">
+                        <a href="#register">
                             ثبت نام
                         </a>
                     </div>
                 </div>
                 <div class="form-wrap">
+                    @if($errors->all())
+                    <div class="message-box show">
+                        <ul>
+                            <li>رمز عبور نباید کمتر از 8 کاراکتر داشته باشد.</li>
+                            <li>رمز عبور باید شامل حروف بزرگ و کوچک باشد.</li>
+                        </ul>
+                    </div>
+                    @endif
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <input id="name" name="name" type="text" placeholder="نام و نام خانوادگی" class="form-control" @error('name') style="border: 1px solid lightred;" @enderror value="{{ old('name') }}" required autocomplete="name">
@@ -118,7 +144,7 @@
                         @error('password')<p class="not-valid">{{ $message }}</p>@enderror
 
                         <input id="password_confirm" name="password_confirm" type="password" placeholder="تکرار رمز عبور" class="form-control" @error('password_confirm') style="border: 1px solid lightred;" @enderror required>
-                        @error('password_confirm')<p class="not-valid">{{ $message }}</p>@enderror
+                        <!-- @error('password_confirm')<p class="not-valid">{{ $message }}</p>@enderror -->
 
                         <div class="submit">
                             <button type="submit" class="btn1">ثبت نام</button>

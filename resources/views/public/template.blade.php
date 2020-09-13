@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title> کریپتو | {{ env('APP_NAME') }} </title>
+    <title> کریپتاینر | {{ env('APP_NAME') }} </title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link type="text/css" rel="stylesheet" media="all" href="/assets/v1/style.css">
 		

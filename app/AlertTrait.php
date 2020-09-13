@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 
 trait AlertTrait {
-    public function MakeAlert($user, $content, $type = 'info')
+    public function MakeAlert($user, $content, $type = 'info', $broadcast = false)
     {
         $alert = new Alert();
         $alert->user_id = $user;
