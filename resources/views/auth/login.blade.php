@@ -32,6 +32,13 @@
             }
         }
     </script>
+    <style>
+        .not-valid {
+            color: #ef6969;
+            font-size: 12px;
+            margin: -10px 10px 15px 0px;
+        }
+    </style>
 </head>
 <body>
 <div id="main">
@@ -59,10 +66,10 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
                         <input type="email" name="email"  class="form-controll" type="text" placeholder="نام کاربری" @error('email') style="border: 1px solid lightred;" @enderror value="{{ old('email') }}" autocomplete="email" required autofocus>
-                        @error('email')<strong>{{ $message }}</strong>@enderror
+                        @error('email')<p class="not-valid">{{ $message }}</strong><p>@enderror
 
                         <input id="password" name="password" type="password" placeholder="رمز عبور" class="form-control" @error('email') style="border: 1px solid lightred;" @enderror required autocomplete="current-password"> 
-                        @error('password')<strong>{{ $message }}</strong>@enderror
+                        @error('password')<p class="not-valid">{{ $message }}</strong><p>@enderror
 
                         <div class="remember">
                             <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
@@ -74,11 +81,13 @@
                             <button type="submit" class="btn1">ورود به پنل</button>
                         </div>
                     </form>
+                    <div style="text-align: center; margin-top: 7%">
                     @if (Route::has('password.request'))
                         <a class="btn btn-link" href="{{ route('password.request') }}">
                             {{ __('Forgot Your Password?') }}
                         </a>
                     @endif
+                    </div>
                 </div>
             </div>
             <div class="register-wrap hide">
@@ -100,16 +109,16 @@
                     <form method="POST" action="{{ route('register') }}">
                         @csrf
                         <input id="name" name="name" type="text" placeholder="نام و نام خانوادگی" class="form-control" @error('name') style="border: 1px solid lightred;" @enderror value="{{ old('name') }}" required autocomplete="name">
-                        @error('name')<strong>{{ $message }}</strong>@enderror
+                        @error('name')<p class="not-valid">{{ $message }}</p>@enderror
 
                         <input id="email" name="email" type="email" placeholder="ایمیل" class="form-control" @error('email') style="border: 1px solid lightred;" @enderror value="{{ old('email') }}" required autocomplete="email">
-                        @error('email')<strong>{{ $message }}</strong>@enderror
+                        @error('email')<p class="not-valid">{{ $message }}</p>@enderror
 
                         <input id="password" name="password" type="password" placeholder="رمز عبور" class="form-control" @error('password') style="border: 1px solid lightred;" @enderror required>
-                        @error('password')<strong>{{ $message }}</strong>@enderror
+                        @error('password')<p class="not-valid">{{ $message }}</p>@enderror
 
                         <input id="password_confirm" name="password_confirm" type="password" placeholder="تکرار رمز عبور" class="form-control" @error('password_confirm') style="border: 1px solid lightred;" @enderror required>
-                        @error('password_confirm')<strong>{{ $message }}</strong>@enderror
+                        @error('password_confirm')<p class="not-valid">{{ $message }}</p>@enderror
 
                         <div class="submit">
                             <button type="submit" class="btn1">ثبت نام</button>

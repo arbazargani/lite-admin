@@ -126,3 +126,4 @@ Route::get('/server-info', function () {
 });
 
 Route::get('coin', 'CoinController@ExchangeSell')->name('CoinExchange');
+Route::get('coin/buy', 'CoinController@ExchangeBuy')->name('CoinExchangeBuy');

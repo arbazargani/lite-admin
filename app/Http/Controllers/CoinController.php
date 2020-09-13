@@ -76,17 +76,47 @@ class CoinController extends Controller
                 return json_encode($array);
             }
             $settings = [
-                'user_authorization_success_message' => Settings::where('name', 'user_authorization_success_message')->first(),
-                'user_authorization_failed_message' => Settings::where('name', 'user_authorization_failed_message')->first(),
-                'user_authorization_needed_message' => Settings::where('name', 'user_authorization_needed_message')->first(),
                 'price_calculation_method' => Settings::where('name', 'price_calculation_method')->first(),
                 'dollar_price_buy' => Settings::where('name', 'dollar_price_buy')->first(),
                 'dollar_price_sell' => Settings::where('name', 'dollar_price_sell')->first(),
-                'public_btc_wallet' => Settings::where('name', 'public_btc_wallet')->first(),
-                'public_usdt_wallet' => Settings::where('name', 'public_usdt_wallet')->first(),
             ];
 
             $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_sell']->value;;
+
+            $array = array('ok' => true,
+                'dollars' => number_format($this->COIN_TO_USD($request['currency-in'])),
+                'tomans' => number_format($this->CalculatePrice($request['currency-in'], $request['amount'], $usd_price, 'tomans')),
+            );
+            return json_encode($array);
+        }
+    }
+
+    public function ExchangeBuy(Request $request)
+    {
+        if (env('API_DOWN')) {
+            $array = array('ok' => false,
+                'error' => 'System under maintenance.'
+            );
+            return json_encode($array);
+        }
+        if ($request->isMethod('get')) {
+
+            $in = ($request['currency-in']) ? $request['currency-in'] : false;
+            $number = ($request['amount']) ? $request['amount'] : false;
+
+            if ($in === false || $number === false) {
+                $array = array('ok' => false,
+                    'error' => 'required params not received.'
+                );
+                return json_encode($array);
+            }
+            $settings = [
+                'price_calculation_method' => Settings::where('name', 'price_calculation_method')->first(),
+                'dollar_price_buy' => Settings::where('name', 'dollar_price_buy')->first(),
+                'dollar_price_sell' => Settings::where('name', 'dollar_price_sell')->first(),
+            ];
+
+            $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_buy']->value;;
 
             $array = array('ok' => true,
                 'dollars' => number_format($this->COIN_TO_USD($request['currency-in'])),

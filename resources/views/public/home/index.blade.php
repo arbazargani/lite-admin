@@ -4,7 +4,7 @@
 	<div class="bg1">
 	<!-- Header Start -->
 	<div id="header">
-		<div id="top-header">
+		<div id="top-header" style="display: none">
 			<div class="top-head-wrap">
 				<ul>
 					<a href="#">
@@ -21,7 +21,7 @@
 		<div id="sub-header">
 			<div class="sub-header-div">
 				<div class="sub-header-logo">
-					<h2>Crypto</h2>
+					<h1><a href="{{ route('Public > Home') }}" style="color: white; font-weight: 100">Cryptiner</a></h1>
 				</div>
 				<div class="sub-header-nav" id="header-nav">
 					<ul>
@@ -56,8 +56,8 @@
 			</div>
 			<div class="main-slider-info">
 				<div>
-					<h2>کریپتو</h2>
-					<span>خریدی امن با کریپتو</span>
+					<h2>کریپتاینر</h2>
+					<span>خریدی امن با کریپتاینر</span>
 					<p>همین حالا حساب کاربری خود را بسازید</p>
 					<div class="main-slider-info-action">
 						<a href="{{ route('login') }}" class="alt">ورود</a>
@@ -72,71 +72,106 @@
 <!--	Start Coin Calculating Section	-->
 	<div id="coin-cal-section">
 		<div class="buy-coin">
+			<h3>خرید ارز از ما</h3>
 			<div class="coin-select">
 				<form>
-					<select class="wide">
-						<option value="1">Bitcoin / BTC</option>
-						<option value="2">Another option</option>
-						<option value="3" disabled="">A disabled option</option>
-						<option value="4">Potato</option>
-					  </select>
+					<select class="wide" id="buy-currency-in" onchange="makeExchange('buy')">
+						<option value="bitcoin">Bitcoin / BTC</option>
+						<option value="ethereum">Ethereum / ETH</option>
+						<option value="zcash" disabled="">Zcash</option>
+						<option value="litecoin">Litecoin / LTC</option>
+					</select>
 				</form>
 			</div>
 			<div class="value">
 				<form>
 					<p>شما پرداخت می کنید:</p>
-					<input type="text" id="Coin-Value" name="coin-value" placeholder="0.01">
+					<input type="text" id="buy-amount" name="coin-value" placeholder="0.01" onchange="makeExchange('buy')">
 					<div>
-						<span>21,176 Toman</span>
+						<span>{{ number_format($settings['dollar_price_buy']->value) }} Toman</span>
 						<span>USD</span>
-					</div>
-					<div>
-						<span>196,100,2066 Toman</span>
-						<span>BTC</span>
 					</div>
 				</form>
 			</div>
 			<div class="result">
 				<form>
 					<p>شما دریافت می کنید:</p>
-					<input type="text" id="buy-result-Value" name="coin-value" readonly>
+					<p id="buy-tomans" name="coin-value" style="border-bottom: 1px solid; text-align: left; font-size: 2.4rem" readonly><img id="buy-tomans-loader" src="/assets/wallets/ajax-loader.gif" style="width: 18px; vertical-align: sub; display: none"></p>
 				</form>
 			</div>
 		</div>
 		<div class="sell-coin">
-<!--			<h3>فروش ارز به ما</h3>-->
+		<h3>فروش ارز به ما</h3>
 			<div class="coin-select">
 				<form>
-					<select class="wide">
-						<option value="1">Bitcoin / BTC</option>
-						<option value="2">Another option</option>
-						<option value="3" disabled="">A disabled option</option>
-						<option value="4">Potato</option>
-					  </select>
+					<select class="wide" id="sell-currency-in" onchange="makeExchange('sell')">
+						<option value="bitcoin">Bitcoin / BTC</option>
+						<option value="ethereum">Ethereum / ETH</option>
+						<option value="zcash" disabled="">Zcash</option>
+						<option value="litecoin">Litecoin / LTC</option>
+					</select>
 				</form>
 			</div>
 			<div class="value">
 				<form>
 					<p>شما پرداخت می کنید:</p>
-					<input type="text" id="Currency-Value" name="coin-value" placeholder="0.01">
+					<input type="text" id="sell-amount" name="coin-value" placeholder="0.01" onchange="makeExchange('sell')">
 					<div>
-						<span>21,176 Toman</span>
+						<span>{{ number_format($settings['dollar_price_sell']->value) }} Toman</span>
 						<span>USD</span>
-					</div>
-					<div>
-						<span>206,100,2066 Toman</span>
-						<span>BTC</span>
 					</div>
 				</form>
 			</div>
 			<div class="result">
 				<form>
 					<p>شما دریافت می کنید:</p>
-					<input type="text" id="sell-result-Value" name="coin-value" readonly>
+					<p id="sell-tomans" name="coin-value" style="border-bottom: 1px solid; text-align: left; font-size: 2.4rem" readonly><img id="sell-tomans-loader" src="/assets/wallets/ajax-loader.gif" style="width: 18px; vertical-align: sub; display: none"></p>
 				</form>
 			</div>
 		</div>
 	</div>
+	<script>
+        function getSelectedCurrency(id) {
+            var e = document.getElementById(id);
+            var value = e.options[e.selectedIndex].value;
+			var text = e.options[e.selectedIndex].text;
+			console.log(value);
+            return value;
+        }
+        function makeExchange(type) {
+            if (document.getElementById(type+"-amount").value == "") {
+                return;
+			}
+            if (document.getElementById(type+"-tomans-loader").style.display !== null && document.getElementById(type+"-tomans-loader").style.display !== "inline") {
+                document.getElementById(type+"-tomans-loader").style.display = "inline";
+            }
+            var from = getSelectedCurrency(type+'-currency-in');
+            var number = document.getElementById(type+'-amount').value;
+            console.log("converting " + number + " from " + from + " to USD");
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = JSON.parse(this.responseText);
+                    if (response.ok == true) {
+                        document.getElementById(type+"-tomans").innerHTML = response.tomans;
+                        document.getElementById(type+"-tomans-loader").style.display = "none";
+
+                        console.log('done: ' + response.ok + ':' + response.dollars + ':' + response.tomans);
+                    } else {
+                        document.getElementById(type+"-tomans").innerHTML = '<code>' + response.error + '<br/>[contact system administrator.]</code>';
+                    }
+                }
+			};
+			if (type == 'buy') {
+				xhttp.open("GET", "{{ route('CoinExchangeBuy') }}?currency-in=" + from + "&amount=" + number, true);
+			}
+			if (type == 'sell') {
+				xhttp.open("GET", "{{ route('CoinExchange') }}?currency-in=" + from + "&amount=" + number, true);
+			}
+            
+            xhttp.send();
+        }
+    </script>
 <!--	End Coin Calculating Section	-->
 	<div id="about-us" class="section">
 		<div class="section-wrap">
@@ -195,7 +230,7 @@
 		<div class="footer-wrap">
 			<div class="footer-sec footer-info">
 				<div class="footer-logo">
-					<h2>Crypto</h2>
+					<h2>Cryptiner</h2>
 				</div>
 				<div class="footer-des">
 					<p>بودن یا نبودن؟ مسأله این است! آیا شریفتر آنست که ضربات و لطمات روزگار نامساعد را متحمل شویم و یا آنکه سلاح نبرد بدست گرفته</p>
