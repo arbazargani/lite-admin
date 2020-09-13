@@ -5,6 +5,11 @@
 
     RewriteEngine On
 
+    # Force Https
+    RewriteEngine On
+    RewriteCond %{SERVER_PORT} 80
+    RewriteRule ^(.*)$ https://www.cryptiner.com/$1 [R,L]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
