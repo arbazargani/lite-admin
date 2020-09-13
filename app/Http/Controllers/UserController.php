@@ -62,7 +62,7 @@ class UserController extends Controller
                 'national_card' => 'required|mimes:jpg,jpeg,png|max:1024',
                 'person_national_card' => 'required|mimes:jpg,jpeg,png|max:1024',
                 'phone_number' => 'required|digits:11',
-                'home_number' => 'required|digits:11',
+                'home_number' => 'required|min:8',
                 'national_code' => 'required|digits:10',
                 'credit_card' => 'required|digits:16',
                 'credit_account' => 'required|digits:13',
