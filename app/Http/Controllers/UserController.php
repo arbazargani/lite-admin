@@ -65,7 +65,7 @@ class UserController extends Controller
                 'home_number' => 'required|digits:11',
                 'national_code' => 'required|digits:10',
                 'credit_card' => 'required|digits:16',
-                'credit_account' => 'required|digits:10',
+                'credit_account' => 'required|digits:13',
                 'sheba_account' => 'required|digits:24',
                 'home_address' => 'required|min:5',
             ]);
