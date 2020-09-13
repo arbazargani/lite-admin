@@ -43,6 +43,6 @@ class LoginController extends Controller
 
     protected function authenticated(Request $request, $user)
     {
-        return (Auth::check() && Auth::user()->rule == "admin") ? redirect(route('Admin > Dashboard')) : redirect(route('User > Panel'));
+        return (Auth::check() && (Auth::user()->rule == "admin" || Auth::user()->rule == "root")) ? redirect(route('Admin > Dashboard')) : redirect(route('User > Panel'));
     }
 }
