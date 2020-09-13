@@ -1,0 +1,9 @@
+/* CSS Document */
+@font-face {
+    font-family: tahmtan;
+    font-style: normal;
+    font-weight: normal;
+    src: url('woff2/Tahamtan.woff2') format('woff2'),  /* Chrome36+, Opera24+*/
+         url('woff/Tahamtan.woff') format('woff'),  /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+         url('ttf/Tahamtan.ttf') format('truetype');
+}
