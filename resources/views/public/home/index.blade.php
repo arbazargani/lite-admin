@@ -21,7 +21,8 @@
 		<div id="sub-header">
 			<div class="sub-header-div">
 				<div class="sub-header-logo">
-					<h1><a href="{{ route('Public > Home') }}" style="color: white; font-weight: 100">Cryptiner</a></h1>
+					<!-- <h1><a href="{{ route('Public > Home') }}" style="color: white; font-weight: 100">Cryptiner</a></h1> -->
+					<img src="/assets/logo.png" alt="Cryptiner">
 				</div>
 				<div class="sub-header-nav" id="header-nav">
 					<ul>
@@ -29,16 +30,22 @@
 							<li>پنل کاربری</li>
 						</a>
 						<a href="#">
-							<li>قیمت لحظه ای</li>
+							<li>فروشگاه</li>
 						</a>
 						<a href="#">
+							<li>آکادمی</li>
+						</a>
+						<a href="https://blog.cryptiner.com/%d8%b3%d9%88%d8%a7%d9%84%d8%a7%d8%aa-%d9%85%d8%aa%d8%af%d8%a7%d9%88%d9%84/">
 							<li>سوالات متداول</li>
 						</a>
-						<a href="#">
+						<a href="https://blog.cryptiner.com/">
 							<li>بلاگ</li>
 						</a>
-						<a href="#">
-							<li>درباره ما</li>
+						<a href="https://blog.cryptiner.com/%d8%aa%d9%85%d8%a7%d8%b3-%d8%a8%d8%a7-%d9%85%d8%a7/">
+							<li>تماس با ما</li>
+						</a>
+						<a href="https://blog.cryptiner.com/%d9%82%d9%88%d8%a7%d9%86%db%8c%d9%86-%d9%88-%d9%85%d9%82%d8%b1%d8%b1%d8%a7%d8%aa/">
+							<li>قوانین و مقررات</li>
 						</a>
 						<a href="javascript:void(0);" class="toggle-icon" onclick="nav_toggle()">
 							<i class="fa fa-bars"></i>
@@ -56,7 +63,7 @@
 			</div>
 			<div class="main-slider-info">
 				<div>
-					<h2>کریپتاینر</h2>
+					<h2>Cryptiner</h2>
 					<span>خریدی امن با کریپتاینر</span>
 					<p>همین حالا حساب کاربری خود را بسازید</p>
 					<div class="main-slider-info-action">

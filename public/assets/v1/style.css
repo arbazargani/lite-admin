@@ -511,7 +511,7 @@ ol {
 	font-family: "kalameh";
 	font-style: normal;
 	font-weight: 800;
-	font-size: 170px;
+	font-size: 110px;
 	
 	color: var(--color-white);
 }
@@ -956,26 +956,10 @@ ol {
 	margin: 0px 5px;
 }
 
+.sub-header-logo img{
+	height: 80px;
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+.sub-header-div{
+	align-items: center;
+}
