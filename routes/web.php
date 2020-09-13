@@ -19,7 +19,7 @@ Route::get('/register', function() {
     if (Auth::check()) {
         return abort('404');
     }
-    return redirect(route('login'));
+    return view('auth.login');
 })->name('register');
 
 Route::get('/logout', function () {
@@ -106,9 +106,9 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/transaction/raw/tx/{hash}', 'TransactionController@RawTx')->name('User > Transaction > Raw');
             Route::get('/transaction/raw/tracking_id/{hash}', 'TransactionController@RawTrackingID')->name('User > Transaction > Tracking ID > Raw');
 
-            Route::get('/profile', 'UserController@Profile')->name('User > Profile');
-            Route::post('/profile/update', 'UserController@UpdateProfile')->name('User > Profile > Update');
         });
+        Route::get('/profile', 'UserController@Profile')->name('User > Profile');
+        Route::post('/profile/update', 'UserController@UpdateProfile')->name('User > Profile > Update');
     });
 
 });

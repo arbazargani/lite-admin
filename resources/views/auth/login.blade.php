@@ -108,8 +108,8 @@
                         <input id="password" name="password" type="password" placeholder="رمز عبور" class="form-control" @error('password') style="border: 1px solid lightred;" @enderror required>
                         @error('password')<strong>{{ $message }}</strong>@enderror
 
-                        <input id="password-confirm" name="password-confirm" type="password" placeholder="تکرار رمز عبور" class="form-control" @error('password-confirm') style="border: 1px solid lightred;" @enderror required>
-                        @error('password-confirm')<strong>{{ $message }}</strong>@enderror
+                        <input id="password_confirm" name="password_confirm" type="password" placeholder="تکرار رمز عبور" class="form-control" @error('password_confirm') style="border: 1px solid lightred;" @enderror required>
+                        @error('password_confirm')<strong>{{ $message }}</strong>@enderror
 
                         <div class="submit">
                             <button type="submit" class="btn1">ثبت نام</button>
