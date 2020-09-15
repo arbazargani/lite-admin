@@ -8,6 +8,9 @@ use OneAPI\Laravel\API\Currency;
 
 use App\StringTrait;
 use App\Settings;
+use Exception;
+use Binance\API;
+use Carbon\Carbon;
 
 class CoinController extends Controller
 {
@@ -124,5 +127,65 @@ class CoinController extends Controller
             );
             return json_encode($array);
         }
+    }
+    public function Binance() {
+        $endpoint = 'https://api.binance.com/api/v3/ticker/price?symbol=LTCBTC&timestamp=' . Carbon::now()->toDateTimeString();
+        try
+        {
+            $curl = curl_init();
+            if (FALSE === $curl)
+                throw new Exception('Failed to initialize request.');
+            
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $endpoint,
+                CURLOPT_RETURNTRANSFER => true,
+                CURLOPT_ENCODING => "",
+                CURLOPT_MAXREDIRS => 10,
+                CURLOPT_TIMEOUT => 60,
+                CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                CURLOPT_CUSTOMREQUEST => "GET",
+                // CURLOPT_HTTPHEADER => $httpheader,
+            ));
+
+            $response = curl_exec($curl);
+
+            if (FALSE === $response)
+                throw new Exception(curl_error($curl), curl_errno($curl));
+
+            $http_status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            if (200 != $http_status)
+                throw new Exception($response, $http_status);
+
+            curl_close($curl);
+        }
+        catch(Exception $e)
+        {
+            $response= $e->getCode() . $e->getMessage();
+            echo $response;
+        }
+        return $response;
+    }
+
+    public function Binance_v2() {
+        $url = $endpoint = 'https://api.binance.com/api/v1/ticker/price?symbol=LTCBTC';
+        
+        
+        $ch = curl_init($url);
+
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        // curl_setopt($ch, CURLOPT_HTTPHEADER, array("OneAPI-Key: $key"));
+        $response = curl_exec($ch);
+
+        $json = json_decode($response);
+
+        return var_dump($json);
+    }
+    public function Binance_v3() {
+        $key = "ThzJPQ6k32JEQQtvtAmt4gMqcbELDdRqPl9RG5NnIur27zCdKIk7AA3Mf6sEEao2";
+        $secret = "vEKoKnJ5QeT99mgjcsqyABsvBfsTe6PsKGGEz5UasWedWE7HZ7NmnX6htiMNhTen";
+        $api = new \Binance\API($key, $secret);
+
+        $price = $api->price("BNBBTC");
+        return $price;
     }
 }
