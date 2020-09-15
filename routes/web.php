@@ -131,3 +131,5 @@ Route::get('coin', 'CoinController@ExchangeSell')->name('CoinExchange');
 Route::get('coin/buy', 'CoinController@ExchangeBuy')->name('CoinExchangeBuy');
 
 Route::get('coin', 'CoinController@ExchangeSell')->name('CoinExchange');
+
+Route::get('binance', 'CoinController@Binance')->name('CoinExchange');
