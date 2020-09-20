@@ -92,7 +92,7 @@
 			</div>
 			<div class="value">
 				<form>
-					<p>شما پرداخت می کنید:</p>
+					<p>شما دریافت می کنید:</p>
 					<input type="text" id="buy-amount" name="coin-value" placeholder="0.01" onchange="makeExchange('buy')">
 					<div>
 						<span>{{ number_format($settings['dollar_price_buy']->value) }} Toman</span>
@@ -102,7 +102,7 @@
 			</div>
 			<div class="result">
 				<form>
-					<p>شما دریافت می کنید:</p>
+					<p>شما پرداخت می کنید:</p>
 					<img id="buy-tomans-loader" src="/assets/wallets/ajax-loader.gif" style="width: 18px; vertical-align: sub; display: none"><p id="buy-tomans" name="coin-value" style="border-bottom: 1px solid; text-align: left; font-size: 2.4rem" readonly></p>
 				</form>
 			</div>
@@ -135,6 +135,9 @@
 					<img id="sell-tomans-loader" src="/assets/wallets/ajax-loader.gif" style="width: 18px; vertical-align: sub; display: none"><p id="sell-tomans" name="coin-value" style="border-bottom: 1px solid; text-align: left; font-size: 2.4rem" readonly></p>
 				</form>
 			</div>
+		</div>
+		<div style="width: 100%; text-align: center; margin-top: 25px;">
+			<span style="font-family: roboto; font-size: 10px; background: #efefef; padding: 10px; border-radius: 5px;">According to <img src="/assets/binance.png" alt="binance" style="width: 3%; vertical-align: middle"></span>
 		</div>
 	</div>
 	<script>

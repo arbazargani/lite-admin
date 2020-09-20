@@ -8,6 +8,12 @@
                     <p>داشبورد</p>
                 </li>
             </a>
+            <a href="{{ route('Admin > Messages') }}">
+                <li>
+                    <i class="fal fa-bell" style="color: #ff6666"></i>
+                    <p>اعلانات</p>
+                </li>
+            </a>
             <a href="{{ route('Admin > Users > Manage') }}">
                 <li>
                     <i class="fal fa-users"></i>

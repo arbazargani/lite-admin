@@ -16,12 +16,13 @@ class CoinController extends Controller
 {
     use StringTrait;
 
-    public function GetDollarPrice() {
-    $response = Currency::usd();
-    return $response[0]->price;
-}
+    public function GetDollarPrice()
+    {
+        $response = Currency::usd();
+        return $response[0]->price;
+    }
 
-    public function COIN_TO_USD($currency) {
+    public function COIN_TO_USD_old_oneApi($currency) {
         if ($currency == 'bitcoin') {
 
             $response = Crypto::btc();
@@ -41,6 +42,26 @@ class CoinController extends Controller
         }
 
         return $response->price;
+    }
+
+    public function COIN_TO_USD($currency) {
+        if ($currency == 'bitcoin') {
+            $response = $this->binance('BTCUSDT');
+
+        } elseif($currency == 'litecoin') {
+
+            $response = $this->binance('LTCUSDT');
+
+        } elseif($currency == 'ethereum') {
+
+            $response = $this->binance('ETHUSDT');
+
+        } else {
+
+            return abort('403', 'ارز موردنظر پشتیبانی نمیشود.');
+
+        }
+        return round(json_decode(json_encode($response->price)));
     }
 
     public function CalculatePrice($currency, $amount, $usd_price, $output_currency = 'tomans') {
@@ -128,7 +149,7 @@ class CoinController extends Controller
             return json_encode($array);
         }
     }
-    public function Binance() {
+    public function Binance_v1() {
         $endpoint = 'https://api.binance.com/api/v3/ticker/price?symbol=LTCBTC&timestamp=' . Carbon::now()->toDateTimeString();
         try
         {
@@ -187,5 +208,73 @@ class CoinController extends Controller
 
         $price = $api->price("BNBBTC");
         return $price;
+    }
+
+    public function Binance_v4() {
+        $endpoint = 'https://api.binance.com/api/v3/time';
+        $endpoint = 'https://api.binance.com/api/v1/ticker/price?symbol=LTCBTC';
+        try
+        {
+            $curl = curl_init();
+            if (FALSE === $curl)
+                throw new Exception('Failed to initialize request.');
+            
+            curl_setopt_array($curl, array(
+                CURLOPT_URL => $endpoint,
+                CURLOPT_RETURNTRANSFER => true,
+                // CURLOPT_ENCODING => "",
+                // CURLOPT_MAXREDIRS => 10,
+                // CURLOPT_TIMEOUT => 60,
+                // CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+                // CURLOPT_CUSTOMREQUEST => "GET",
+
+                // CURLOPT_PROXY => '127.0.0.0',
+                // curl_setopt($ch, CURLOPT_PROXY, $proxy);
+                // CURLOPT_PROXYUSERPWD => 'root:202adminAsSSlocal*&^'
+                // CURLOPT_PROXY => 'root:202adminAsSSlocal*&^@95.168.190.138:8389',
+                // CURLOPT_PROXYTYPE=> CURLPROXY_SOCKS5,
+
+                // CURLOPT_PROXY => 'socks5://127.0.0.1:20800',
+            ));
+
+
+            $response = curl_exec($curl);
+
+            if (FALSE === $response)
+                throw new Exception(curl_error($curl), curl_errno($curl));
+
+            $http_status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+            if (200 != $http_status)
+                throw new Exception($response, $http_status);
+
+            curl_close($curl);
+        }
+        catch(Exception $e)
+        {
+            $response= $e->getCode() . $e->getMessage();
+            echo $response;
+        }
+        return $response;
+    }
+
+    public function Binance($symbol) {
+        /*** curl get  start ***/
+        $url = "http://api.arbazargani.ir/?symbol=$symbol";
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    
+        //for debug only!
+        /*
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        */
+    
+        $res = curl_exec($curl);
+        $response = json_decode($res);
+        // header('Content-Type: application/json');
+        curl_close($curl);
+        // echo json_encode($response);
+        return $response;
     }
 }

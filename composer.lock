@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "5abcd1d8bd5f631979667a5d4b52b002",
+    "content-hash": "2238856ebc2f1002d9780fa2910cf573",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -57,6 +57,49 @@
                 "stack"
             ],
             "time": "2019-12-24T22:41:47+00:00"
+        },
+        {
+            "name": "baitercel/binance-api-php",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/baitercel/binance-api-php.git",
+                "reference": "ab7770ff7f8205afa3bb9df5852564ca949f1e92"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/baitercel/binance-api-php/zipball/ab7770ff7f8205afa3bb9df5852564ca949f1e92",
+                "reference": "ab7770ff7f8205afa3bb9df5852564ca949f1e92",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.6.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "BinanceClass.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bill",
+                    "email": "baitercel@163.com"
+                }
+            ],
+            "description": "Binance API Class and examples of how to use the API.",
+            "homepage": "https://github.com/baitercel/binance-api-php",
+            "keywords": [
+                "api",
+                "binance",
+                "cryptocurrency",
+                "php"
+            ],
+            "time": "2017-11-03T04:03:36+00:00"
         },
         {
             "name": "brick/math",
@@ -7425,7 +7468,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "baitercel/binance-api-php": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
