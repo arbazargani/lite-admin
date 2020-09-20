@@ -130,6 +130,13 @@ Route::get('/server-info', function () {
 Route::get('coin', 'CoinController@ExchangeSell')->name('CoinExchange');
 Route::get('coin/buy', 'CoinController@ExchangeBuy')->name('CoinExchangeBuy');
 
-Route::get('coin', 'CoinController@ExchangeSell')->name('CoinExchange');
+Route::get('outdated_binance', function () {
+    require '../vendor/baitercel/binance-api-php/BinanceClass.php';
+    $key = "ThzJPQ6k32JEQQtvtAmt4gMqcbELDdRqPl9RG5NnIur27zCdKIk7AA3Mf6sEEao2";
+    $secret = "vEKoKnJ5QeT99mgjcsqyABsvBfsTe6PsKGGEz5UasWedWE7HZ7NmnX6htiMNhTen";
+    $api = new Binance($key,$secret);
+    $ticker = $api->prices();
+    print_r($ticker); // List prices of all symbols
+});
 
-Route::get('binance', 'CoinController@Binance')->name('CoinExchange');
+Route::get('binance/{symbol}', 'CoinController@Binance');

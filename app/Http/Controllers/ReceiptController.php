@@ -90,7 +90,7 @@ class ReceiptController extends Controller
         return $response[0]->price;
     }
 
-    public function COIN_TO_USD($currency, $key = "e9375f00b2d1ab8944cb9c64b6482b75") {
+    public function COIN_TO_USD_OLD_oneApi($currency, $key = "e9375f00b2d1ab8944cb9c64b6482b75") {
         $ch = curl_init("https://oneapi.ir/api/crypto/$currency");
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -104,6 +104,27 @@ class ReceiptController extends Controller
 
         // return ($node != false) ? $response[0]->$node : $response;
         return $response->price;
+    }
+
+    public function COIN_TO_USD($currency) {
+        if ($currency == 'bitcoin') {
+
+            $response = $this->binance('BTCUSDT');
+
+        } elseif($currency == 'litecoin') {
+
+            $response = $this->binance('LTCUSDT');
+
+        } elseif($currency == 'ethereum') {
+
+            $response = $this->binance('ETHUSDT');
+
+        } else {
+
+            return abort('403', 'ارز موردنظر پشتیبانی نمیشود.');
+
+        }
+        return round(json_decode(json_encode($response->price)));
     }
 
     public function CalculatePrice($currency, $amount, $output_currency = 'tomans', $usd_price) {
@@ -172,4 +193,24 @@ class ReceiptController extends Controller
         return view('user.receipt.show', compact(['receipt']));
     }
 
+    public function Binance($symbol) {
+        /*** curl get  start ***/
+        $url = "http://api.arbazargani.ir/?symbol=$symbol";
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    
+        //for debug only!
+        /*
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        */
+    
+        $res = curl_exec($curl);
+        $response = json_decode($res);
+        // header('Content-Type: application/json');
+        curl_close($curl);
+        // echo json_encode($response);
+        return $response;
+    }
 }

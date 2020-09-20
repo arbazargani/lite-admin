@@ -27,6 +27,14 @@
     {{-- MicroModal Js --}}
     <script src="https://unpkg.com/micromodal/dist/micromodal.min.js"></script>
 
+    {{-- Froala Edito --}}
+    <link href="/assets/v2/assets/froala/css/froala_editor.pkgd.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/v2/assets/froala/css/plugins.pkgd.min.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/v2/assets/froala/css/themes/dark.min.css" rel="stylesheet" type="text/css" />
+    <script src="/assets/v2/assets/froala/js/froala_editor.pkgd.min.js" type="text/javascript"></script>
+    <script src="/assets/v2/assets/froala/js/plugins.pkgd.min.js" type="text/javascript"></script>
+    
+
     @include('admin.template-parts.head-scripts')
 </head>
 <body>

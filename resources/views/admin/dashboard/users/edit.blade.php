@@ -158,8 +158,31 @@
             </div>
 
             <div id="user-message" class="user-left-box-tabs">
-                <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-                <textarea name="content" id="content" cols="30" rows="10" placeholder="ارسال پیام شخصی برای کاربر"></textarea>
+                <style>
+                    #content > div.fr-wrapper > div p {
+                        direction: rtl;
+                    }
+                </style>
+                <form action="{{ route('Admin > Messages > Unicast', $user->id) }}" method="POST">
+                    @csrf
+                    <textarea id="content" name="content"></textarea>
+                    <br>
+                    <button class="btn1 info-btn" type="submit">ارسال پیام</button>
+                </form>
+               
+               <script>
+                   var editor = new FroalaEditor('#null', {
+                        toolbarButtons: {
+                            'moreParagraph': {
+                                'buttons': ['bold', 'italic', 'underline', 'createLink', 'alignLeft', 'alignCenter', 'alignRight', 'formatOLSimple', 'alignJustify', 'formatOL', 'formatUL', 'paragraphFormat', 'paragraphStyle', 'lineHeight', 'outdent', 'indent', 'quote', 'insertLink']
+                            }
+                        },
+                        direction: 'rtl',
+                        theme: 'dark',
+                        align: 'right',
+                        placeholderText: 'ارسال پیام شخصی به کاربر'
+                   });
+               </script>
             </div>
             
             <div id="user-personal-passwords" class="user-left-box-tabs">
