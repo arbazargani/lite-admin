@@ -8,6 +8,12 @@
                     <p>داشبورد</p>
                 </li>
             </a>
+            <a href="{{ route('User > Messages') }}">
+                <li>
+                    <i class="fal fa-bell"></i>
+                    <p>اعلانات</p>
+                </li>
+            </a>
             <a href="{{ route("User > Profile") }}">
                 <li>
                     <i class="fal fa-user"></i>

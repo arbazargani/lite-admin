@@ -74,5 +74,21 @@ class SettingTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        
+        // Setting: Start time
+        DB::table('settings')->insert([
+            'name' => 'application_start_time',
+            'value' => '07:00',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Setting: Close time
+        DB::table('settings')->insert([
+            'name' => 'application_close_time',
+            'value' => '00:00',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }

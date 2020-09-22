@@ -179,7 +179,7 @@ class ReceiptController extends Controller
 
         $message = 'درخواست شما ثبت شد و از طریق بخش فاکتورها قابل پیگیری است.';
         session(['status' => 'factored', 'message' => $message]);
-        return redirect(route('User > Panel'));
+        return redirect(route('User > Receipt > Show', $receipt->hash));
     }
 
     public function Manage() {
@@ -187,9 +187,15 @@ class ReceiptController extends Controller
         return view('user.receipt.manage', compact(['receipts']));
     }
 
-    public function ShowReceipt(Request $request, $id)
+    public function ShowReceipt(Request $request, $hash)
     {
-        $receipt = Receipt::findOrFail($id);
+        // $receipt = Receipt::findOrFail($id);
+        // return view('user.receipt.show', compact(['receipt']));
+        $receipt = Receipt::where('hash', $hash)->first();
+        if ( is_null($receipt) ) {
+            return abort(404);
+        }
+
         return view('user.receipt.show', compact(['receipt']));
     }
 

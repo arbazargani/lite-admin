@@ -73,7 +73,7 @@
                         <tbody>
                         @foreach($receipts as $receipt)
                             <tr>
-                                <td>#{{ $receipt->id }}</td>
+                                <td>{{ $receipt->id }}</td>
                                 <td>
                                      <div class="order-table-user">
                                         <div><p><span></span>{{ $receipt->description }}</p></div>

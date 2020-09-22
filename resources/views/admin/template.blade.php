@@ -33,6 +33,22 @@
     <link href="/assets/v2/assets/froala/css/themes/dark.min.css" rel="stylesheet" type="text/css" />
     <script src="/assets/v2/assets/froala/js/froala_editor.pkgd.min.js" type="text/javascript"></script>
     <script src="/assets/v2/assets/froala/js/plugins.pkgd.min.js" type="text/javascript"></script>
+
+    {{-- PickerJs --}}
+    <link  href="/assets/v2/assets/pickerjs/picker.min.css" rel="stylesheet">
+    <script src="/assets/v2/assets/pickerjs/picker.min.js"></script>
+    <style>
+        .picker-dialog {
+            direction: rtl;
+        }
+        .picker-close {
+            right: unset !important;
+            left: 0;
+        }
+        .picker-cell__header {
+            font-family: "iranyekan";
+        }
+    </style>
     
 
     @include('admin.template-parts.head-scripts')

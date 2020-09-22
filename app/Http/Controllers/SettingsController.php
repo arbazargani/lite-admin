@@ -15,6 +15,8 @@ class SettingsController extends Controller
             'price_calculation_method' => Settings::where('name', 'price_calculation_method')->first(),
             'dollar_price_buy' => Settings::where('name', 'dollar_price_buy')->first(),
             'dollar_price_sell' => Settings::where('name', 'dollar_price_sell')->first(),
+            'application_start_time' => Settings::where('name', 'application_start_time')->first(),
+            'application_close_time' => Settings::where('name', 'application_close_time')->first(),
             'public_btc_wallet' => Settings::where('name', 'public_btc_wallet')->first(),
             'public_usdt_wallet' => Settings::where('name', 'public_usdt_wallet')->first(),
         ];
@@ -31,6 +33,8 @@ class SettingsController extends Controller
 //            'price_calculation_method' => 'required',
             'dollar_price_buy' => 'required|numeric|min:2',
             'dollar_price_sell' => 'required|numeric|min:2',
+            'application_start_time' => 'required',
+            'application_close_time' => 'required',
             'public_btc_wallet' => 'min:10',
             'public_usdt_wallet' => 'min:10',
         ]);
@@ -42,6 +46,8 @@ class SettingsController extends Controller
         Settings::where('name', 'price_calculation_method')->update(['value' => $method]);
         Settings::where('name', 'dollar_price_buy')->update(['value' => $request['dollar_price_buy']]);
         Settings::where('name', 'dollar_price_sell')->update(['value' => $request['dollar_price_sell']]);
+        Settings::where('name', 'application_start_time')->update(['value' => $request['application_start_time']]);
+        Settings::where('name', 'application_close_time')->update(['value' => $request['application_close_time']]);
         Settings::where('name', 'public_btc_wallet')->update(['value' => $request['public_btc_wallet']]);
         Settings::where('name', 'public_usdt_wallet')->update(['value' => $request['public_usdt_wallet']]);
 

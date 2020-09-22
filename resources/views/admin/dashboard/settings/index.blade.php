@@ -51,6 +51,50 @@
                                 <label>قیمت فروش دلار (تومان):</label>
                                 <input type="text" name="dollar_price_sell" id="" value="{{ $settings['dollar_price_sell']->value }}">
 
+                                <label>ساعت شروع فعالیت سایت:</label>
+                                {{-- <input type="text" name="dollar_price_sell" id="" value="{{ $settings['dollar_price_sell']->value }}"> --}}
+                                <input type="text" name="application_start_time" class="form-control start-picker" value="{{ $settings['application_start_time']->value }}">
+                                <div class="start-container"></div>
+                                
+                                <script>
+                                    new Picker(document.querySelector('.start-picker'), {
+                                        format: 'HH:mm',
+                                        container: '.start-container',
+                                        inline: false,
+                                        controls: true,
+                                        headers: true,
+                                        inline: false,
+                                        text: {
+                                            title: 'ساعت را انتخاب نمایید',
+                                            hour: 'ساعت',
+                                            minute: 'دقیقه',
+                                        },
+                                    });
+                                </script>
+
+
+                                <label>ساعت اتمام فعالیت سایت:</label>
+                                {{-- <input type="text" name="dollar_price_sell" id="" value="{{ $settings['dollar_price_sell']->value }}"> --}}
+                                <input type="text" name="application_close_time" class="form-control end-picker" value="{{ $settings['application_close_time']->value }}">
+                                <div class="end-container"></div>
+
+                                <script>
+                                    new Picker(document.querySelector('.end-picker'), {
+                                        format: 'HH:mm',
+                                        container: '.end-container',
+                                        inline: false,
+                                        controls: true,
+                                        headers: true,
+                                        text: {
+                                            title: 'ساعت را انتخاب نمایید',
+                                            hour: 'ساعت',
+                                            minute: 'دقیقه',
+                                            ok: 'تایید',
+                                            cancell: 'لغو',
+                                        },
+                                    });
+                                </script>
+
                                 <label>ولت BTC:</label>
                                 <input type="text" name="public_btc_wallet" id="" value="{{ $settings['public_btc_wallet']->value }}">
 

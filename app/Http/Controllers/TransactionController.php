@@ -85,7 +85,7 @@ class TransactionController extends Controller
         return $response[0]->price;
     }
 
-    public function COIN_TO_USD($currency) {
+    public function COIN_TO_USD_old_oneApi($currency) {
         if ($currency == 'bitcoin') {
 
             $response = Crypto::btc();
@@ -105,6 +105,27 @@ class TransactionController extends Controller
         }
 
         return $response->price;
+    }
+
+    public function COIN_TO_USD($currency) {
+        if ($currency == 'bitcoin') {
+
+            $response = $this->binance('BTCUSDT');
+
+        } elseif($currency == 'litecoin') {
+
+            $response = $this->binance('LTCUSDT');
+
+        } elseif($currency == 'ethereum') {
+
+            $response = $this->binance('ETHUSDT');
+
+        } else {
+
+            return abort('403', 'ارز موردنظر پشتیبانی نمیشود.');
+
+        }
+        return round(json_decode(json_encode($response->price)));
     }
 
     public function CalculatePrice($currency, $amount, $usd_price, $output_currency = 'tomans') {
@@ -135,7 +156,7 @@ class TransactionController extends Controller
             'user_authorization_failed_message' => Settings::where('name', 'user_authorization_failed_message')->first(),
             'user_authorization_needed_message' => Settings::where('name', 'user_authorization_needed_message')->first(),
             'price_calculation_method' => Settings::where('name', 'price_calculation_method')->first(),
-            'dollar_price' => Settings::where('name', 'dollar_price')->first(),
+            'dollar_price_sell' => Settings::where('name', 'dollar_price_sell')->first(),
             'public_btc_wallet' => Settings::where('name', 'public_btc_wallet')->first(),
             'public_usdt_wallet' => Settings::where('name', 'public_usdt_wallet')->first(),
         ];
@@ -144,7 +165,7 @@ class TransactionController extends Controller
         $transaction->user_id = Auth::user()->id;
         $transaction->amount = $request['amount'];
 
-        $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price']->value;
+        $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_sell']->value;
 
         $payable = $this->CalculatePrice($request['coin'], $request['amount'], $usd_price, 'tomans');
         $transaction->payable = $this->NormalizePrice($payable);
@@ -240,5 +261,26 @@ class TransactionController extends Controller
         $transaction = Transaction::where('hash', $hash)->whereNotNull('pay_tracking_id')->first();
         
         return (!is_null($transaction) == 1) ? '<html><head><body><pre>'. $transaction->pay_tracking_id .'</pre></body></head></html>' : abort('403', 'make screenshot and contact this state to system administrator.');
+    }
+
+    public function Binance($symbol) {
+        /*** curl get  start ***/
+        $url = "http://api.arbazargani.ir/?symbol=$symbol";
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    
+        //for debug only!
+        /*
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        */
+    
+        $res = curl_exec($curl);
+        $response = json_decode($res);
+        // header('Content-Type: application/json');
+        curl_close($curl);
+        // echo json_encode($response);
+        return $response;
     }
 }

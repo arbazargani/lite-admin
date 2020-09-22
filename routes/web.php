@@ -67,6 +67,7 @@ Route::middleware(['auth', 'HasAdminAccess'])->group(function () {
         Route::post('/settings/update', 'SettingsController@Update')->name('Admin > Settings > Update');
 
         Route::get('/storage/uploads/certifications/{slug}', 'AssetsController@SafeAssetsRender')->name('Admin > Images > Show');
+
     });
 
 });
@@ -88,23 +89,29 @@ Route::middleware(['auth'])->group(function () {
             Route::get('/sell/history', 'UserController@SellHistory')->name('User > Sell History');
             Route::get('/transaction/verify');
 
-            Route::get('/exchange', 'ExchangeController@ExchangeCoin')->name('User > Exchange Coin');
-            Route::post('/exchange/make', 'ExchangeController@MakeExchange')->name('User > Exchange > Make');
+            Route::middleware(['OpenCloseStatus'])->group(function () {
+                Route::get('/exchange', 'ExchangeController@ExchangeCoin')->name('User > Exchange Coin');
+                Route::post('/exchange/make', 'ExchangeController@MakeExchange')->name('User > Exchange > Make');
 
 
-            Route::post('/receipt/make', 'ReceiptController@MakeReceipt')->name('User > Receipt > Make');
-            Route::get('/receipt/manage', 'ReceiptController@Manage')->name('User > Receipt > Archive');
-            Route::get('/receipt/show/{id}', 'ReceiptController@ShowReceipt')->name('User > Receipt > Show');
-            Route::post('/receipt/pay/{id}', 'ReceiptController@PayReceipt')->name('User > Receipt > Pay');
-            // Route::post('/receipt/pay/{id}', 'PaymentController@Reques')->name('User > Receipt > Pay');
+                Route::post('/receipt/make', 'ReceiptController@MakeReceipt')->name('User > Receipt > Make');
+                Route::get('/receipt/manage', 'ReceiptController@Manage')->name('User > Receipt > Archive');
+                // Route::get('/receipt/show/{id}', 'ReceiptController@ShowReceipt')->name('User > Receipt > Show');
+                Route::get('/receipt/show/{hash}', 'ReceiptController@ShowReceipt')->name('User > Receipt > Show');
+                // Route::post('/receipt/pay/{id}', 'ReceiptController@PayReceipt')->name('User > Receipt > Pay');
+                // Route::post('/receipt/pay/{id}', 'PaymentController@Reques')->name('User > Receipt > Pay');
+                Route::post('/receipt/pay/{hash}', 'ReceiptController@PayReceipt')->name('User > Receipt > Pay');
+
+                Route::post('/transaction/make', 'TransactionController@MakeTransaction')->name('User > Transaction > Make');
+                Route::get('/transaction/manage', 'TransactionController@Manage')->name('User > Transaction > Archive');
+                // Route::get('/transaction/show/{id}', 'TransactionController@ShowTransaction')->name('User > Transaction > Show');
+                Route::get('/transaction/show/{hash}', 'TransactionController@ShowTransaction')->name('User > Transaction > Show');
+                // Route::any('/transaction/add_tx/{id}', 'TransactionController@AddTX')->name('User > Transaction > ADD Tx ID');
+                Route::any('/transaction/add_tx/{hash}', 'TransactionController@AddTX')->name('User > Transaction > ADD Tx ID');
+            });
+
             Route::get('/receipt/raw/tx/{hash}', 'UserController@RawTx')->name('User > Receipt > Raw');
-
-            Route::post('/transaction/make', 'TransactionController@MakeTransaction')->name('User > Transaction > Make');
-            Route::get('/transaction/manage', 'TransactionController@Manage')->name('User > Transaction > Archive');
-            // Route::get('/transaction/show/{id}', 'TransactionController@ShowTransaction')->name('User > Transaction > Show');
-            Route::get('/transaction/show/{hash}', 'TransactionController@ShowTransaction')->name('User > Transaction > Show');
-            // Route::any('/transaction/add_tx/{id}', 'TransactionController@AddTX')->name('User > Transaction > ADD Tx ID');
-            Route::any('/transaction/add_tx/{hash}', 'TransactionController@AddTX')->name('User > Transaction > ADD Tx ID');
+            
             Route::get('/transaction/raw/tx/{hash}', 'TransactionController@RawTx')->name('User > Transaction > Raw');
             Route::get('/transaction/raw/tracking_id/{hash}', 'TransactionController@RawTrackingID')->name('User > Transaction > Tracking ID > Raw');
 

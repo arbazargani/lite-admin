@@ -14,7 +14,7 @@
             <div class="page-title">
                 <!-- <h2>کریپتو</h2> -->
                 <div class="dash-header-logo">
-                    <img src="/assets/v2/src/img/dash-log.png">
+                    <img src="/assets/logo.png" style="height: 75px !important">
                 </div>
             </div>
             <div class="page-options">

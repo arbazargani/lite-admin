@@ -22,6 +22,7 @@
                                 <th>سفارش</th>
                                 <th>مبلغ (تومان)</th>
                                 <th>توضیحات</th>
+                                <th>TxiD</th>
                                 <th>وضعیت سفارش</th>
                                 <th>عملیات</th>
                             </tr>
@@ -43,6 +44,21 @@
                                     </div>
                                 </td>
                                 <td>
+                                    @php
+                                    $exptime = \Carbon\Carbon::parse($transaction->created_at)->addMinutes(20);
+                                    $now = \Carbon\Carbon::parse(date("Y-m-d H:i:s"));
+                                    @endphp
+                                    @if($now > $exptime)
+                                        <span>-</span>
+                                    @else
+                                        @if((!is_null($transaction->tx_id)))
+                                        <p><span onclick="window.open('{{ route('User > Transaction > Raw', $transaction->hash) }}','name','width=600,height=400')">نمایش</span></p>
+                                        @else
+                                        <p><a href="{{ route('User > Transaction > ADD Tx ID', $transaction->hash) }}">ثبت</a></p>
+                                        @endif
+                                    @endif
+                                </td>
+                                <td>
                                     <div class="order-table-status" style="direction: rtl; text-align: right">
                                         <p>
                                             @if($transaction->status != 'rejected')
@@ -55,10 +71,18 @@
                                 </td>
                                 <td>
                                     <p>
-                                        @if(!is_null($transaction->tx_id) && !is_null($transaction->pay_tracking_id))
-                                            <span onclick="window.open('{{ route('User > Transaction > Tracking ID > Raw', $transaction->hash) }}', 'name','width=600,height=400')">نمایش شناسه پرداخت</span>
+                                        @php
+                                        $exptime = \Carbon\Carbon::parse($transaction->created_at)->addMinutes(20);
+                                        $now = \Carbon\Carbon::parse(date("Y-m-d H:i:s"));
+                                        @endphp
+                                        @if($now > $exptime)
+                                            <span style="color: red">اتمام اعتبار درخواست</span>
                                         @else
-                                            <span style="color: red">-</span>
+                                            @if(!is_null($transaction->tx_id) && !is_null($transaction->pay_tracking_id))
+                                                <span onclick="window.open('{{ route('User > Transaction > Tracking ID > Raw', $transaction->hash) }}', 'name','width=600,height=400')">نمایش شناسه پرداخت</span>
+                                            @else
+                                                <span style="color: red">-</span>
+                                            @endif
                                         @endif
                                     </p>
                                 </td>

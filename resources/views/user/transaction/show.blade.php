@@ -113,7 +113,6 @@
             <div class="sell-invoice-accept">
                 @php
                     $exptime = \Carbon\Carbon::parse($transaction->created_at)->addMinutes(20);
-                    $exptime->addMinute(20);
                     $now = \Carbon\Carbon::parse(date("Y-m-d H:i:s"));
                 @endphp
                 @if( $now > $exptime )

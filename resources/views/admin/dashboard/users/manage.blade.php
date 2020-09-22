@@ -40,7 +40,7 @@
                             @endif
                             </td>
                             <td>
-                                @if($user->rule != 'admin')
+                                @if($user->rule != 'admin' && $user->rule != 'root')
 
                                     <a class="button td-btn" href="{{ route('Admin > User > Edit', $user->id) }}">ویرایش</a>
 
