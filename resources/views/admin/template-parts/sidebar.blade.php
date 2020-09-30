@@ -20,12 +20,10 @@
                     <p>کاربران</p>
                 </li>
             </a>
-            <a href="#">
+            <a href="{{ route('Admin > Receipts > List') }}">
                 <li>
-                    <a href="{{ route('Admin > Receipts > List') }}" style="color: rgba(134, 138, 168, 1)">
-                        <i class="fab fa-bitcoin"></i>
-                        <p>خرید ها</p>
-                    </a>
+                    <i class="fab fa-bitcoin"></i>
+                    <p>خرید ها</p>
                 </li>
             </a>
             <a href="{{ route('Admin > Transactions > Verification List') }}" style="color: rgba(134, 138, 168, 1)">

@@ -17,9 +17,9 @@
                     <img src="/assets/logo.png" style="height: 75px !important">
                 </div>
             </div>
-            <div class="page-options">
-                <a href="#">Fa</a>
-                <i class="fas fa-arrow-down"></i>
+            <div id="sidebar-toggle" class="page-options sidebar-toggle">
+                <!-- <a href="#">Fa</a> -->
+                <i class="fas fa-bars"></i>
             </div>
         </div>
     </div>

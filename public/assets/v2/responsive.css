@@ -1,0 +1,211 @@
+
+@media screen and ( max-width: 1680px ){
+    .sell-invoice-wrap{
+        width: 100% !important;
+    }
+}
+
+@media screen and ( max-width: 1280px ){
+    .workspace-wrap{        
+        padding: 20px !important;
+    }
+
+    .user-edit-wrap{
+        justify-content: center;
+    }
+
+    .user-left-box{
+        padding: 50px 30px !important;
+    }
+
+    .sell-progress-step{
+        padding: 25px 50px !important;
+    }
+
+    .sell-tutorial-wrap{
+        margin-left: 0px !important;
+        margin-bottom: 20px !important;
+    }
+
+    #sell-step-2{
+        flex-flow: column-reverse wrap !important;
+        align-items: unset !important;
+    }
+
+    #sell-step-3{
+        padding: 30px !important;
+    }
+}
+
+@media screen and ( max-width: 980px ){
+    #workspace{
+        max-width: 100% !important;
+    }
+    
+    #sidebar{
+        padding-top: 75px !important;
+		overflow-y: auto;
+		position: fixed;
+		top: 0px;
+		bottom: 0px;
+        right: -100px;
+        flex-direction: unset !important;
+        
+        transition: all 0.3s;
+        }
+        .sidebar-show{
+            right: 0px !important;
+    }
+
+    .admin-settings-left{
+        padding: 15px !important;
+    }
+
+    .user-left-box{
+        padding: 50px 20px !important;
+    }
+
+    .user-docs div {
+        max-width: 40% !important;
+    }
+
+    .sell-progress-step{
+        padding: 25px 30px !important;
+    }
+
+    #sell-step-2{
+        padding: 20px !important;
+    }
+
+    #sell-step-3{
+        padding: 20px !important;
+    }
+}
+
+@media screen and ( max-width: 736px ){
+    .workspace-wrap{        
+        padding: 15px !important;
+    }
+
+    #orders-wrap{
+        padding: 30px 10px !important;
+    }
+
+    .admin-settings-right {
+        padding: 30px 30px !important;
+        flex: 1 0 320px !important;
+    }
+
+    .admin-settings-left{
+        padding: 10px !important;
+    }
+
+    .user-right-box{
+        padding: 30px 30px !important;
+    }
+
+    .user-left-box{
+        padding: 50px 10px !important;
+    }
+
+    .user-left-box-title{
+        border-bottom: none !important;
+    }
+    .user-left-box-title ul a {
+        max-width: 100% !important;
+        display: block !important;
+        text-align: center !important;
+    }
+
+    .user-left-box-title ul a li{
+        display: block !important;
+    }
+
+    .user-docs div {
+        max-width: 100% !important;
+    }
+
+
+    .sell-progress-step{
+        padding: 25px 10px !important;
+    }
+
+    .sell-progress-step ul svg{
+        display: none !important;
+    }
+    
+    .sell-progress-bar-wrap{
+        display: none !important;
+    }
+
+    .sell-tutorial-wrap{
+        padding: 50px 15px !important;
+    }
+
+    .sell-options{
+        padding: 50px 20px !important;
+        flex: 1 0 300px !important;
+    }
+
+    #sell-step-2{
+        padding: 15px !important;
+    }
+
+    #sell-step-3{
+        padding: 15px !important;
+    }
+}
+
+@media screen and ( max-width: 480px ){
+    .workspace-wrap{        
+        padding: 5px !important;
+    }
+
+    #orders-wrap{
+        padding: 30px 10px !important;
+    }
+
+
+    .admin-settings-right {
+        padding: 30px 10px !important;
+        flex: 1 0 320px !important;
+    }
+
+    .admin-settings-left{
+        padding: 0px !important;
+    }
+
+
+    
+    .progress-step-icon{
+        display: none !important;
+    }
+
+    .progress-step-txt{
+        display: none !important;
+    }
+    .step-txt-active{
+        display: inline-block !important;
+    }
+
+    .sell-progress-step ul{
+        justify-content: center !important;
+    }
+    
+    .user-right-box{
+        padding: 30px 10px !important;
+        flex: 1 1 auto !important;
+    }
+
+    .user-approve a {
+        margin: 5px 0px;
+    }
+
+    #sell-step-2{
+        padding: 5px !important;
+    }
+
+    #sell-step-3{
+        padding: 5px !important;
+    }
+}

@@ -8,7 +8,6 @@
                     <div class="admin-settings-right">
                         <h3><i class="fad fa-cogs"></i> تنظیمات</h3>
                         <div class="admin-settings-nav">
-                            <i class="settigns-bg fad fa-cogs"></i>
                             <ul>
                                 <li class="active"><a href="#">تنظیمات سایت</a></li>
                                 <li><a href="#">تنظیمات کاربران</a></li>

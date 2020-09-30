@@ -49,7 +49,14 @@
             font-family: "iranyekan";
         }
     </style>
-    
+
+    <!-- Sidebar Toggle -->
+	<script>
+		function sideBarOpener(){
+			var sidebar = document.querySelector("#sidebar");
+			sidebar.classList.toggle("sidebar-show");
+		}
+	</script>
 
     @include('admin.template-parts.head-scripts')
 </head>
@@ -69,6 +76,9 @@
 {{--@include('admin.template-parts.chat')--}}
 
 {{--@include('admin.template-parts.footer')--}}
+<script>
+    document.getElementsByClassName("sidebar-toggle")[0].addEventListener("click" , sideBarOpener);
+</script>
 </div>
 </body>
 </html>
