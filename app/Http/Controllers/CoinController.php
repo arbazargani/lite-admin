@@ -6,11 +6,12 @@ use Illuminate\Http\Request;
 use OneAPI\Laravel\API\Crypto;
 use OneAPI\Laravel\API\Currency;
 
-use App\StringTrait;
-use App\Settings;
 use Exception;
 use Binance\API;
 use Carbon\Carbon;
+use App\StringTrait;
+use App\Settings;
+use App\Coin;
 
 class CoinController extends Controller
 {
@@ -45,6 +46,7 @@ class CoinController extends Controller
     }
 
     public function COIN_TO_USD($currency) {
+        $currency = strtolower($currency);
         if ($currency == 'bitcoin') {
             $response = $this->binance('BTCUSDT');
 
@@ -276,5 +278,28 @@ class CoinController extends Controller
         curl_close($curl);
         // echo json_encode($response);
         return $response;
+    }
+
+    protected function UpdateRepository() {
+        $coins = Coin::all();
+        foreach ($coins as $coin) {
+        $name = $coin->name;
+        $slug = $coin->slug;
+        $response = $this->binance($slug);
+        $price = round(json_decode(json_encode($response->price)));
+        
+        $settings = [
+            'price_calculation_method' => Settings::where('name', 'price_calculation_method')->first(),
+            'dollar_price_buy' => Settings::where('name', 'dollar_price_buy')->first(),
+            'dollar_price_sell' => Settings::where('name', 'dollar_price_sell')->first(),
+        ];
+        $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_sell']->value;
+
+        $current = Coin::where('slug', $slug)->update([
+            'ahead_usd_price' => $current = Coin::where('slug', $slug)->first()->usd_price,
+            'usd_price' => $price,
+            'toman_price' => $this->CalculatePrice($name, 1, $usd_price, 'tomans')
+        ]);
+        }
     }
 }

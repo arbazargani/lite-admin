@@ -147,3 +147,5 @@ Route::get('outdated_binance', function () {
 });
 
 Route::get('binance/{symbol}', 'CoinController@Binance');
+
+Route::get('repo', 'CoinController@UpdateRepository');

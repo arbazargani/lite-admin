@@ -18,7 +18,10 @@ class CreateCoinsTable extends Migration
             $table->bigIncrements('id');
             $table->string('name')->nullable();
             $table->string('slug')->nullable();
-            $table->boolean('activate')->default('0');
+            $table->string('usd_price')->nullable();
+            $table->string('ahead_usd_price')->nullable();
+            $table->string('toman_price')->nullable();
+            $table->boolean('activate')->default('1');
             $table->timestamps();
         });
     }
