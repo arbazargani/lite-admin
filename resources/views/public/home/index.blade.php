@@ -85,15 +85,16 @@
 					<select class="wide" id="buy-currency-in" onchange="makeExchange('buy')">
 						<option value="bitcoin">Bitcoin / BTC</option>
 						<option value="ethereum">Ethereum / ETH</option>
-						<option value="zcash" disabled="">Zcash</option>
+						<option value="zcash">Zcash / ZEC</option>
 						<option value="litecoin">Litecoin / LTC</option>
+						<option value="tether">Tether / BUSD</option>
 					</select>
 				</form>
 			</div>
 			<div class="value">
 				<form>
 					<p>شما دریافت می کنید:</p>
-					<input type="text" id="buy-amount" name="coin-value" placeholder="0.01" onchange="makeExchange('buy')">
+					<input type="text" id="buy-amount" name="coin-value" placeholder="0.01" onkeyup="setTimeout(makeExchange('buy'), 1000)">
 					<div>
 						<span>{{ number_format($settings['dollar_price_buy']->value) }} Toman</span>
 						<span>USD</span>
@@ -114,15 +115,16 @@
 					<select class="wide" id="sell-currency-in" onchange="makeExchange('sell')">
 						<option value="bitcoin">Bitcoin / BTC</option>
 						<option value="ethereum">Ethereum / ETH</option>
-						<option value="zcash" disabled="">Zcash</option>
+						<option value="zcash">Zcash / ZEC</option>
 						<option value="litecoin">Litecoin / LTC</option>
+						<option value="tether">Tether / BUSD</option>
 					</select>
 				</form>
 			</div>
 			<div class="value">
 				<form>
 					<p>شما پرداخت می کنید:</p>
-					<input type="text" id="sell-amount" name="coin-value" placeholder="0.01" onchange="makeExchange('sell')">
+					<input type="text" id="sell-amount" name="coin-value" placeholder="0.01" onkeyup="makeExchange('sell')">
 					<div>
 						<span>{{ number_format($settings['dollar_price_sell']->value) }} Toman</span>
 						<span>USD</span>
@@ -148,8 +150,16 @@
 			console.log(value);
             return value;
         }
+		function isNumber(number) {
+			return /^-?[\d.]+(?:e-?\d+)?$/.test(number);
+		}
+		function DotEnd(type) {
+			var str = document.getElementById(type+"-amount").value;
+			return str.endsWith(".");
+		}
         function makeExchange(type) {
-            if (document.getElementById(type+"-amount").value == "") {
+			
+            if (document.getElementById(type+"-amount").value == "" || DotEnd(type) || !isNumber(document.getElementById(type+"-amount").value)) {
                 return;
 			}
 			

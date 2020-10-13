@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use OneAPI\Laravel\API\Crypto;
 use OneAPI\Laravel\API\Currency;
 use Carbon\Carbon;
@@ -108,17 +109,30 @@ class TransactionController extends Controller
     }
 
     public function COIN_TO_USD($currency) {
+        $currency = strtolower($currency);
         if ($currency == 'bitcoin') {
 
-            $response = $this->binance('BTCUSDT');
+            $response = (Cache::has("BTCUSDT-usd-price")) ? Cache::get("BTCUSDT-usd-price") : $this->binance('BTCUSDT');
+            // $response = $this->binance('BTCUSDT');
 
-        } elseif($currency == 'litecoin') {
+        } elseif ($currency == 'litecoin') {
 
-            $response = $this->binance('LTCUSDT');
+            $response = (Cache::has("LTCUSDT-usd-price")) ? Cache::get("LTCUSDT-usd-price") : $this->binance('LTCUSDT');
+            // $response = $this->binance('LTCUSDT');
 
-        } elseif($currency == 'ethereum') {
+        } elseif ($currency == 'ethereum') {
 
-            $response = $this->binance('ETHUSDT');
+            $response = (Cache::has("ETHUSDT-usd-price")) ? Cache::get("ETHUSDT-usd-price") : $this->binance('ETHUSDT');
+            // $response = $this->binance('ETHUSDT');
+
+        } elseif ($currency == 'zcash') {
+
+            $response = (Cache::has("ZECUSD-usd-price")) ? Cache::get("ZECUSD-usd-price") : $this->binance('ZECUSD');
+            // $response = $this->binance('ZECUSD');
+
+        } elseif ($currency == 'tether') {
+            $response = (Cache::has("BUSDUSDT-usd-price")) ? Cache::get("BUSDUSDT-usd-price") : $this->binance('BUSDUSDT');
+            // $response = $this->binance('BUSDUSDT');
 
         } else {
 
@@ -264,23 +278,29 @@ class TransactionController extends Controller
     }
 
     public function Binance($symbol) {
-        /*** curl get  start ***/
-        $url = "http://api.arbazargani.ir/?symbol=$symbol";
-        $curl = curl_init($url);
-        curl_setopt($curl, CURLOPT_URL, $url);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    
-        //for debug only!
-        /*
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        */
-    
-        $res = curl_exec($curl);
-        $response = json_decode($res);
-        // header('Content-Type: application/json');
-        curl_close($curl);
-        // echo json_encode($response);
-        return $response;
+        if (Cache::has("$symbol-usd-price")) {
+            return Cache::get("$symbol-usd-price");
+        } else {
+            /*** curl get  start ***/
+            $url = "http://api.arbazargani.ir/?symbol=$symbol";
+            $curl = curl_init($url);
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        
+            //for debug only!
+            /*
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            */
+        
+            $res = curl_exec($curl);
+            $response = json_decode($res);
+            // header('Content-Type: application/json');
+            curl_close($curl);
+            // echo json_encode($response);
+
+            Cache::put("$symbol-usd-price", $response, now()->addMinutes(1));
+            return $response;
+        }
     }
 }

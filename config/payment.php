@@ -70,7 +70,7 @@ return [
             'apiPurchaseUrl' => 'https://api.nextpay.org/gateway/token.http',
             'apiPaymentUrl' => 'https://api.nextpay.org/gateway/payment/',
             'apiVerificationUrl' => 'https://api.nextpay.org/gateway/verify.http',
-            'merchantId' => env('merchantId'),
+            'merchantId' => env('merchantId', '663df00e-39a8-4faa-8f01-6a202e88336b'),
             'callbackUrl' => 'http://localhost:8000/pay/callback.php',
             'description' => 'payment in '.config('app.name'),
         ],
