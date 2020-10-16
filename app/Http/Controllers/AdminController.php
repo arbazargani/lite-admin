@@ -9,6 +9,7 @@ use App\User;
 use App\Transaction;
 use App\Alert;
 use App\AlertTrait;
+use App\LogTrait;
 use App\Receipt;
 
 use Auth;
@@ -16,6 +17,7 @@ use Auth;
 class AdminController extends Controller
 {
     use AlertTrait;
+    use LogTrait;
 
     public function GetPrice($locale = 'irr')
     {
@@ -67,6 +69,10 @@ class AdminController extends Controller
             'credit_card' => $request['credit_card'],
             'credit_account' => $request['credit_account']
         ]);
+
+        $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Updated ' . " $id-" . User::find($id)->name . '-' . User::find($id)->email . '- profile';
+        $this->MakeLog(Auth::id(), $log);
+
         return back();
     }
 
@@ -86,11 +92,19 @@ class AdminController extends Controller
                 $message = 'کاربر با موفقیت تایید شد.';
                 session(['status' => 'accepted', 'message' => $message]);
                 $this->MakeAlert($id, 'اکانت شما به تایید کارشناس سامانه رسید.', 'success');
+
+                $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Approved ' . " $user->id-" . $user->name . '-' . $user->email . '- verification requets.';
+                $this->MakeLog(Auth::id(), $log);
+
             } elseif ($request->has('action') && $request['action'] == 'reject') {
                 $user->status = 'suspended';
                 $message = 'کاربر موردنظر تایید نشد.';
                 session(['status' => 'rejected', 'message' => $message]);
                 $this->MakeAlert($id, 'اکانت شما به تایید کارشناس سامانه نرسیده است. لطفا دوباره مدارک خود را بارگزاری نمایید.', 'danger');
+
+                $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Rejected ' . " $user->id-" . $user->name . '-' . $user->email . '- verification requets.';
+                $this->MakeLog(Auth::id(), $log);
+
             } else {
                 return abort(403, 'Unauthorized action.');
             }
@@ -121,6 +135,9 @@ class AdminController extends Controller
             $message = 'کاربر با موفقیت تایید شد.';
             session(['status' => 'accepted', 'message' => $message]);
             $this->MakeAlert($id, 'اکانت شما به تایید کارشناس سامانه رسید.', 'success');
+
+            $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Approved ' . " $user->id-" . $user->name . '-' . $user->email . '- verification requets.';
+            $this->MakeLog(Auth::id(), $log);
         } else {
             return abort(403, 'Unauthorized action. user info has a problem.');
         }
@@ -151,11 +168,17 @@ class AdminController extends Controller
                 $transaction->save();
                 $transaction->paid_at = $transaction->updated_at;
 
+                $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Accepted' . "#$id " . 'transaction.';
+                $this->MakeLog(Auth::id(), $log);
+
             } elseif ($request->has('action') && $request['action'] == 'reject') {
                 $transaction->status = 'rejected';
                 $message = 'تراکنش موردنظر تایید نشد.';
                 session(['status' => 'factored', 'message' => $message]);
                 $this->MakeAlert($transaction->user->id, 'درخواست فروش شما توسط کارشناسان سامانه تایید نشده است.', 'danger');
+
+                $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Rejected' . "#$id " . 'transaction.';
+                $this->MakeLog(Auth::id(), $log);
             } else {
                 return abort(403, 'Unauthorized action.');
             }
@@ -186,11 +209,17 @@ class AdminController extends Controller
                 'admin_action' => $request['admin_action'],
                 'admin_tx' => $request['tx_id']
             ]);
+
+            $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Accepted ' . "#$id " . 'receipt.';
+            $this->MakeLog(Auth::id(), $log);
     
         } else {
             $receipt = Receipt::where('id', $id)->update([
                 'admin_action' => $request['admin_action']
             ]);
+
+            $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Rejected' . "#$id " . 'receipt.';
+            $this->MakeLog(Auth::id(), $log);
         }
         return back();
     }
@@ -198,12 +227,20 @@ class AdminController extends Controller
     public function BlockUser($id)
     {
         $user = User::where('id', $id)->update(['status' => 'suspended']);
+        $user = User::find($id);
+
+        $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Blocked ' . " $user->id-" . $user->name . '-' . $user->email . '.';
+        $this->MakeLog(Auth::id(), $log);
         return back();
     }
 
     public function UnblockUser($id)
     {
         $user = User::where('id', $id)->update(['status' => 'verified']);
+        $user = User::find($id);
+
+        $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Unblocked ' . " $user->id-" . $user->name . '-' . $user->email . '.';
+        $this->MakeLog(Auth::id(), $log);
         return back();
     }
 

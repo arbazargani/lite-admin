@@ -155,8 +155,9 @@
                             <li><p>ماژول کاربران <span class="ac">فعال</span></p></li>
                             <li><p>ماژول خریدها <span class="ac">فعال</span></p></li>
                             <li><p>ماژول فروش‌ها <span class="ac">فعال</span></p></li>
+                            <li><p>ماژول کش <span class="ac">فعال</span></p></li>
                             <li><p>ماژول بلاگ <span class="cp">در حال آماده‌سازی</span></p></li>
-                            <li><p>ماژول لاگ <span class="da">غیر فعال</span></p></li>
+                            <li><p>ماژول لاگ <span class="ac">فعال</span></p></li>
                             <li><p>ماژول اکسچنج <span class="da">غیر فعال</span></p></li>
                             <li><p>ماژول تنظیمات <span class="ac">فعال</span></p></li>
                             <li><p>ماژول تیکت <span class="cp">در حال آماده‌سازی</span></p></li>
