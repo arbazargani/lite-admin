@@ -1,0 +1,971 @@
+/* CSS Document */
+/******************************
+*****  Title: Crypto       ****
+*****  Version: Beta 1.0.0.0 **
+*****  Author: Saeed Kh *******
+*******************************/
+@import url("assets/fonts/kalameh/import.css");
+@import url("assets/fonts/iranyekan/css/fontiran.css");
+@import url("assets/fonts/poppins/poppins.css");
+
+:root {
+    --color-green: #56BE89;
+	--color-green2: #31e599;
+    --color-white: #F1FAF6;
+    --color-blue: #31335D;
+    --color-black: #242539;
+    --color-grey: #EEEFF5;
+}
+
+*{
+	margin: 0px; padding: 0px;
+	box-sizing: border-box;
+	vertical-align: baseline;
+}
+a{
+	text-decoration: none;
+	color: #000;
+}
+html{
+	scroll-behavior: smooth;
+	scrollbar-color: dark;
+}
+.clearfix:before,.clearfix:after{
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+.clearfix:after{
+  clear: both;
+}
+/**************
+ * 3          *
+ * IE 6/7 only*
+ **************/
+.clearfix{
+  *zoom: 1;
+}
+
+
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+/*
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+*/
+}
+
+ol, ul {
+/*	list-style: none;*/
+}
+
+blockquote, q {
+/*	quotes: none;*/
+}
+
+blockquote:before, blockquote:after, q:before, q:after {
+/*
+	content: '';
+	content: none;
+*/
+}
+
+table {
+/*
+	border-collapse: collapse;
+	border-spacing: 0;
+*/
+}
+
+body {
+	-webkit-text-size-adjust: none;
+	-ms-overflow-style: scrollbar;
+}
+
+*, *:before, *:after {
+/*
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+*/
+}
+
+/*
+.container {
+	margin-left: auto;
+	margin-right: auto;
+}
+*/
+
+@-ms-viewport {
+	width: device-width;
+}
+
+/*
+@media screen and (max-width: 480px) {
+
+	html, body {
+		min-width: 320px;
+	}
+
+}
+*/
+
+/*
+body.is-loading *, body.is-loading *:before, body.is-loading *:after {
+	-moz-animation: none !important;
+	-webkit-animation: none !important;
+	-ms-animation: none !important;
+	animation: none !important;
+	-moz-transition: none !important;
+	-webkit-transition: none !important;
+	-ms-transition: none !important;
+	transition: none !important;
+}
+*/
+
+/*
+@media screen and (max-width: 1680px) {
+	html {font-size: 11pt;}
+}
+
+@media screen and (max-width: 1280px) {
+	html {font-size: 11pt;}
+}
+
+@media screen and (max-width: 980px) {
+	html {font-size: 12pt;}
+}
+
+@media screen and (max-width: 736px) {
+	html {font-size: 12pt;}
+}
+
+@media screen and (max-width: 480px) {
+	html {font-size: 12pt;}
+}
+*/
+
+
+a,p,h1,h2,h3,h4,h5,h6{
+	color: #1e1f23;
+	direction: rtl;
+	font-family: "kalameh"
+}
+p{
+	color: rgba(0, 0, 0, 0.65);
+	font-family: iranyekan;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	line-height: 35px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    line-height: 1.5;
+    margin: 0 0 1rem 0;
+}
+
+h2{
+	font-size: 36px;
+}
+
+h3{
+	font-size: 29px;
+}
+
+h4{
+	font-size: 25px;
+}
+
+h5{
+	font-size: 22px;
+}
+
+h6{
+	font-size: 18px;
+}
+
+
+hr {
+	border: 0;
+	border-bottom: 1px solid rgba(144, 144, 144, 0.25);
+	margin: 2rem 0;
+}
+
+code{
+	background: rgba(144, 144, 144, 0.075);
+	border-radius: 4px;
+	border: 1px solid rgba(144, 144, 144, 0.25);
+	margin: 0 0.25rem;
+	padding: 0.25rem 0.65rem;
+	
+	font-family: "Courier New", monospace;
+	font-size: 0.9rem;
+}
+
+strong, b {
+    color: #1e1f23;
+	font-weight: 800;
+}
+em, i {
+    font-style: italic;
+}
+sup {
+    font-size: 0.75rem;
+    position: relative;
+    top: -0.5rem;
+}
+sub {
+    font-size: 0.75rem;
+    position: relative;
+    top: 0.5rem;
+}
+p a{
+	color: #54a354;
+	text-decoration: underline;
+	font-family: iranyekan;
+	font-size: 16px;
+}
+
+/**** List ***/
+ol {
+	list-style: decimal;
+	margin: 0 0 2rem 0;
+	padding-left: 1.25rem;
+}
+
+
+
+
+
+/* Responisve */
+
+@media screen and (max-width: 1285px) {
+	#top-header{
+		display: none;
+	}
+}
+
+@media screen and (max-width: 965px) {
+	.sub-header-nav ul a
+	{
+		display: none;
+	}
+	.toggle-icon{
+		display: inline-block !important;
+	}
+	.sub-header-div.responsive-header{
+		display: block;
+	}
+	.sub-header-nav.responsive-nav ul a {
+		float: none;
+		display: block;
+		text-align: center;
+  }
+
+  .main-slider-img{
+	  display: none;
+  }
+
+  .main-slider-info{
+	  width: 100% !important;
+  }
+
+
+
+  .section-wrap{
+	  flex-flow: column;
+	  align-items: center;
+  }
+
+  .section-wrap > div{
+	  width: 100% !important;
+	  text-align: center;
+  }
+
+  .section-img img{
+	width: 100% !important;
+}
+  
+  .col-alt{
+	  order: 2;
+  }
+  .section-wrap > div.feature-box{
+	  max-width: 400px !important;
+	  margin: 10px auto;
+  }
+
+
+  .footer-wrap{
+	flex-flow: column;
+	align-items: center;
+  }
+
+  .footer-sec{
+	  width: 100% !important;
+	  text-align: center;
+	  margin: 20px 0px;
+  }
+
+  .footer-logo h2{
+	  text-align: center !important;
+  }
+
+  .footer-nav{
+	  display: block;
+	  width: 50% !important;
+	  margin: 0px auto;
+  }
+}
+
+@media screen and (max-width: 741px) {
+	#coin-cal-section > div{
+		margin-bottom: 20px;
+	}
+}
+
+@media screen and (max-width: 485px) {
+	.main-slider-info{
+
+	}
+
+	.main-slider-info div h2{
+		font-size: 85px !important;
+	}
+}
+
+
+
+
+
+
+
+
+
+/*** header start ***/
+#header{
+	width: 100%;
+}
+
+#top-header{
+	background: #2e3044;
+	width: 100%;
+}
+
+.top-head-wrap{
+	max-width: 1280px;
+	margin: 0px auto;
+	padding: 5px;
+	text-align: center;
+}
+
+.top-head-wrap ul{
+	list-style-type: none;
+}
+
+.top-head-wrap ul a li{
+	display: inline-block;
+	margin: 0px 25px;
+	
+	font-family: "roboto";
+	font-weight: 300;
+	font-size: 14px;
+/*	font-weight: 100;*/
+	color: rgba(255,255,255,0.85);
+	direction: ltr;
+}
+
+
+
+
+#sub-header{
+	width: 100%;
+}
+
+.sub-header-div{
+	max-width: 1280px;
+	margin: 0px auto;
+	padding: 5px;
+	text-align: center;
+	
+	display: flex;
+	flex-flow: row wrap;
+	align-items: baseline;
+	justify-content: space-around;
+}
+
+
+.sub-header-logo{
+}
+
+.sub-header-logo h2{
+	font-family: "kalameh";
+	font-style: normal;
+	font-weight: normal;
+/*	font-size: 36px;*/
+	color: var(--color-white);
+}
+
+
+.sub-header-nav{
+}
+
+.sub-header-nav ul{
+	list-style-type: none;
+	direction: rtl;
+}
+
+.sub-header-nav ul a li{
+	display: inline-block;
+	margin: 0px 5px;
+	padding: 5px 15px;
+	font-family: "iranyekan";
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	color: var(--color-white);
+
+	transition: all 0.2s;
+}
+
+.sub-header-nav ul a li:hover{
+	color: #3F3844;
+}
+
+.toggle-icon{
+	font-size: 22px;
+	color: var(--color-white);
+	padding: 5px 25px;
+	vertical-align: baseline;
+}
+.toggle-icon{
+	display: none;
+}
+
+.btn1{
+	background: var(--color-green2);
+	padding: 10px 15px;
+	border-radius: 5px;
+	
+	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.15);
+}
+
+
+
+.bg1{
+	width: 100%; height: auto;
+	padding: 0px 0px 120px 0px;
+	background: url(src/img/bg.jpg);
+	background-size: cover;
+	
+}
+/***** Main Section *****/
+
+#main-section{
+	width: 100%;
+}
+
+.main-slider{
+	max-width: 1280px;
+	margin: 0px auto;
+	
+/*
+	display: flex;
+	flex-flow: row wrap;
+	align-content: center;
+	justify-content: space-between;
+*/
+}
+
+.main-slider div{
+}
+
+
+.main-slider-img{
+	width: 45%;
+	float: right;
+}
+
+.main-slider-img img{
+	width: 100%;
+}
+
+
+.main-slider-info{
+	width: 50%;
+	float: left;
+	text-align: center;
+	padding: 0px 20px;
+	padding-top: 25px;
+}
+
+.main-slider-info div{
+	text-align: center;
+}
+
+.main-slider-info div h2{
+	font-family: "kalameh";
+	font-style: normal;
+	font-weight: 800;
+	font-size: 110px;
+	
+	color: var(--color-white);
+}
+
+.main-slider-info div span{
+	font-family: "iranyekan";
+	font-style: normal;
+	font-weight: 100;
+	font-size: 40px;
+	
+	color: var(--color-white);
+	
+	display: block;
+	margin-top: -50px;
+	margin-bottom: 20px;
+}
+
+.main-slider-info div p{
+	font-family: "iranyekan";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 22px;
+	
+	color: var(--color-white);
+}
+
+.main-slider-info div div{
+	margin-top: 20px;
+}
+
+.main-slider-info div div a{
+	background: var(--color-white);
+	display: inline-block;
+	padding: 10px 65px;
+	margin: 3px;
+	border-radius: 10px;
+	
+	font-family: "iranyekan";
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	
+	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.15);
+}
+
+.main-slider-info div div a.alt{
+	background: var(--color-green2);
+	color: var(--color-white);
+}
+
+
+
+
+
+
+/* Coin Section */
+#coin-cal-section{
+	background: rgba(255,255,255,1);
+	max-width: 960px; height: auto;
+	padding: 75px;
+	margin: 0px auto;
+	position: relative; top: -100px;
+	
+	display: flex;
+	flex-flow: row wrap;
+	align-items: baseline;
+	justify-content: space-around;
+	
+	border-radius: 25px;
+/*	box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.4);*/
+}
+
+#coin-cal-section div h3{
+	direction: rtl;
+	font-family: "iranyekan";
+    font-style: normal;
+    font-weight: normal;
+	text-align: center;
+	font-size: 16px;
+}
+
+.buy-coin > div{
+	display: block;
+	width: 100%;
+	padding: 20px;
+}
+
+
+.value{
+	margin-top: 30px;
+}
+
+.value form p{
+	direction: rtl;
+	font-family: "iranyekan";
+    font-style: normal;
+    font-weight: normal;
+	text-align: right;
+	font-size: 12px;
+	color: rgba(0,0,0,1);
+}
+
+
+.value form input{
+	width: 300px; height: 42px;
+	
+	border: none;
+	outline: none;
+	
+	border-bottom: 1px solid rgba(0,0,0,1);
+	padding: 5px;
+	
+	font-family: "roboto";
+	font-style: normal;
+	font-weight: bold;
+	font-size: 21px;
+	color: rgba(0,0,0,0.65);
+}
+
+/*
+.value form input::after{
+	content: "\e98a";
+	font-family: 'cryptofont';
+	font-weight: normal;
+	font-style: normal;
+	font-size: 22px;
+	vertical-align:bottom;
+	color:#92CEFE;
+}
+*/
+
+.value form div{
+	display: flex;
+	flex-flow: row wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	
+	margin-top: 7px;
+}
+
+.value form div span{
+	font-family: "roboto";
+	font-style: normal;
+	font-weight: 500;
+	font-size: 12px;
+	color: rgba(0,0,0,0.65);
+}
+
+
+
+.result{
+	
+}
+
+/* boxed Result */
+/*
+.result div{
+	padding: 35px 50px;
+	border-radius: 15px;
+	border: 2px solid rgba(0,0,0,0.08);
+	
+	box-shadow: 0px 0px 30px 20px rgba(0,0,0,0.08);
+}
+
+
+.result p:first-child{
+	direction: rtl;
+	font-family: "iranyekan";
+    font-style: normal;
+    font-weight: normal;
+	text-align: center;
+	font-size: 18px;
+}
+
+.result p:last-child{
+	direction: rtl;
+	font-family: "iranyekan";
+    font-style: normal;
+    font-weight: normal;
+	text-align: center;
+	font-size: 22px;
+}
+*/
+
+
+.result form p{
+	direction: rtl;
+	font-family: "iranyekan";
+    font-style: normal;
+    font-weight: normal;
+	text-align: right;
+	font-size: 12px;
+}
+
+.result form input{
+	width: 300px; height: 42px;
+	
+	border: none;
+	outline: none;
+	
+	border-bottom: 1px solid rgba(0,0,0,1);
+	
+	padding: 5px;
+	
+	font-family: "roboto";
+	font-style: normal;
+	font-weight: bold;
+	font-size: 21px;
+	color: rgba(0,0,0,0.55);
+	text-align: center;
+}
+
+
+.sell-coin > div{
+	display: block;
+	width: 100%;
+	padding: 20px;
+}
+
+
+.coin-select form div span{
+	font-family: "roboto";
+	font-style: normal;
+	font-weight: bold;
+	color: rgba(0,0,0,0.55);
+}
+
+.coin-select form div ul li{
+	font-family: "roboto";
+	font-style: normal;
+	font-weight: bold;
+	color: rgba(0,0,0,0.75);
+}
+
+.coin-select form div span::after , .coin form div ul li::after{
+	content: "\e98a";
+	font-family: 'cryptofont';
+	font-weight: normal;
+	font-style: normal;
+	font-size: 30px;
+	vertical-align:bottom;
+	color:#92CEFE;
+	float: right;
+	
+	margin-left: 10px;
+	
+}
+
+
+
+.section{
+	width: 100%;
+	margin: 0px auto; margin-bottom: 100px;
+}
+
+
+.section-wrap{
+	max-width: 1280px;
+	margin: 0px auto;
+	
+	display: flex;
+	flex-flow:row wrap;
+	align-items: flex-start;
+	justify-content: space-between;
+	
+}
+
+.section-img{
+	width: 50%;
+}
+
+.section-img img{
+	/* width: 100%; */
+}
+
+
+
+.section-txt{
+	width: 50%;
+	padding: 50px;
+}
+
+.section-txt h2{
+	font-family: "iranyekan";
+    font-style: normal;
+    font-weight: bold;
+	font-size: 18px;
+	text-align: right;
+	direction: rtl;
+	
+	margin-bottom: 20px;
+}
+
+.section-txt p{
+	font-family: "iranyekan";
+    font-style: normal;
+    font-weight: normal;
+	font-size: 16px;
+	text-align: right;
+	direction: rtl;
+}
+
+.section-txt span{
+	font-family: "iranyekan";
+    font-style: normal;
+    font-weight: normal;
+	font-size: 18px;
+	text-align: right;
+	direction: rtl;
+	
+	color: rgba(255,255,255,1);
+	
+	float: right;
+	margin-top: 50px;
+	padding: 20px 50px;
+}
+
+#feature{
+	width: 100%;
+	background: #f7f7f7;
+	padding: 75px 0px;
+}
+
+.feature-box{
+	width: 33%; height: auto;
+	padding: 50px; margin: 0px;
+	
+	border: 1px solid rgba(0,0,0,0.15);
+	border-radius: 25px;
+	
+	transition: all 0.3s;
+
+}
+
+.feature-box:hover{
+	box-shadow: 0px 0px 30px 10px rgba(0,0,0,0.08);
+}
+
+
+.feature-box div{
+	text-align: center;
+}
+
+.feature-box-des{
+	margin-bottom: 20px;
+}
+
+.feature-box span{
+	font-family: "iranyekan";
+    font-style: normal;
+    font-weight: normal;
+	font-size: 16px;
+	text-align: center;
+	direction: rtl;
+	color: rgba(255,255,255,1);
+	
+	display: block;
+	margin: 0px auto;
+	width: 150px;
+}
+
+
+
+
+/* Footer */
+#footer{
+	background: #111f40;
+	width: 100%;
+}
+
+.footer-wrap{
+	max-width: 1280px;
+	margin: 0px auto;
+	padding: 80px 0px;
+	
+	display: flex;
+	flex-flow: wrap row;
+	align-items: flex-start;
+	justify-content: space-between;
+	
+}
+
+.footer-sec{
+}
+
+
+.footer-info{
+	width: 30%;
+}
+
+.footer-logo h2{
+	font-family: "kalameh";
+	font-style: normal;
+	font-weight: normal;
+	font-size: 62px;
+	color: var(--color-white);
+	text-align: left;
+} 
+
+.footer-des p{
+	font-family: "iranyekan";
+    font-style: normal;
+    font-weight: normal;
+	font-size: 16px;
+	text-align: right;
+	direction: rtl;
+	color: rgba(255,255,255,1);
+}
+
+.footer-nav{
+	width: 50%;
+}
+
+.footer-nav ul{
+	display: inline-block;
+	margin: 0px 20px;
+	list-style: none;
+	
+	padding-top: 20px;
+	
+	border-top: 2px solid #4eaeff;
+}
+
+.footer-nav ul a li{
+	display: block;
+	padding: 5px 25px;
+	font-family: "iranyekan";
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	color: var(--color-white);
+}
+
+
+.footer-social{
+	width: 20%;
+}
+
+.social-buttons a svg{
+	color: #fefefe;
+	font-size: 34px;
+	margin: 0px 5px;
+}
+
+.social-buttons a i{
+	color: #fefefe;
+	font-size: 30px;
+	margin: 0px 5px;
+}
+
+.sub-header-logo img{
+}
+
+.sub-header-div{
+	align-items: center;
+}

@@ -21,8 +21,7 @@
 		<div id="sub-header">
 			<div class="sub-header-div">
 				<div class="sub-header-logo">
-					<!-- <h1><a href="{{ route('Public > Home') }}" style="color: white; font-weight: 100">Cryptiner</a></h1> -->
-					<img src="/assets/logo.png" alt="Cryptiner">
+					<a href="{{ route('Public > Home') }}"><img src="/assets/v3/src/img/toplogo.png" alt="Cryptiner"></a>
 				</div>
 				<div class="sub-header-nav" id="header-nav">
 					<ul>
@@ -59,7 +58,7 @@
 	<div id="main-section">
 		<div class="main-slider clearfix">
 			<div class="main-slider-img">
-				<img src="/assets/v1/src/img/1.png" alt="main illustrations">
+				<img src="/assets/v3/src/img/1.png" alt="Bitcoin">
 			</div>
 			<div class="main-slider-info">
 				<div>
@@ -197,7 +196,7 @@
 	<div id="about-us" class="section">
 		<div class="section-wrap">
 			<div class="section-img">
-				<img alt="illustration" src="/assets/v1/src/img/2.jpg" />
+				<img alt="illustration" src="/assets/v3/src/img/2.jpg" />
 			</div>
 			<div class="section-txt">
 				<h2>ما که هستیم؟</h2>
@@ -217,7 +216,7 @@
 				<a href="#"><span class="btn1">بیشتر بدانید</span></a>
 			</div>
 			<div class="section-img">
-				<img alt="illustration" src="/assets/v1/src/img/3.jpg" />
+				<img alt="illustration" src="/assets/v3/src/img/3.jpg" />
 			</div>
 		</div>
 	</div>
@@ -225,19 +224,19 @@
 	<div id="feature" class="section bg2">
 		<div class="section-wrap">
 			<div class="feature-box">
-				<div class="feature-box-img"><img alt="Crypto illustration" src="/assets/v1/src/img/i1.jpg" ></div>
+				<div class="feature-box-img"><img alt="Crypto illustration" src="/assets/v3/src/img/i1.jpg" ></div>
 				<div class="feature-box-title"><p>خرید و فروش</p></div>
 				<div class="feature-box-des"><p>بودن یا نبودن؟ مسأله این است! آیا شریفتر آنست که ضربات و لطمات روزگار نامساعد را متحمل شویم و یا آنکه سلاح نبرد بدست گرفته</p></div>
 				<a href="#"><span class="btn1">بیشتر بدانید</span></a>
 			</div>
 			<div class="feature-box">
-				<div class="feature-box-img"><img alt="Crypto illustration" src="/assets/v1/src/img/i2.jpg" ></div>
+				<div class="feature-box-img"><img alt="Crypto illustration" src="/assets/v3/src/img/i2.jpg" ></div>
 				<div class="feature-box-title"><p>خرید و فروش</p></div>
 				<div class="feature-box-des"><p>بودن یا نبودن؟ مسأله این است! آیا شریفتر آنست که ضربات و لطمات روزگار نامساعد را متحمل شویم و یا آنکه سلاح نبرد بدست گرفته</p></div>
 				<a href="#"><span class="btn1">بیشتر بدانید</span></a>
 			</div>
 			<div class="feature-box">
-				<div class="feature-box-img"><img alt="Crypto illustration" src="/assets/v1/src/img/i3.jpg" ></div>
+				<div class="feature-box-img"><img alt="Crypto illustration" src="/assets/v3/src/img/i3.jpg" ></div>
 				<div class="feature-box-title"><p>خرید و فروش</p></div>
 				<div class="feature-box-des"><p>بودن یا نبودن؟ مسأله این است! آیا شریفتر آنست که ضربات و لطمات روزگار نامساعد را متحمل شویم و یا آنکه سلاح نبرد بدست گرفته</p></div>
 				<a href="#"><span class="btn1">بیشتر بدانید</span></a>
@@ -251,7 +250,7 @@
 		<div class="footer-wrap">
 			<div class="footer-sec footer-info">
 				<div class="footer-logo">
-					<h2>Cryptiner</h2>
+					<a href="#"><img alt="footer logo" src="/assets/v3/src/img/toplogo.png" /></a>
 				</div>
 				<div class="footer-des">
 					<p>بودن یا نبودن؟ مسأله این است! آیا شریفتر آنست که ضربات و لطمات روزگار نامساعد را متحمل شویم و یا آنکه سلاح نبرد بدست گرفته</p>
