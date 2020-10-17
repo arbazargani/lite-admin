@@ -186,13 +186,13 @@
             </div>
             
             <div id="user-personal-passwords" class="user-left-box-tabs">
-                <form class="user-personal-passwords-form">
-                    <label for="user-name">پسورد جدید: </label>
-                    <input type="text" name="name" id="user-name">
+                <form class="user-personal-passwords-form" action="{{ route('password.update') }}" method="POST">
+                    <label for="password">پسورد جدید: </label>
+                    <input id="password" type="password" name="password" required autocomplete="false">
                     <br>
-                    <label for="user-mail">تکرار پسورد جدید: </label>
-                    <input type="text" name="email" id="user-mail">
-                    <a href="#" class="btn1">ذخیره</a>
+                    <label for="password-confirm">تکرار پسورد جدید: </label>
+                    <input id="password-confirm" type="password" name="password_confirmation" required autocomplete="false">
+                    <button class="btn1 btn" type="submit">بروزرسانی</button>
                 </form>
             </div>
             <!-- docs -->
