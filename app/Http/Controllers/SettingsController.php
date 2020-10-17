@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Settings;
+use App\User;
+use App\LogTrait;
+use Auth;
 use Illuminate\Http\Request;
 
 class SettingsController extends Controller
 {
+    use LogTrait;
     public function Show() {
         $settings = [
             'user_authorization_success_message' => Settings::where('name', 'user_authorization_success_message')->first(),
@@ -51,6 +55,8 @@ class SettingsController extends Controller
         Settings::where('name', 'public_btc_wallet')->update(['value' => $request['public_btc_wallet']]);
         Settings::where('name', 'public_usdt_wallet')->update(['value' => $request['public_usdt_wallet']]);
 
+        $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Updated the settings.';
+        $this->MakeLog(Auth::id(), $log);
         return back();
     }
 }
