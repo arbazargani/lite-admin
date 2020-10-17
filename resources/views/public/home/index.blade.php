@@ -93,7 +93,7 @@
 			<div class="value">
 				<form>
 					<p>شما دریافت می کنید:</p>
-					<input type="text" id="buy-amount" name="coin-value" placeholder="0.01" onkeyup="setTimeout(makeExchange('buy'), 1000)">
+					<input type="text" id="buy-amount" name="coin-value" placeholder="0.01" onkeyup="setTimeout(makeExchange('buy'), 1000)" autocomplete="off">
 					<div>
 						<span>{{ number_format($settings['dollar_price_buy']->value) }} Toman</span>
 						<span>USD</span>
@@ -123,7 +123,7 @@
 			<div class="value">
 				<form>
 					<p>شما پرداخت می کنید:</p>
-					<input type="text" id="sell-amount" name="coin-value" placeholder="0.01" onkeyup="makeExchange('sell')">
+					<input type="text" id="sell-amount" name="coin-value" placeholder="0.01" onkeyup="setTimeout(makeExchange('sell'), 1000)" autocomplete="off">
 					<div>
 						<span>{{ number_format($settings['dollar_price_sell']->value) }} Toman</span>
 						<span>USD</span>
