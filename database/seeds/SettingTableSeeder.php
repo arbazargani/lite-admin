@@ -14,7 +14,7 @@ class SettingTableSeeder extends Seeder
         // Setting: Price Counter
         DB::table('settings')->insert([
             'name' => 'price_calculation_method',
-            'value' => 'auto',
+            'value' => 'custom',
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -86,7 +86,7 @@ class SettingTableSeeder extends Seeder
         // Setting: Close time
         DB::table('settings')->insert([
             'name' => 'application_close_time',
-            'value' => '00:00',
+            'value' => '23:59',
             'created_at' => now(),
             'updated_at' => now(),
         ]);

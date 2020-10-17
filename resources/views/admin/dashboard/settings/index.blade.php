@@ -100,6 +100,22 @@
                                 <label>ولت USDT:</label>
                                 <input type="text" name="public_usdt_wallet" id="" value="{{ $settings['public_usdt_wallet']->value }}">
 
+                                <div style="background: #ffd7d7; border: 1px solid lightcoral; padding: 2%; margin: 2% 0">
+                                    <p>بدون تایید پشتیبان سامانه این موارد را تغییر ندهید.</p>
+                                    <label>متا title:</label>
+                                    <input type="text" name="application_index_meta_title" id="" value="{{ $settings['application_index_meta_title']->value }}">
+
+                                    <label>متا description:</label>
+                                    <input type="text" name="application_index_meta_description" id="" value="{{ $settings['application_index_meta_description']->value }}">
+
+                                    <label>متا keyword:</label>
+                                    <input type="text" name="application_index_meta_keyword" id="" value="{{ $settings['application_index_meta_keyword']->value }}">
+
+                                    <label>متا robots:</label>
+                                    <input type="text" name="application_index_meta_robots" id="" value="{{ $settings['application_index_meta_robots']->value }}">
+
+                                </div>
+
                                 <input type="submit" class="btn1" value="ذخیره">
                             </form>
                         </div>

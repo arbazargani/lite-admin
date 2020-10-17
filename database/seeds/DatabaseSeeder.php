@@ -14,5 +14,6 @@ class DatabaseSeeder extends Seeder
         $this->call(UserTableSeeder::class);
         $this->call(SettingTableSeeder::class);
         $this->call(CoinTableSeeder::class);
+        $this->call(SeoSettingSeeder::class);
     }
 }
