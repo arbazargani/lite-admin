@@ -4,16 +4,39 @@
 	<div class="bg1">
 	<!-- Header Start -->
 	<div id="header">
-		<div id="top-header" style="display: none">
+		<div id="top-header">
 			<div class="top-head-wrap">
-				<ul>
+			<style>
+				#coinset li img {
+					width: 16px;
+					vertical-align: middle;
+				}
+				#coinset li {
+					font-family: 'kalameh';
+					font-size: 18px;
+				}
+			</style>
+				<ul id='coinset'>
 					<a href="#">
-						<li>BTC/USD 9046.12 $</li>
-						<li>ETH/USD 906.02 $</li>
-						<li>LTC/USD 9046.12 $</li>
-						<li>BCH/USD 2501.12 $</li>
-						<li>BTC/USD 9046.12 $</li>
-						<li>ETH/USD 110.12 $</li>
+						<li>
+						<img src="https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@40582f23f7b512ac9ca70060ee078843a2823a6c/svg/color/btc.svg" alt="bitcoin">
+						BTC/USD @if (Cache::has("BTCUSDT-usd-price")) {{ round(Cache::get("BTCUSDT-usd-price")->price) }} @else {{ '--' }} @endif $</li>
+
+						<li>
+						<img src="https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@40582f23f7b512ac9ca70060ee078843a2823a6c/svg/color/eth.svg" alt="etherum">
+						ETH/USD @if (Cache::has("ETHUSDT-usd-price")) {{ round(Cache::get("ETHUSDT-usd-price")->price) }} @else {{ '--' }} @endif $</li>
+
+						<li>
+						<img src="https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@40582f23f7b512ac9ca70060ee078843a2823a6c/svg/color/ltc.svg" alt="litecoin">
+						LTC/USD @if (Cache::has("LTCUSDT-usd-price")) {{ round(Cache::get("LTCUSDT-usd-price")->price) }} @else {{ '--' }} @endif $</li>
+						
+						<li>
+						<img src="https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@40582f23f7b512ac9ca70060ee078843a2823a6c/svg/color/zec.svg" alt="zcash">
+						ZEC/USD @if (Cache::has("ZECUSDT-usd-price")) {{ round(Cache::get("ZECUSDT-usd-price")->price) }} @else {{ '--' }} @endif $</li>
+						
+						<li>
+						<img src="https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@40582f23f7b512ac9ca70060ee078843a2823a6c/svg/color/usdt.svg" alt="tether">
+						USDT/USD @if (Cache::has("BUSDUSDT-usd-price")) {{ round(Cache::get("BUSDUSDT-usd-price")->price) }} @else {{ '--' }} @endif $</li>
 					</a>
 				</ul>
 			</div>
@@ -158,7 +181,10 @@
 		}
         function makeExchange(type) {
 			
-            if (document.getElementById(type+"-amount").value == "" || DotEnd(type) || !isNumber(document.getElementById(type+"-amount").value)) {
+            if (document.getElementById(type+"-amount").value == "" || DotEnd(type) == true || !isNumber(document.getElementById(type+"-amount").value)) {
+				if (document.getElementById(type+"-tomans-loader").style.display !== null) {
+					document.getElementById(type+"-tomans-loader").style.display = "none";
+				}
                 return;
 			}
 			
