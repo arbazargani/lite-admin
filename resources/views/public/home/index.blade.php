@@ -178,7 +178,7 @@
 
                         console.log('done: ' + response.ok + ':' + response.dollars + ':' + response.tomans);
                     } else {
-                        document.getElementById(type+"-tomans").innerHTML = '<code>' + response.error + '<br/>[contact system administrator.]</code>';
+                        // document.getElementById(type+"-tomans").innerHTML = '<code>' + response.error + '<br/>[contact system administrator.]</code>';
                     }
                 }
 			};
