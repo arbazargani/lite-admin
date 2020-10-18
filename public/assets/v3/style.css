@@ -22,6 +22,9 @@
 	box-sizing: border-box;
 	vertical-align: baseline;
 }
+::placeholder {
+	color: rgba(0, 0, 0, 0.15);
+}
 a{
 	text-decoration: none;
 	color: #000;
@@ -912,6 +915,10 @@ ol {
 	text-align: left;
 } 
 
+.footer-logo {
+	text-align: center;
+	margin-bottom: 5px;
+}
 .footer-des p{
 	font-family: "iranyekan";
     font-style: normal;
@@ -922,15 +929,27 @@ ol {
 	color: rgba(255,255,255,1);
 }
 
+.footer-des p.des{
+	font-family: "iranyekan";
+    font-style: normal;
+    font-weight: normal;
+	font-size: 15px;
+	line-height: 20px;
+	text-align: justify;
+	direction: rtl;
+	color: rgba(255,255,255,1);
+}
+
 .footer-nav{
 	width: 50%;
+	direction: rtl;
 }
 
 .footer-nav ul{
 	display: inline-block;
 	margin: 0px 20px;
 	list-style: none;
-	
+	width: 40%;
 	padding-top: 20px;
 	
 	border-top: 2px solid #4eaeff;
@@ -944,6 +963,8 @@ ol {
 	font-weight: normal;
 	font-size: 16px;
 	color: var(--color-white);
+	direction: rtl;
+	text-align: right;
 }
 
 

@@ -54,7 +54,7 @@
 						<a href="https://shop.cryptiner.com">
 							<li>فروشگاه</li>
 						</a>
-						<a href="#">
+						<a href="http://shop.cryptiner.com/product-category/%d9%85%d8%ad%d8%b5%d9%88%d9%84%d8%a7%d8%aa/%d9%85%d8%ad%d8%aa%d9%88%d8%a7%db%8c-%d8%a2%d9%85%d9%88%d8%b2%d8%b4%db%8c/">
 							<li>آکادمی</li>
 						</a>
 						<a href="#">
@@ -66,7 +66,7 @@
 						<a href="https://blog.cryptiner.com/%d8%aa%d9%85%d8%a7%d8%b3-%d8%a8%d8%a7-%d9%85%d8%a7/">
 							<li>تماس با ما</li>
 						</a>
-						<a href="#">
+						<a href="http://shop.cryptiner.com/product-category/%d9%85%d8%ad%d8%b5%d9%88%d9%84%d8%a7%d8%aa/%da%a9%d8%a7%d9%86%d8%a7%d9%84-%d9%87%d8%a7%db%8c-%d8%aa%d8%b1%db%8c%d8%af-%d9%88%db%8c%da%98%d9%87/">
 							<li>کانال‌های سیگنال</li>
 						</a>
 						<a href="javascript:void(0);" class="toggle-icon" onclick="nav_toggle()">
@@ -226,7 +226,8 @@
 			</div>
 			<div class="section-txt">
 				<h2>ما که هستیم؟</h2>
-				<p>بودن یا نبودن؟ مسأله این است! آیا شریفتر آنست که ضربات و لطمات روزگار نامساعد را متحمل شویم و یا آنکه سلاح نبرد بدست گرفته با انبوده مشکلات بجنگیم تا آن ناگواریها را از میان برداریم؟ مردن ... خفتن ... همین وبس؟ اگر خواب مرگ دردهای قلب ما و هزاران آلام دیگر را که طبیعت برجسم ما مستولی می‌کند پایان بخشد، غایتی است که بایستی البته البته آرزومند آن بود. مردن ... خفتن ... خفتن، و شاید خواب دیدن. آه، مانع همین جاست. در آن زمان که این کالبد خاکی را بدور انداخته باشیم، در آن خواب مرگ،‌شاید رویاهای ناگواری ببینیم! ترس از همین رویاهاست که ما را به تأمل وامیدارد و همین گونه ملاحظات است که عمر مصیبت و سختی را اینقدر طولانی می‌کند.
+				<p>
+				کریپتاینر به عنوان یکی از پر سابقه ترین های حوضه ی ارز های دیجیتال با بیش از یک ۵ سال تجربه، انواع امکانات و موارد مورد نیاز در اینکار را در اختیار شما می گذارد و شما به راحتی می توانید قدم به دنیای ارز های دیجیتال بگذارید و با استفاده از ربات های اتوتریدر و کانال های سیگنال و اکادمی اموزشی ما می توانید به راحتی به دنیای زیبای ارز های دیجیتال بپیوندید.
 				</p>
 				<a href="#"><span class="btn1">بیشتر بدانید</span></a>
 			</div>
@@ -236,8 +237,11 @@
 	<div id="why-us" class="section">
 		<div class="section-wrap">
 			<div class="section-txt col-alt">
-				<h2>چرا ما را انتخاب کنید؟</h2>
-				<p>بودن یا نبودن؟ مسأله این است! آیا شریفتر آنست که ضربات و لطمات روزگار نامساعد را متحمل شویم و یا آنکه سلاح نبرد بدست گرفته با انبوده مشکلات بجنگیم تا آن ناگواریها را از میان برداریم؟ مردن ... خفتن ... همین وبس؟ اگر خواب مرگ دردهای قلب ما و هزاران آلام دیگر را که طبیعت برجسم ما مستولی می‌کند پایان بخشد، غایتی است که بایستی البته البته آرزومند آن بود. مردن ... خفتن ... خفتن، و شاید خواب دیدن. آه، مانع همین جاست. در آن زمان که این کالبد خاکی را بدور انداخته باشیم، در آن خواب مرگ،‌شاید رویاهای ناگواری ببینیم! ترس از همین رویاهاست که ما را به تأمل وامیدارد و همین گونه ملاحظات است که عمر مصیبت و سختی را اینقدر طولانی می‌کند.
+				<h2>شرایط استفاده</h2>
+				<p>
+				کریپتاینر از ارائه خدمات به اشخاص با هویت پنهان معذور است.
+    خدمات وب سایت کریپتاینر مستقل از هر گروه و سازمان می باشد و تابع قوانین جمهوری اسلامی ایران می باشد و از هر گونه خدمات به وب سایت های شرطبندی خودداری می نماید.
+    خرید و یا فروش به وب سایت بین 24 الی 72 ساعت به آدرس کیف پول شما و یا حساب ریالی شما ارسال میگردد اما قیمت و مقدار آن قطعی میباشد ...
 				</p>
 				<a href="#"><span class="btn1">بیشتر بدانید</span></a>
 			</div>
@@ -251,21 +255,21 @@
 		<div class="section-wrap">
 			<div class="feature-box">
 				<div class="feature-box-img"><img alt="Crypto illustration" src="/assets/v3/src/img/i1.jpg" ></div>
-				<div class="feature-box-title"><p>خرید و فروش</p></div>
-				<div class="feature-box-des"><p>بودن یا نبودن؟ مسأله این است! آیا شریفتر آنست که ضربات و لطمات روزگار نامساعد را متحمل شویم و یا آنکه سلاح نبرد بدست گرفته</p></div>
-				<a href="#"><span class="btn1">بیشتر بدانید</span></a>
-			</div>
-			<div class="feature-box">
-				<div class="feature-box-img"><img alt="Crypto illustration" src="/assets/v3/src/img/i2.jpg" ></div>
-				<div class="feature-box-title"><p>خرید و فروش</p></div>
-				<div class="feature-box-des"><p>بودن یا نبودن؟ مسأله این است! آیا شریفتر آنست که ضربات و لطمات روزگار نامساعد را متحمل شویم و یا آنکه سلاح نبرد بدست گرفته</p></div>
-				<a href="#"><span class="btn1">بیشتر بدانید</span></a>
+				<div class="feature-box-title"><p>آکادمی آموزش</p></div>
+				<div class="feature-box-des"><p>برای دیدن بیشتر و ثبت‌نام در کلاس‌های آموزشی از این بخش استفاده نمایید</p></div>
+				<a href="http://shop.cryptiner.com/product-category/%d9%85%d8%ad%d8%b5%d9%88%d9%84%d8%a7%d8%aa/%d9%85%d8%ad%d8%aa%d9%88%d8%a7%db%8c-%d8%a2%d9%85%d9%88%d8%b2%d8%b4%db%8c/"><span class="btn1">ورود به آکادمی</span></a>
 			</div>
 			<div class="feature-box">
 				<div class="feature-box-img"><img alt="Crypto illustration" src="/assets/v3/src/img/i3.jpg" ></div>
-				<div class="feature-box-title"><p>خرید و فروش</p></div>
-				<div class="feature-box-des"><p>بودن یا نبودن؟ مسأله این است! آیا شریفتر آنست که ضربات و لطمات روزگار نامساعد را متحمل شویم و یا آنکه سلاح نبرد بدست گرفته</p></div>
-				<a href="#"><span class="btn1">بیشتر بدانید</span></a>
+				<div class="feature-box-title"><p>کانال‌های سیگنال</p></div>
+				<div class="feature-box-des"><p>برای دریافت اشتراک VIP کانال سیگنال به لینک زیر مراجعه نمایید.</p></div>
+				<a href="http://shop.cryptiner.com/product-category/%d9%85%d8%ad%d8%b5%d9%88%d9%84%d8%a7%d8%aa/%da%a9%d8%a7%d9%86%d8%a7%d9%84-%d9%87%d8%a7%db%8c-%d8%aa%d8%b1%db%8c%d8%af-%d9%88%db%8c%da%98%d9%87/"><span class="btn1">دریافت اشتراک</span></a>
+			</div>
+			<div class="feature-box">
+				<div class="feature-box-img"><img alt="Crypto illustration" src="/assets/v3/src/img/i2.jpg" ></div>
+				<div class="feature-box-title"><p>ربات‌های اتوتریدر</p></div>
+				<div class="feature-box-des"><p>برای خرید ربات‌های اتوتریدر به بخش زیر مراجعه نمایید.</p></div>
+				<a href="http://shop.cryptiner.com/product-category/%d9%85%d8%ad%d8%b5%d9%88%d9%84%d8%a7%d8%aa/%d8%b1%d8%a8%d8%a7%d8%aa-%d9%87%d8%a7/"><span class="btn1">دریافت ربات</span></a>
 			</div>
 		</div>
 	</div>
@@ -274,46 +278,42 @@
 	
 	<div id="footer">
 		<div class="footer-wrap">
+			<div class="footer-sec footer-social">
+				<div class="social-buttons">
+					<a href="https://www.instagram.com/cryptiner_exchange"><i class="fab fa-instagram"></i></a>
+					<a href="https://t.me/cryptiner"><i class="fab fa-telegram-plane"></i></a>
+					<a href="https://www.youtube.com/channel/UCtxDPgWkv7c-Y0F4V-lUiwg"><i class="fab fa-youtube"></i></a>
+					<a href="https://wa.me/989395789200/"><i class="fab fa-whatsapp"></i></a>
+					<a href="https://wa.me/989395789200/"><img src="/assets/v3/src/img/aparat.png" style="width: 12%; vertical-align: middle; margin-bottom: 10px; filter: brightness(0) invert(1);"></a>
+					<a href="http://shop.cryptiner.com"><i class="fas fa-shopping-bag"></i></a>
+				</div>
+			</div>
+			<div class="footer-sec footer-nav">
+				<ul>
+					<a href="@if(Auth::check()) {{ (\App\User::find(Auth::id())->rule == 'user') ? route('User > Panel') : route('Admin > Dashboard') }} @else {{ route('login') }} @endif"><li>پنل کاربری</li></a>
+					<!-- <a href="#"><li>قیمت لحظه ای</li></a> -->
+					<a href="#"><li>سوالات متداول</li></a>
+					<a href="https://blog.cryptiner.com"><li>بلاگ</li></a>
+					<!-- <a href="#"><li>درباره ما</li></a>
+					<a href="#"><li>تماس با ما</li></a> -->
+				</ul>
+				<ul>
+					<a href="tel:02122623284"><li>شماره تماس: 22623284</li></a>
+					<a href="tel:+989395789200"><li>شماره همراه:‌ 09395789200</li></a>
+					<a><li>info@cryptiner.com</li></a>
+					<!-- <a href="#"><li>بلاگ</li></a>
+					<a href="#"><li>درباره ما</li></a>
+					<a href="#"><li>تماس با ما</li></a> -->
+				</ul>
+			</div>
 			<div class="footer-sec footer-info">
 				<div class="footer-logo">
 					<a href="#"><img alt="footer logo" src="/assets/v3/src/img/toplogo.png" /></a>
 				</div>
 				<div class="footer-des">
-					<p>بودن یا نبودن؟ مسأله این است! آیا شریفتر آنست که ضربات و لطمات روزگار نامساعد را متحمل شویم و یا آنکه سلاح نبرد بدست گرفته</p>
-				</div>
-			</div>
-			<div class="footer-sec footer-nav">
-				<ul>
-					<a href="#"><li>پنل کاربری</li></a>
-					<a href="#"><li>قیمت لحظه ای</li></a>
-					<a href="#"><li>سوالات متداول</li></a>
-					<a href="#"><li>بلاگ</li></a>
-					<a href="#"><li>درباره ما</li></a>
-					<a href="#"><li>تماس با ما</li></a>
-				</ul>
-				<ul>
-					<a href="#"><li>پنل کاربری</li></a>
-					<a href="#"><li>قیمت لحظه ای</li></a>
-					<a href="#"><li>سوالات متداول</li></a>
-					<a href="#"><li>بلاگ</li></a>
-					<a href="#"><li>درباره ما</li></a>
-					<a href="#"><li>تماس با ما</li></a>
-				</ul>
-				<ul>
-					<a href="#"><li>پنل کاربری</li></a>
-					<a href="#"><li>قیمت لحظه ای</li></a>
-					<a href="#"><li>سوالات متداول</li></a>
-					<a href="#"><li>بلاگ</li></a>
-					<a href="#"><li>درباره ما</li></a>
-					<a href="#"><li>تماس با ما</li></a>
-				</ul>
-			</div>
-			<div class="footer-sec footer-social">
-				<div class="social-buttons">
-					<a href=""><i class="fab fa-instagram"></i></a>
-					<a href=""><i class="fab fa-twitter"></i></a>
-					<a href=""><i class="fab fa-telegram-plane"></i></a>
-					<a href=""><i class="fab fa-whatsapp"></i></a>
+					<p class="des">
+					کریپتاینر به عنوان یکی از پر سابقه ترین های حوضه ی ارز های دیجیتال با بیش از یک ۵ سال تجربه، انواع امکانات و موارد مورد نیاز در اینکار را در اختیار شما می گذارد و شما به راحتی می توانید قدم به دنیای ارز های دیجیتال بگذارید و با استفاده از ربات های اتوتریدر و کانال های سیگنال و اکادمی اموزشی ما می توانید به راحتی به دنیای زیبای ارز های دیجیتال بپیوندید.
+					</p>
 				</div>
 			</div>
 		</div>

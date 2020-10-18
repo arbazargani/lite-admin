@@ -32,12 +32,12 @@
                     <p>فروش ها</p>
                 </li>
             </a>
-            <a href="#">
+            <!-- <a href="#">
                 <li>
                     <i class="fal fa-balance-scale"></i>
                     <p>اکسچنج</p>
                 </li>
-            </a>
+            </a> -->
             <a href="{{ route('Admin > Settings > Show') }}">
                 <li>
                     <i class="fal fa-cogs"></i>
