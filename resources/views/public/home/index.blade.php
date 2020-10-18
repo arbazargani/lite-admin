@@ -57,8 +57,8 @@
 						<a href="#">
 							<li>آکادمی</li>
 						</a>
-						<a href="https://blog.cryptiner.com/%d8%b3%d9%88%d8%a7%d9%84%d8%a7%d8%aa-%d9%85%d8%aa%d8%af%d8%a7%d9%88%d9%84/">
-							<li>سوالات متداول</li>
+						<a href="#">
+							<li>مانیتورینگ</li>
 						</a>
 						<a href="https://blog.cryptiner.com/">
 							<li>بلاگ</li>
@@ -66,8 +66,8 @@
 						<a href="https://blog.cryptiner.com/%d8%aa%d9%85%d8%a7%d8%b3-%d8%a8%d8%a7-%d9%85%d8%a7/">
 							<li>تماس با ما</li>
 						</a>
-						<a href="https://blog.cryptiner.com/%d9%82%d9%88%d8%a7%d9%86%db%8c%d9%86-%d9%88-%d9%85%d9%82%d8%b1%d8%b1%d8%a7%d8%aa/">
-							<li>قوانین و مقررات</li>
+						<a href="#">
+							<li>کانال‌های سیگنال</li>
 						</a>
 						<a href="javascript:void(0);" class="toggle-icon" onclick="nav_toggle()">
 							<i class="fa fa-bars"></i>
