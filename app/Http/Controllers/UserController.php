@@ -58,9 +58,9 @@ class UserController extends Controller
 
             $request->validate([
                 'birth_certificate' => 'required|mimes:jpg,jpeg,png|max:1024',
-                'person_birth_certificate' => 'required|mimes:jpg,jpeg,png|max:1024',
+                // 'person_birth_certificate' => 'required|mimes:jpg,jpeg,png|max:1024',
                 'national_card' => 'required|mimes:jpg,jpeg,png|max:1024',
-                'person_national_card' => 'required|mimes:jpg,jpeg,png|max:1024',
+                // 'person_national_card' => 'required|mimes:jpg,jpeg,png|max:1024',
                 'phone_number' => 'required|digits:11',
                 'home_number' => 'required|min:8',
                 'national_code' => 'required|digits:10',
@@ -109,10 +109,10 @@ class UserController extends Controller
             **/
 
             $user->national_card = $this->StorePublicFile($request, 'national_card' );
-            $user->person_national_card = $this->StorePublicFile($request, 'person_national_card' );
+            // $user->person_national_card = $this->StorePublicFile($request, 'person_national_card' );
 
             $user->birth_certificate = $this->StorePublicFile($request, 'birth_certificate' );
-            $user->person_birth_certificate = $this->StorePublicFile($request, 'person_birth_certificate' );
+            // $user->person_birth_certificate = $this->StorePublicFile($request, 'person_birth_certificate' );
 
             $user->status = 'waiting';
             $user->phone_number = $request['phone_number'];

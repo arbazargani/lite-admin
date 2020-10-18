@@ -59,4 +59,5 @@
         </ul>
     </div>
 </div>
+<div class="sidebar-overlay"></div>
 {{-- Sidebar Ends --}}

@@ -74,7 +74,7 @@
                         @foreach($receipts as $receipt)
                             <tr>
                                 <td>{{ $receipt->id }}</td>
-                                <td>
+                                <td class="table-cell-cw">
                                      <div class="order-table-user">
                                         <div><p><span></span>{{ $receipt->description }}</p></div>
                                         <div><p><span>تاریخ ایجاد: {{ Facades\Verta::instance($receipt->created_at) }}</span></p></div> 
@@ -143,7 +143,7 @@
                         @foreach($transactions as $transaction)
                             <tr>
                                 <td>{{ $transaction->id }}</td>
-                                <td>
+                                <td class="table-cell-cw">
                                      <div class="order-table-user">
                                         <div><p><span></span>{{ $transaction->description }}</p></div>
                                         <div><p><span>تاریخ ایجاد: {{ Facades\Verta::instance($transaction->created_at) }}</span></p></div> 

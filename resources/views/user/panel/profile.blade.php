@@ -5,7 +5,7 @@
 
     <div class="user-edit-wrap">
 
-        <div class="user-right-box">
+        <div class="user-right-box dash-box">
             <div class="user-info-pic">
                 <img src="https://i1.sndcdn.com/avatars-000289622160-xnbwqi-t500x500.jpg" alt="User Image">
             </div>

@@ -130,7 +130,7 @@ class AdminController extends Controller
     {
         $user = User::find($id);
 
-        if ($this->NotEmpty([$user->national_card, $user->person_national_card, $user->birth_certificate, $user->person_birth_certificate])) {
+        if ($this->NotEmpty([$user->national_card, $user->birth_certificate])) {
             $user->where('id', $id)->update(['status' => 'verified']);
             $message = 'کاربر با موفقیت تایید شد.';
             session(['status' => 'accepted', 'message' => $message]);
@@ -245,7 +245,8 @@ class AdminController extends Controller
     }
 
     public function UnicastMessage(Request $request, $id) {
-        $this->MakeAlert($id, $request['content'], 'danger');
+        $this->MakeAlert($id, $request['content'], 'info');
+        return back();
     }
 
     public function BroadcastMessage(Request $request, $id) {

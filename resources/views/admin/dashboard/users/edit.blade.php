@@ -5,7 +5,7 @@
 
     <div class="user-edit-wrap">
 
-        <div class="user-right-box">
+        <div class="user-right-box dash-box">
             <div class="user-info-pic">
                 <img src="https://i1.sndcdn.com/avatars-000289622160-xnbwqi-t500x500.jpg" alt="User Image">
             </div>
@@ -102,21 +102,11 @@
                         <img src="{{ ($user->birth_certificate) != NULL ? '/storage/uploads/certifications/' . $user->birth_certificate : '!' }}" alt="">
                         <a {{ ($user->birth_certificate) != NULL ? 'href=/storage/uploads/certifications/' . $user->birth_certificate : '' }} download><i class="fa fa-cloud-download" aria-hidden="true"></i></a>
                     </div>
-                    <div class="national-card-doc">
-                        <h4>تصویر سلفی کارت ملی</h4>
-                        <img src="{{ ($user->person_national_card) != NULL ? '/storage/uploads/certifications/' . $user->person_national_card : '!' }}" alt="">
-                        <a {{ ($user->person_national_card) != NULL ? 'href=/storage/uploads/certifications/' . $user->person_national_card : '' }} download><i class="fa fa-cloud-download" aria-hidden="true"></i></a>
-                    </div>
-                    <div class="national-card-doc">
-                        <h4>تصویر سلفی شناسنامه</h4>
-                        <img src="{{ ($user->person_birth_certificate) != NULL ? '/storage/uploads/certifications/' . $user->person_birth_certificate : '!' }}" alt="">
-                        <a {{ ($user->person_birth_certificate) != NULL ? 'href=/storage/uploads/certifications/' . $user->person_birth_certificate : '' }} download><i class="fa fa-cloud-download" aria-hidden="true"></i></a>
-                    </div>
                 </div>
             </div>
 
             <div id="user-personal-transactions" class="user-left-box-tabs">
-                <div class="table-wrap">
+                <div class="table-wrapper">
                     @if(count($latest_transactions) > 0)
                         <table>
                             <thead>
