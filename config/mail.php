@@ -36,11 +36,11 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-            'port' => env('MAIL_PORT', 587),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            'host' => env('MAIL_HOST', 'mail.cryptiner.com'),
+            'port' => env('MAIL_PORT', 25),
+            'encryption' => env('MAIL_ENCRYPTION'),
+            'username' => env('MAIL_USERNAME', 'operator@cryptiner.com'),
+            'password' => env('MAIL_PASSWORD', 'operator@cryptiner.com'),
             'timeout' => null,
             'auth_mode' => null,
         ],
