@@ -12,7 +12,7 @@
 					vertical-align: middle;
 				}
 				#coinset li {
-					font-family: 'kalameh';
+					/* font-family: 'kalameh'; */
 					font-size: 18px;
 				}
 			</style>
