@@ -7,6 +7,7 @@ use OneAPI\Laravel\API\Crypto;
 use OneAPI\Laravel\API\Currency;
 
 use App\Settings;
+use App\Coin;
 
 class PublicController extends Controller
 {
@@ -21,6 +22,8 @@ class PublicController extends Controller
             'application_index_meta_robots' => Settings::where('name', 'application_index_meta_robots')->first(),
         ];
 
-        return view('public.home.index', compact(['settings']));
+        $coins = Coin::select(['name', 'usd_price'])->get();
+
+        return view('public.home.index', compact(['settings', 'coins']));
     }
 }

@@ -34,5 +34,21 @@ class CoinTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        // Coin: Zecash
+        DB::table('coins')->insert([
+            'name' => 'Zecash',
+            'slug' => 'ZECUSDT',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Coin: Tether
+        DB::table('coins')->insert([
+            'name' => 'Tether',
+            'slug' => 'BUSDUSDT',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }

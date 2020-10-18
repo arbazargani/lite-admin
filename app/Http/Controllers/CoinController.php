@@ -63,7 +63,7 @@ class CoinController extends Controller
             $response = (Cache::has("ETHUSDT-usd-price")) ? Cache::get("ETHUSDT-usd-price") : $this->binance('ETHUSDT');
             // $response = $this->binance('ETHUSDT');
 
-        } elseif ($currency == 'zcash') {
+        } elseif ($currency == 'zecash') {
 
             $response = (Cache::has("ZECUSDT-usd-price")) ? Cache::get("ZECUSDT-usd-price") : $this->binance('ZECUSDT');
             // $response = $this->binance('ZECUSD');
@@ -299,7 +299,7 @@ class CoinController extends Controller
         }
     }
 
-    protected function UpdateRepository() {
+    public function UpdateRepository() {
         $coins = Coin::all();
         foreach ($coins as $coin) {
         $name = $coin->name;

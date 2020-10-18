@@ -19,24 +19,24 @@
 				<ul id='coinset'>
 					<a href="#">
 						<li>
-						<img src="https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@40582f23f7b512ac9ca70060ee078843a2823a6c/svg/color/btc.svg" alt="bitcoin">
-						BTC/USD @if (Cache::has("BTCUSDT-usd-price")) {{ round(Cache::get("BTCUSDT-usd-price")->price) }} @else {{ '--' }} @endif $</li>
+						<img src="/assets/v3/src/icon/btc.svg" alt="bitcoin">
+						BTC/USD {{ $coins->where('name', 'Bitcoin')->first()->usd_price }} $</li>
 
 						<li>
-						<img src="https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@40582f23f7b512ac9ca70060ee078843a2823a6c/svg/color/eth.svg" alt="etherum">
-						ETH/USD @if (Cache::has("ETHUSDT-usd-price")) {{ round(Cache::get("ETHUSDT-usd-price")->price) }} @else {{ '--' }} @endif $</li>
+						<img src="/assets/v3/src/icon/eth.svg" alt="ethereum">
+						ETH/USD {{ $coins->where('name', 'Ethereum')->first()->usd_price }} $</li>
 
 						<li>
-						<img src="https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@40582f23f7b512ac9ca70060ee078843a2823a6c/svg/color/ltc.svg" alt="litecoin">
-						LTC/USD @if (Cache::has("LTCUSDT-usd-price")) {{ round(Cache::get("LTCUSDT-usd-price")->price) }} @else {{ '--' }} @endif $</li>
+						<img src="/assets/v3/src/icon/ltc.svg" alt="litecoin">
+						LTC/USD {{ $coins->where('name', 'Litecoin')->first()->usd_price }} $</li>
 						
 						<li>
-						<img src="https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@40582f23f7b512ac9ca70060ee078843a2823a6c/svg/color/zec.svg" alt="zcash">
-						ZEC/USD @if (Cache::has("ZECUSDT-usd-price")) {{ round(Cache::get("ZECUSDT-usd-price")->price) }} @else {{ '--' }} @endif $</li>
+						<img src="/assets/v3/src/icon/zec.svg" alt="zecash">
+						ZEC/USD {{ $coins->where('name', 'Zecash')->first()->usd_price }} $</li>
 						
 						<li>
-						<img src="https://cdn.jsdelivr.net/gh/atomiclabs/cryptocurrency-icons@40582f23f7b512ac9ca70060ee078843a2823a6c/svg/color/usdt.svg" alt="tether">
-						USDT/USD @if (Cache::has("BUSDUSDT-usd-price")) {{ round(Cache::get("BUSDUSDT-usd-price")->price) }} @else {{ '--' }} @endif $</li>
+						<img src="/assets/v3/src/icon/usdt.svg" alt="tether">
+						USDT/USD {{ $coins->where('name', 'Tether')->first()->usd_price }} $</li>
 					</a>
 				</ul>
 			</div>
@@ -48,7 +48,7 @@
 				</div>
 				<div class="sub-header-nav" id="header-nav">
 					<ul>
-						<a href="{{ route('User > Panel') }}" class="btn1">
+						<a href="@if(Auth::check()) {{ (\App\User::find(Auth::id())->rule == 'user') ? route('User > Panel') : route('Admin > Dashboard') }} @else {{ route('login') }} @endif" class="btn1">
 							<li>پنل کاربری</li>
 						</a>
 						<a href="https://shop.cryptiner.com">
