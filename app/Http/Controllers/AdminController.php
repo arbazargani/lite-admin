@@ -9,7 +9,7 @@ use App\User;
 use App\Transaction;
 use App\Alert;
 use App\AlertTrait;
-use App\log;
+use App\Log;
 use App\LogTrait;
 use App\Receipt;
 
