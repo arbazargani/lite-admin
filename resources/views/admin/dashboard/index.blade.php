@@ -163,6 +163,19 @@
                             <li><p>ماژول تیکت <span class="cp">در حال آماده‌سازی</span></p></li>
                         </ul>
                     </div>
+
+                    <hr>
+
+                    <div>
+                        <h3>لاگ‌های سیستم</h3>
+                        <br>
+                        <ul class="info-list">
+                            @foreach ($logs as $log)
+                            <li><p style="direction: ltr; text-align: left">{{ $log->content }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+
                 </div>
             </div>
         </div>

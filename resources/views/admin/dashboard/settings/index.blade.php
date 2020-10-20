@@ -114,8 +114,15 @@
                                     <label>متا robots:</label>
                                     <input type="text" name="application_index_meta_robots" id="" value="{{ $settings['application_index_meta_robots']->value }}">
 
-                                </div>
+                                    <div class="dollar-toggle-switch-wrap clearfix">
+                                        <p>بلاک کردن دسترسی کاربران غیر ایرانی</p>
+                                        <label class="switch">
+                                            <input type="checkbox" name="check_region" value="1" @if($settings['check_region']->value == '1') checked @endif>
+                                            <span class="slider round"></span>
+                                        </label>
+                                    </div>
 
+                                </div>
                                 <input type="submit" class="btn1" value="ذخیره">
                             </form>
                         </div>

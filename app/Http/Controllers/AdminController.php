@@ -9,6 +9,7 @@ use App\User;
 use App\Transaction;
 use App\Alert;
 use App\AlertTrait;
+use App\log;
 use App\LogTrait;
 use App\Receipt;
 
@@ -43,8 +44,9 @@ class AdminController extends Controller
         $today_sells = Receipt::whereDate('created_at', Carbon::today())->where('status', 'paid')->get()->sum('payable');
         $today_receipts = Receipt::whereDate('created_at', Carbon::today())->get()->count();
         $active_users = User::where('status', 'verified')->where('rule', 'user')->get()->count();
+        $logs = Log::latest()->take(15)->get();
 
-        return view('admin.dashboard.index', compact(['payments', 'alerts', 'today_sells', 'today_receipts', 'active_users']));
+        return view('admin.dashboard.index', compact(['payments', 'alerts', 'today_sells', 'today_receipts', 'active_users', 'logs']));
     }
 
     public function ManageUsers()

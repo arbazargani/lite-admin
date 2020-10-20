@@ -90,5 +90,13 @@ class SettingTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        
+        // Setting: Close time
+        DB::table('settings')->insert([
+            'name' => 'check_region',
+            'value' => '1',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }

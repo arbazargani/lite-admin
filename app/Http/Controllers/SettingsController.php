@@ -27,6 +27,7 @@ class SettingsController extends Controller
             'application_index_meta_description' => Settings::where('name', 'application_index_meta_description')->first(),
             'application_index_meta_keyword' => Settings::where('name', 'application_index_meta_keyword')->first(),
             'application_index_meta_robots' => Settings::where('name', 'application_index_meta_robots')->first(),
+            'check_region' => Settings::where('name', 'check_region')->first(),
         ];
 
         return view('admin.dashboard.settings.index', compact(['settings']));
@@ -62,6 +63,8 @@ class SettingsController extends Controller
         Settings::where('name', 'application_index_meta_description')->update(['value' => $request['application_index_meta_description']]);
         Settings::where('name', 'application_index_meta_keyword')->update(['value' => $request['application_index_meta_keyword']]);
         Settings::where('name', 'application_index_meta_robots')->update(['value' => $request['application_index_meta_robots']]);
+        $region = ($request->has('check_region') && $request['check_region'] == "1") ? '1' : '0';
+        Settings::where('name', 'check_region')->update(['value' => $region]);
 
         $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Updated the settings.';
         $this->MakeLog(Auth::id(), $log);

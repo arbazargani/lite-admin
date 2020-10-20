@@ -66,5 +66,6 @@ class Kernel extends HttpKernel
         'HasAdminAccess' => \App\Http\Middleware\HasAdminAccess::class,
         'IsVerified' => \App\Http\Middleware\IsVerified::class,
         'OpenCloseStatus' => \App\Http\Middleware\OpenCloseStatus::class,
+        'CheckRegion' => \App\Http\Middleware\CheckRegion::class,
     ];
 }
