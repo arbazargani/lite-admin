@@ -36,7 +36,7 @@ class CheckRegion
         curl_close($curl);
 
         if (isset($response->status)) {
-            if ($response->status == 'success' && $response->country == 'Iran' && $reponse->countryCode == 'IR') {
+            if ($response->status == 'success' && $response->country == 'Iran' && $response->countryCode == 'IR') {
                 return $next($request);
             } else {
                 return abort(403, "Country is blocked. if you're under a proxy server or vpn service, please trun it off.");

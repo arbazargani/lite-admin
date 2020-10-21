@@ -273,6 +273,7 @@ class CoinController extends Controller
     }
 
     public function Binance($symbol) {
+        $symbol = strtoupper($symbol);
         if (Cache::has("$symbol-usd-price")) {
             return Cache::get("$symbol-usd-price");
         } else {
