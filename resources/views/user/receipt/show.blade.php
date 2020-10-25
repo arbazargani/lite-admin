@@ -41,72 +41,80 @@
         <br>
         <div id="sell-step-2">
             <div class="sell-invoice-accept" style="padding: 5% !important;">
-                @php
-                    $exptime = \Carbon\Carbon::parse($receipt->created_at)->addMinutes(20);
-                    $now = \Carbon\Carbon::parse(date("Y-m-d H:i:s"));
-                @endphp
-                @if( $now > $exptime )
-                    <p>مدت زمان پرداخت با توجه به قوانین سایت ۲۰ دقیقه پس از ایجاد صورتحساب می‌باشد.</p>
-                    <p>بدین منظور لطفا از بخش <a href="{{ route("User > Buy Coin") }}">خرید</a> یک صورتحساب جدید ایجاد نمایید.</p>
+                @if ($receipt->status != 'paid')
+                    @php
+                        $exptime = \Carbon\Carbon::parse($receipt->created_at)->addMinutes(20);
+                        $now = \Carbon\Carbon::parse(date("Y-m-d H:i:s"));
+                    @endphp
+                    @if( $now > $exptime )
+                        <p>مدت زمان پرداخت با توجه به قوانین سایت ۲۰ دقیقه پس از ایجاد صورتحساب می‌باشد.</p>
+                        <p>بدین منظور لطفا از بخش <a href="{{ route("User > Buy Coin") }}">خرید</a> یک صورتحساب جدید ایجاد نمایید.</p>
+                    @else
+                    <style>
+                        .bank-cart {
+                            margin: auto;
+                            border-radius: 15px;
+                            padding: 5px;
+                            height: 250px;
+                            color: white;
+                            margin-bottom: 3%;
+                            background: #0F2027;  /* fallback for old browsers */
+                            background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
+                            background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+                            max-width: 400px;
+                        }
+                        .coin-logo {
+                            text-align: center;
+                            font-size: 50px;
+                            background: #ffffff;
+                            border-radius: 10px 10px 0px 0px;
+                            margin-bottom: 10%
+                        }
+                        .credit-number {
+                            margin: 5px 5px 25px 5px;
+                            text-align: center;
+                            font-weight: bold;
+                            font-size: 30px !important;
+                            font-family: 'Inter-Loom';
+                            direction: ltr
+                        }
+                        .credit-info {
+                            text-align: center;
+                            padding: 5px 15px 5px 15px;
+                        }
+                        .cvv {
+                            float: right;
+                        }
+                        .name {
+                            float: left;
+                            font-family: 'iranyekan'
+                        }
+                    </style>
+                        <div class="bank-cart">
+                            <div class="coin-logo">
+                                <img width="95px" src="https://cdn1.iconfinder.com/data/icons/cryptocurrency-set-2018/375/Asset_1480-512.png" alt="bitcoin banking">
+                            </div>
+                            <div class="credit-number">
+                                <span>{{ Auth::user($receipt->user_id)->credit_card }}</span>
+                            </div>
+                            <div class="credit-info">
+                                <span class="cvv">***</span>
+                                <span class="name">{{ Auth::user($receipt->user_id)->name }}</span>
+                            </div>
+                        </div>
+                        <div>
+                            <form action="{{ route('Payment > Request', $receipt->id) }}" method="post">
+                                @csrf
+                                <button type="submit" class="button td-btn">پرداخت</button>
+                            </form>
+                        </div>
+                    @endif
                 @else
-                <style>
-                    .bank-cart {
-                        margin: auto;
-                        border-radius: 15px;
-                        padding: 5px;
-                        height: 250px;
-                        color: white;
-                        margin-bottom: 3%;
-                        background: #0F2027;  /* fallback for old browsers */
-                        background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027);  /* Chrome 10-25, Safari 5.1-6 */
-                        background: linear-gradient(to right, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-                        max-width: 400px;
-                    }
-                    .coin-logo {
-                        text-align: center;
-                        font-size: 50px;
-                        background: #ffffff;
-                        border-radius: 10px 10px 0px 0px;
-                        margin-bottom: 10%
-                    }
-                    .credit-number {
-                        margin: 5px 5px 25px 5px;
-                        text-align: center;
-                        font-weight: bold;
-                        font-size: 30px !important;
-                        font-family: 'Inter-Loom';
-                        direction: ltr
-                    }
-                    .credit-info {
-                        text-align: center;
-                        padding: 5px 15px 5px 15px;
-                    }
-                    .cvv {
-                        float: right;
-                    }
-                    .name {
-                        float: left;
-                        font-family: 'iranyekan'
-                    }
-                </style>
-                    <div class="bank-cart">
-                        <div class="coin-logo">
-                            <img width="95px" src="https://cdn1.iconfinder.com/data/icons/cryptocurrency-set-2018/375/Asset_1480-512.png" alt="bitcoin banking">
-                        </div>
-                        <div class="credit-number">
-                            <span>{{ Auth::user($receipt->user_id)->credit_card }}</span>
-                        </div>
-                        <div class="credit-info">
-                            <span class="cvv">***</span>
-                            <span class="name">{{ Auth::user($receipt->user_id)->name }}</span>
-                        </div>
-                    </div>
-                    <div>
-                        <form action="{{ route('Payment > Request', $receipt->id) }}" method="post">
-                            @csrf
-                            <button type="submit" class="button td-btn">پرداخت</button>
-                        </form>
-                    </div>
+                    <p>فاکتور مورد نظر در تاریخ {{ Facades\Verta::instance($receipt->paid_at) }} پرداخت شده است.</p>
+                    @if (!is_null($receipt->admin_tx))
+                        <p>TX-ID ثبت شده برای این سفارش:</p>
+                        <pre>f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16</pre>
+                    @endif
                 @endif
             </div>
             <div class="sell-invoice-wrap">
@@ -122,7 +130,7 @@
                             </div>
                             <div>
                                 <p class="invoice-info-title">پرداخت به:</p>
-                                <p>{{ env('APP_NAME') }}</p>
+                                <p>کریپتاینر</p>
                             </div>
                             <div>
                                 <p class="invoice-info-title">آدرس: {{ Auth::user($receipt->user_id)->home_address }}</p>

@@ -123,6 +123,7 @@
 									</div>
 									<div class="form-holder">
 										<input type="text" placeholder="شماره ثابت" class="form-control" name="home_number">
+										<span>مثال: 02155555555</span>
 									</div>
 								</div>
 

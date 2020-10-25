@@ -256,7 +256,7 @@ class TransactionController extends Controller
         } elseif ($transaction->status == 'waiting') {
             return view('user.transaction.wait', compact(['transaction']));
         } else {
-            return abort(403, 'Bad request.');
+            return view('user.transaction.wait', compact(['transaction']));
         }
     }
 

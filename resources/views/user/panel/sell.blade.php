@@ -22,7 +22,7 @@
                     <a href="#">
                         <li>
                             <p class="progress-step-icon">3</p>
-                            <p class="progress-step-txt">افزودن TXiD</p>
+                            <p class="progress-step-txt">افزودن TxID</p>
                         </li>
                     </a>
                     <i class="fas fa-horizontal-rule"></i>

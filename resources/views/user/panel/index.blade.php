@@ -137,6 +137,7 @@
                                 <th>مبلغ (تومان)</th>
                                 <th>TxID</th>
                                 <th>وضعیت سفارش</th>
+                                <th>عملیات</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -169,6 +170,15 @@
                                         <p>معلق</p>
                                         @endif
                                     </div>
+                                </td>
+                                <td>
+                                    <p>
+                                        @if(!is_null($transaction->tx_id) && !is_null($transaction->pay_tracking_id))
+                                            <span onclick="window.open('{{ route('User > Transaction > Tracking ID > Raw', $transaction->hash) }}', 'name','width=600,height=400')">نمایش شناسه پرداخت</span>
+                                        @else
+                                            <span style="color: red">-</span>
+                                        @endif
+                                    </p>
                                 </td>
                             </tr>
                             @endforeach

@@ -22,19 +22,19 @@
                     <a href="#">
                         <li>
                             <p class="progress-step-icon">3</p>
-                            <p class="progress-step-txt">پرداخت</p>
+                            <p class="progress-step-txt">افزودن TxID</p>
                         </li>
                     </a>
-                    {{-- <i class="fas fa-horizontal-rule"></i>
+                    <i class="fas fa-horizontal-rule"></i>
                     <a href="#">
                         <li>
                             <p class="progress-step-icon">4</p>
                             <p class="progress-step-txt">تایید و پرداخت</p>
                         </li>
-                    </a> --}}
+                    </a>
                 </ul>
                 <div class="sell-progress-bar-wrap">
-                    <div class="sell-progress-bar sell-progress-bar-3"></div>
+                    <div class="sell-progress-bar sell-progress-bar-2"></div>
                 </div>
             </div>
         </div>
@@ -54,14 +54,14 @@
                         <div class="row clearfix">
                             <div>
                                 <p class="invoice-info-title">صورت حساب برای:</p>
-                                <p>{{ Auth::user($receipt->user_id)->name }}</p>
+                                <p>{{ Auth::user($transaction->user_id)->name }}</p>
                             </div>
                             <div>
                                 <p class="invoice-info-title">پرداخت به:</p>
-                                <p>{{ env('APP_URL') }}</p>
+                                <p>کریپتاینر</p>
                             </div>
                             <div>
-                                <p class="invoice-info-title">آدرس: {{ Auth::user($receipt->user_id)->home_address }}</p>
+                                <p class="invoice-info-title">آدرس: {{ Auth::user($transaction->user_id)->home_address }}</p>
                             </div>
                         </div>
                         <div class="row clearfix">
@@ -71,7 +71,7 @@
                             </div>
                             <div>
                                 <p class="invoice-info-title">تاریخ صورت حساب:</p>
-                                <p>{{ Facades\Verta::instance($receipt->created_at) }}</p>
+                                <p>{{ Facades\Verta::instance($transaction->created_at) }}</p>
                             </div>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                                 </thead>
                                 <tbody>
                                 <tr>
-                                    @php $info = explode('|', $receipt->description); @endphp
+                                    @php $info = explode('|', $transaction->description); @endphp
                                     <td>{{ $info[1] }}</td>
                                     <td>{{ $info[0] }}</td>
                                 </tr>
@@ -97,38 +97,31 @@
                                 <tfoot>
                                 <tr>
                                     <td>جمع کل:</td>
-                                    <td>{{ number_format($receipt->payable) }}</td>
+                                    <td>{{ number_format($transaction->payable) }}</td>
                                 </tr>
                                 </tfoot>
                             </table>
                         </div>
                         <div class="sell-invoice-payment">
                             <p>میزان پرداختی به فروشنده</p>
-                            <p>{{ number_format($receipt->payable) }} تومان</p>
+                            <p>{{ number_format($transaction->payable) }} تومان</p>
                         </div>
                     </div>
                 </div>
             </div>
             <br>
             <div class="sell-invoice-accept">
-                @if ($receipt->status != 'paid')
-                    @php
-                        $exptime = \Carbon\Carbon::parse($receipt->created_at)->addMinutes(20);
-                        $now = \Carbon\Carbon::parse(date("Y-m-d H:i:s"));
-                    @endphp
-                    @if( $now > $exptime )
-                        <p>مدت زمان پرداخت با توجه به قوانین سایت ۲۰ دقیقه پس از ایجاد صورتحساب می‌باشد.</p>
-                        <p>بدین منظور لطفا از بخش <a href="{{ route("User > Buy Coin") }}">خرید</a> یک صورتحساب جدید ایجاد نمایید.</p>
-                    @else
-                        <div>
-                            <form action="{{ route('Payment > Request', $receipt->id) }}" method="post">
-                                @csrf
-                                <button type="submit" class="button td-btn">پرداخت</button>
-                            </form>
-                        </div>
-                    @endif
+                @php
+                    $exptime = \Carbon\Carbon::parse($transaction->created_at)->addMinutes(20);
+                    $now = \Carbon\Carbon::parse(date("Y-m-d H:i:s"));
+                @endphp
+                @if( $now > $exptime )
+                    <p>مدت زمان افزودن TxID با توجه به قوانین سایت ۲۰ دقیقه پس از ایجاد صورتحساب می‌باشد.</p>
+                    <p>بدین منظور لطفا از بخش <a href="{{ route("User > Sell Coin") }}">فروش</a> یک صورتحساب جدید ایجاد نمایید.</p>
                 @else
-                    <p>فاکتور مورد نظر در تاریخ {{ Facades\Verta::instance($receipt->paid_at) }} پرداخت شده است.</p>
+                    <div>
+                        <a href="{{ route('User > Transaction > ADD Tx ID', $transaction->hash) }}" class="btn1"> تایید فاکتور و ثبت TxID</a>
+                    </div>
                 @endif
             </div>
         </div>

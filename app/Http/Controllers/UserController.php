@@ -150,7 +150,7 @@ class UserController extends Controller
 
     public function ShowMessages()
     {
-        $alerts = User::find(Auth::id())->alert;
+        $alerts = User::find(Auth::id())->alert()->paginate(10);;
         return view("user.panel.messages", compact(['alerts']));
     }
 

@@ -7,29 +7,29 @@
                 <ul>
                     <a href="#">
                         <li>
-                            <p class="progress-step-icon step-icon-active">1</p>
-                            <p class="progress-step-txt">مقدار ارز</p>
+                           <p class="progress-step-icon">1</p>
+                           <p class="progress-step-txt">مقدار ارز</p>
                         </li>
                     </a>
                     <i class="fas fa-horizontal-rule"></i>
                     <a href="#">
                         <li>
-                            <p class="progress-step-icon step-icon-active">2</p>
-                            <p class="progress-step-txt">تایید فاکتور</p>
+                           <p class="progress-step-icon">2</p> 
+                           <p class="progress-step-txt">تایید فاکتور</p>
                         </li>
                     </a>
                     <i class="fas fa-horizontal-rule"></i>
                     <a href="#">
                         <li>
                             <p class="progress-step-icon step-icon-active">3</p>
-                            <p class="progress-step-txt">افزودن TXiD</p>
+                           <p class="progress-step-txt">افزودن TxID</p>
                         </li>
                     </a>
                     <i class="fas fa-horizontal-rule"></i>
                     <a href="#">
                         <li>
-                            <p class="progress-step-icon">4</p>
-                            <p class="progress-step-txt">تایید و پرداخت</p>
+                           <p class="progress-step-icon">4</p> 
+                           <p class="progress-step-txt">تایید و پرداخت</p>
                         </li>
                     </a>
                 </ul>
@@ -39,41 +39,34 @@
             </div>
         </div>
         <br>
-        <div id="sell-step-2">
-            <style>
-                #sell-step-2 .wrapper {
-                    width: 100%;
-                }
-            </style>
-            <div class="wrapper">
-                @if(is_null($transaction->tx_id))
-                <div style="padding: 2px 10px 2px 10px; margin-bottom: 7px;">
-                    <div style="width: 45%; float: left">
-                        <h2>ولت بیت‌کوین</h2>
-                        <img src="/assets/wallets/BTC-WALLET.jpg" alt="ولت بیت‌کوین" style="max-width: 200px;">
-                        <pre>{{ $settings['public_btc_wallet']->value }}</pre>
-                    </div>
-                    <div style="width: 45%; float: right">
-                        <h2>ولت تتر</h2>
-                        <img src="/assets/wallets/USDT-WALLET.jpg" alt="ولت تتر" style="max-width: 200px;">
-                        <pre>{{ $settings['public_usdt_wallet']->value }}</pre>
-                    </div>
-                </div>
-                <div>
-                    <form action="{{ route('User > Transaction > ADD Tx ID', $transaction->hash) }}" method="post" style="text-align: center">
-                        @csrf
-                        <input type="text" name="tx_id" placeholder="شناسه TXID انتقال را وارد نمایید." required>
-                        <input type="hidden" name="transaction_id" value="{{ $transaction->hash }}">
-                        <br>
-                        <button type="submit" class="btn1">ثبت</button>
-                    </form>
-                </div>
-                @else
-                <div>
-                    <p>شناسه <span style="background: #f3f3f3; padding: 0.5%; border: 1px solid green; border-radius: 3px; color: green;">{{ $transaction->tx_id }}</span> برای این پرداخت ثبت شده است.</p>
-                </div>
-                @endif
+        
+        <div id="sell-step-3">
+            @if(is_null($transaction->tx_id))
+            <div class="site-wallet">
+                <h3>آدرس ولت Bitcoin:</h3>
+                <img src="/assets/wallets/BTC-WALLET.jpg" alt="ولت بیت‌کوین" style="max-width: 200px;">
+                <span style="word-break: break-all">{{ $settings['public_btc_wallet']->value }}</span>
+                <hr>
+                <h3>آدرس ولت Tether:</h3>
+                <img src="/assets/wallets/USDT-WALLET.jpg" alt="ولت تتر" style="max-width: 200px;">
+                <span style="word-break: break-all">{{ $settings['public_usdt_wallet']->value }}</span>
             </div>
+            <hr>
+            <div class="txid-wrap">
+                <form action="{{ route('User > Transaction > ADD Tx ID', $transaction->hash) }}" method="post" style="text-align: center">
+                    @csrf
+                    <input type="text" name="tx_id" placeholder="TxID." required>
+                    <input type="hidden" name="transaction_id" value="{{ $transaction->hash }}">
+                    <br>
+                    <button type="submit" class="btn1">ثبت</button>
+                </form>
+            </div>
+            @else
+                <div>
+                    <p>شناسه زیر برای این پرداخت ثبت شده است:</p>
+                    <p style="word-break: break-all; background: #f3f3f3; padding: 0.5%; border: 1px solid green; border-radius: 3px; color: green;">{{ $transaction->tx_id }}</p>
+                </div>
+            @endif
         </div>
     </div>
 
