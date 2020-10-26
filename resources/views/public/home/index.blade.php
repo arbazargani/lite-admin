@@ -124,8 +124,8 @@
 					<p>شما دریافت می کنید:</p>
 					<input type="text" id="buy-amount" name="coin-value" placeholder="0.01" onkeyup="setTimeout(makeExchange('buy'), 1000)" autocomplete="off">
 					<div>
-						<span>{{ number_format($settings['dollar_price_buy']->value) }} Toman</span>
-						<span>USD</span>
+						{{-- <span>{{ number_format($settings['dollar_price_buy']->value) }} Toman</span>
+						<span>USD</span> --}}
 					</div>
 				</form>
 			</div>
@@ -157,8 +157,8 @@
 					<p>شما پرداخت می کنید:</p>
 					<input type="text" id="sell-amount" name="coin-value" placeholder="0.01" onkeyup="setTimeout(makeExchange('sell'), 1000)" autocomplete="off">
 					<div>
-						<span>{{ number_format($settings['dollar_price_sell']->value) }} Toman</span>
-						<span>USD</span>
+						{{-- <span>{{ number_format($settings['dollar_price_sell']->value) }} Toman</span>
+						<span>USD</span> --}}
 					</div>
 				</form>
 			</div>
@@ -293,7 +293,7 @@
 					<a href="https://t.me/cryptiner"><i class="fab fa-telegram-plane"></i></a>
 					<a href="https://www.youtube.com/channel/UCtxDPgWkv7c-Y0F4V-lUiwg"><i class="fab fa-youtube"></i></a>
 					<a href="https://wa.me/989395789200/"><i class="fab fa-whatsapp"></i></a>
-					<a href="https://wa.me/989395789200/"><img src="/assets/v3/src/img/aparat.png" style="width: 12%; vertical-align: middle; margin-bottom: 10px; filter: brightness(0) invert(1);"></a>
+					<a href="https://www.aparat.com/cryptiner"><img src="/assets/v3/src/img/aparat.png" style="width: 26.25px; height: 30px; vertical-align: middle; margin-bottom: 10px; filter: brightness(0) invert(1);"></a>
 					<a href="http://shop.cryptiner.com"><i class="fas fa-shopping-bag"></i></a>
 				</div>
 			</div>

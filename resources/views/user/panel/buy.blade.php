@@ -84,8 +84,8 @@
             </div>
             <div class="sale-details-wrap">
                 <div>
-                    <span>قیمت دلار: </span>
-                    <span>{{ number_format($usd_price->value) }} T</span>
+                    {{-- <span>قیمت دلار: </span>
+                    <span>{{ number_format($usd_price->value) }} T</span> --}}
                 </div>
                 <div>
                     <span>قیمت ارز: </span>
