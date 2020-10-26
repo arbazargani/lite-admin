@@ -9,10 +9,10 @@
                         <h3><i class="fad fa-cogs"></i> تنظیمات</h3>
                         <div class="admin-settings-nav">
                             <ul>
-                                <li class="active"><a href="#">تنظیمات سایت</a></li>
+                                <li class="active"><a href="{{ route('Admin > Settings > Show') }}">تنظیمات سایت</a></li>
                                 <li><a href="#">تنظیمات کاربران</a></li>
                                 <li><a href="#">تنطیمات محلی</a></li>
-                                <li><a href="#"></a></li>
+                                <li><a href="{{ route('Admin > Settings > Coins') }}">تنظیمات ارزهای سیستم</a></li>
                             </ul>
                         </div>
                     </div>
@@ -121,7 +121,6 @@
                                             <span class="slider round"></span>
                                         </label>
                                     </div>
-
                                 </div>
                                 <input type="submit" class="btn1" value="ذخیره">
                             </form>

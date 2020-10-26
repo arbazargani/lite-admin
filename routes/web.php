@@ -65,6 +65,10 @@ Route::middleware(['auth', 'HasAdminAccess'])->group(function () {
         Route::get('/settings', 'SettingsController@Show')->name('Admin > Settings > Show');
         Route::post('/settings/update', 'SettingsController@Update')->name('Admin > Settings > Update');
 
+        Route::get('/settings/coins', 'SettingsController@CoinsSettings')->name('Admin > Settings > Coins');
+        Route::post('/settings/coins/update/price/{id}', 'SettingsController@UpdateCoins')->name('Admin > Settings > Coins > Update');
+
+
         Route::get('/storage/uploads/certifications/{slug}', 'AssetsController@SafeAssetsRender')->name('Admin > Images > Show');
 
     });

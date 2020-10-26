@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Settings;
 use App\User;
+use App\Coin;
 use App\LogTrait;
 use Auth;
 use Illuminate\Http\Request;
@@ -69,5 +70,30 @@ class SettingsController extends Controller
         $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Updated the settings.';
         $this->MakeLog(Auth::id(), $log);
         return back();
+    }
+
+    public function CoinsSettings() {
+        $coins = Coin::all();
+        return view('admin.dashboard.settings.coins', compact(['coins']));
+    }
+
+    public function UpdateCoins(Request $request, $id) {
+        $request->validate([
+            'coin_id' => 'required'
+        ]);
+
+        if ($request->has('min_ex_limit')) {
+            Coin::where('id', $request['coin_id'])->update([
+                'min_ex_limit' => $request['min_ex_limit']
+            ]);
+            return back();
+        } elseif ($request->has('max_ex_limit')) {
+            Coin::where('id', $request['coin_id'])->update([
+                'max_ex_limit' => $request['max_ex_limit']
+            ]);
+            return back();
+        } else {
+            return back();
+        }
     }
 }

@@ -66,19 +66,24 @@
                     <h3>فروش به سایت</h3>
                 </div>
                 <div class="sell-input">
-
                     <h4>مقدار</h4>
-                    <input form="sell_coin" type="text" name="amount" id="sell-amount" placeholder="0.01" onkeyup="makeExchange('sell')" required>
+                    <form id="sale-value">
+                        <input form="sell_coin" type="text" name="amount" id="sell-amount" placeholder="0.01" onkeyup="makeExchange('sell')" autocomplete="off" required>
+                        <span id="limit" style="font-family: 'iranyekan'; color: red; font-size: 0.7em;"></span>
+                    </form>
                 </div>
                 <div class="sell-coin-select">
                     <form action="{{ route('User > Transaction > Make') }}" method="POST" id="sell_coin">
                         @csrf
                         <select class="wide" name="coin" id="sell-currency-in" onchange="makeExchange('sell')">
-                            <option value="bitcoin">Bitcoin / BTC</option>
+                            @foreach ($coins as $coin)
+                            <option value="{{ strtolower($coin->name) }}">{{ $coin->name }}</option>
+                            @endforeach
+                            {{-- <option value="bitcoin">Bitcoin / BTC</option>
                             <option value="ethereum">Ethereum / ETH</option>
-                            <option value="zcash">Zcash / ZEC</option>
+                            <option value="zecash">Zcash / ZEC</option>
                             <option value="litecoin">Litecoin / LTC</option>
-                            <option value="tether">Tether / BUSD</option>
+                            <option value="tether">Tether / BUSD</option> --}}
                         </select>
                     </form>
                 </div>
@@ -103,7 +108,7 @@
                     </div>
                 </div>
                 <div class="sell-confirm">
-                    <button form="sell_coin" type="submit" class="btn1">تایید تراکنش</button>
+                    <button id="submit" form="sell_coin" type="submit" class="btn1">تایید تراکنش</button>
                 </div>
             </div>
         </div>
@@ -123,12 +128,74 @@
 			var str = document.getElementById(type+"-amount").value;
 			return str.endsWith(".");
 		}
+        function CheckLimit(type) {
+            @php
+            foreach($coins as $coin) {
+                echo 'var ' . strtolower($coin->name) . "_max_ex_limit = " . $coin->max_ex_limit . "; \r\n";
+                echo 'var ' . strtolower($coin->name) . "_min_ex_limit = " . $coin->min_ex_limit . "; \r\n";
+            }
+            @endphp
+
+            var slug = getSelectedCurrency(type+'-currency-in');
+            var amount = document.getElementById(type+'-amount').value;
+
+            if (slug == 'bitcoin') {
+                if (amount >= bitcoin_min_ex_limit && amount <= bitcoin_max_ex_limit) {
+                                        document.getElementById("limit").innerHTML = '';
+                    document.getElementById("submit").disabled = false;
+                    return true;
+                }
+                document.getElementById("limit").innerHTML = 'حداقل ' + bitcoin_min_ex_limit + ' و حداکثر ' + bitcoin_max_ex_limit;
+                document.getElementById("submit").disabled = true;
+                return false
+            }
+            if (slug == 'litecoin') {
+                if (amount >= litecoin_min_ex_limit && amount <= litecoin_max_ex_limit) {
+                    document.getElementById("limit").innerHTML = '';
+                    document.getElementById("submit").disabled = false;
+                    return true;
+                }
+                document.getElementById("limit").innerHTML = 'حداقل ' + litecoin_min_ex_limit + ' و حداکثر ' + litecoin_max_ex_limit;
+                document.getElementById("submit").disabled = true;
+                return false
+            }
+            if (slug == 'ethereum') {
+                if (amount >= ethereum_min_ex_limit && amount <= ethereum_max_ex_limit) {
+                    document.getElementById("limit").innerHTML = '';
+                    document.getElementById("submit").disabled = false;
+                    return true;
+                }
+                document.getElementById("limit").innerHTML = 'حداقل ' + ethereum_min_ex_limit + ' و حداکثر ' + ethereum_max_ex_limit;
+                document.getElementById("submit").disabled = true;
+                return false
+            }
+            if (slug == 'zecash') {
+                if (amount >= zecash_min_ex_limit && amount <= zecash_max_ex_limit) {
+                    document.getElementById("limit").innerHTML = '';
+                    document.getElementById("submit").disabled = false;
+                    return true;
+                }
+                document.getElementById("limit").innerHTML = 'حداقل ' + zecash_min_ex_limit + ' و حداکثر ' + zecash_max_ex_limit;
+                document.getElementById("submit").disabled = true;
+                return false
+            }
+            if (slug == 'tether') {
+                if (amount >= tether_min_ex_limit && amount <= tether_max_ex_limit) {
+                    document.getElementById("limit").innerHTML = '';
+                    document.getElementById("submit").disabled = false;
+                    return true;
+                }
+                document.getElementById("limit").innerHTML = 'حداقل ' + tether_min_ex_limit + ' و حداکثر ' + tether_max_ex_limit;
+                document.getElementById("submit").disabled = true;
+                return false
+            }
+        }
         function makeExchange(type) {
-			
-            if (document.getElementById(type+"-amount").value == "" || DotEnd(type) || !isNumber(document.getElementById(type+"-amount").value)) {
+
+            if (document.getElementById(type+"-amount").value == "" || DotEnd(type) || !isNumber(document.getElementById(type+"-amount").value) || !CheckLimit(type)) {
                 return;
 			}
-			
+
             if (document.getElementById(type+"-tomans-loader").style.display !== null && document.getElementById(type+"-tomans-loader").style.display !== "inline") {
                 document.getElementById(type+"-tomans-loader").style.display = "inline";
                 document.getElementById(type+"-dollars-loader").style.display = "inline";
@@ -158,7 +225,7 @@
 			if (type == 'sell') {
 				xhttp.open("GET", "{{ route('CoinExchange') }}?currency-in=" + from + "&amount=" + number, true);
 			}
-            
+
             xhttp.send();
         }
     </script>

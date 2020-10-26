@@ -22,8 +22,9 @@ class PublicController extends Controller
             'application_index_meta_robots' => Settings::where('name', 'application_index_meta_robots')->first(),
         ];
 
-        $coins = Coin::select(['name', 'usd_price'])->get();
+        $coins_usd = Coin::select(['name', 'usd_price'])->get();
+        $coins = Coin::all();
 
-        return view('public.home.index', compact(['settings', 'coins']));
+        return view('public.home.index', compact(['settings', 'coins_usd', 'coins']));
     }
 }

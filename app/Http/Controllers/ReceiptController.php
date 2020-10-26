@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 use Auth;
 use App\User;
@@ -106,7 +107,7 @@ class ReceiptController extends Controller
         return $response->price;
     }
 
-    public function COIN_TO_USD($currency) {
+    public function COIN_TO_USD_old($currency) {
         if ($currency == 'bitcoin') {
 
             $response = $this->binance('BTCUSDT');
@@ -118,6 +119,40 @@ class ReceiptController extends Controller
         } elseif($currency == 'ethereum') {
 
             $response = $this->binance('ETHUSDT');
+
+        } else {
+
+            return abort('403', 'ارز موردنظر پشتیبانی نمیشود.');
+
+        }
+        return round(json_decode(json_encode($response->price)));
+    }
+
+    public function COIN_TO_USD($currency) {
+        $currency = strtolower($currency);
+        if ($currency == 'bitcoin') {
+
+            $response = (Cache::has("BTCUSDT-usd-price")) ? Cache::get("BTCUSDT-usd-price") : $this->binance('BTCUSDT');
+            // $response = $this->binance('BTCUSDT');
+
+        } elseif ($currency == 'litecoin') {
+
+            $response = (Cache::has("LTCUSDT-usd-price")) ? Cache::get("LTCUSDT-usd-price") : $this->binance('LTCUSDT');
+            // $response = $this->binance('LTCUSDT');
+
+        } elseif ($currency == 'ethereum') {
+
+            $response = (Cache::has("ETHUSDT-usd-price")) ? Cache::get("ETHUSDT-usd-price") : $this->binance('ETHUSDT');
+            // $response = $this->binance('ETHUSDT');
+
+        } elseif ($currency == 'zecash') {
+
+            $response = (Cache::has("ZECUSDT-usd-price")) ? Cache::get("ZECUSDT-usd-price") : $this->binance('ZECUSDT');
+            // $response = $this->binance('ZECUSD');
+
+        } elseif ($currency == 'tether') {
+            $response = (Cache::has("BUSDUSDT-usd-price")) ? Cache::get("BUSDUSDT-usd-price") : $this->binance('BUSDUSDT');
+            // $response = $this->binance('BUSDUSDT');
 
         } else {
 

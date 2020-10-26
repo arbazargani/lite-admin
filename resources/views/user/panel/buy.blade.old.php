@@ -70,7 +70,7 @@
                         <select class="wide" name="coin" id="buy-currency-in" onchange="makeExchange('buy')">
                             <option value="bitcoin">Bitcoin / BTC</option>
                             <option value="ethereum">Ethereum / ETH</option>
-                            <option value="zcash">Zcash / ZEC</option>
+                            <option value="zecash">Zcash / ZEC</option>
                             <option value="litecoin">Litecoin / LTC</option>
                             <option value="tether">Tether / BUSD</option>
                         </select>

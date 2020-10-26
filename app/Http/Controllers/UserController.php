@@ -12,6 +12,7 @@ use App\Receipt;
 use App\Alert;
 use App\Settings;
 Use App\AlertTrait;
+use App\Coin;
 
 class UserController extends Controller
 {
@@ -133,14 +134,16 @@ class UserController extends Controller
 
     public function BuyCoin()
     {
+        $coins = Coin::all();
         $usd_price = Settings::where('name', 'dollar_price_buy')->first();
-        return view("user.panel.buy", compact('usd_price'));
+        return view("user.panel.buy", compact('usd_price', 'coins'));
     }
 
     public function SellCoin()
     {
+        $coins = Coin::all();
         $usd_price = Settings::where('name', 'dollar_price_sell')->first();
-        return view("user.panel.sell", compact('usd_price'));
+        return view("user.panel.sell", compact('usd_price', 'coins'));
     }
 
     public function VerifyTransaction()

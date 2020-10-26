@@ -20,23 +20,23 @@
 					<a href="#">
 						<li>
 						<img src="/assets/v3/src/icon/btc.svg" alt="bitcoin">
-						BTC/USD {{ $coins->where('name', 'Bitcoin')->first()->usd_price }} $</li>
+						BTC/USD {{ $coins_usd->where('name', 'Bitcoin')->first()->usd_price }} $</li>
 
 						<li>
 						<img src="/assets/v3/src/icon/eth.svg" alt="ethereum">
-						ETH/USD {{ $coins->where('name', 'Ethereum')->first()->usd_price }} $</li>
+						ETH/USD {{ $coins_usd->where('name', 'Ethereum')->first()->usd_price }} $</li>
 
 						<li>
 						<img src="/assets/v3/src/icon/ltc.svg" alt="litecoin">
-						LTC/USD {{ $coins->where('name', 'Litecoin')->first()->usd_price }} $</li>
+						LTC/USD {{ $coins_usd->where('name', 'Litecoin')->first()->usd_price }} $</li>
 						
 						<li>
 						<img src="/assets/v3/src/icon/zec.svg" alt="zecash">
-						ZEC/USD {{ $coins->where('name', 'Zecash')->first()->usd_price }} $</li>
+						ZEC/USD {{ $coins_usd->where('name', 'Zecash')->first()->usd_price }} $</li>
 						
 						<li>
 						<img src="/assets/v3/src/icon/usdt.svg" alt="tether">
-						USDT/USD {{ $coins->where('name', 'Tether')->first()->usd_price }} $</li>
+						USDT/USD {{ $coins_usd->where('name', 'Tether')->first()->usd_price }} $</li>
 					</a>
 				</ul>
 			</div>
@@ -108,11 +108,14 @@
 			<div class="coin-select">
 				<form>
 					<select class="wide" id="buy-currency-in" onchange="makeExchange('buy')">
-						<option value="bitcoin">Bitcoin / BTC</option>
+						@foreach ($coins as $coin)
+						<option value="{{ strtolower($coin->name) }}">{{ $coin->name }}</option>	
+						@endforeach
+						{{-- <option value="bitcoin">Bitcoin / BTC</option>
 						<option value="ethereum">Ethereum / ETH</option>
-						<option value="zcash">Zcash / ZEC</option>
+						<option value="zecash">Zcash / ZEC</option>
 						<option value="litecoin">Litecoin / LTC</option>
-						<option value="tether">Tether / BUSD</option>
+						<option value="tether">Tether / BUSD</option> --}}
 					</select>
 				</form>
 			</div>
@@ -138,11 +141,14 @@
 			<div class="coin-select">
 				<form>
 					<select class="wide" id="sell-currency-in" onchange="makeExchange('sell')">
-						<option value="bitcoin">Bitcoin / BTC</option>
+						@foreach ($coins as $coin)
+						<option value="{{ strtolower($coin->name) }}">{{ $coin->name }}</option>	
+						@endforeach
+						{{-- <option value="bitcoin">Bitcoin / BTC</option>
 						<option value="ethereum">Ethereum / ETH</option>
-						<option value="zcash">Zcash / ZEC</option>
+						<option value="zecash">Zcash / ZEC</option>
 						<option value="litecoin">Litecoin / LTC</option>
-						<option value="tether">Tether / BUSD</option>
+						<option value="tether">Tether / BUSD</option> --}}
 					</select>
 				</form>
 			</div>
