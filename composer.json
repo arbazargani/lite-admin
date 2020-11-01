@@ -12,7 +12,6 @@
         "baitercel/binance-api-php": "dev-master",
         "fideloper/proxy": "^4.2",
         "fruitcake/laravel-cors": "^1.0",
-        "ghasedak/laravel": "^1.0",
         "guzzlehttp/guzzle": "^7.2",
         "hekmatinasser/verta": "^1.10",
         "jaggedsoft/php-binance-api": "^0.5.24",

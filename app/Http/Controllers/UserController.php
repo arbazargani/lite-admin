@@ -163,6 +163,12 @@ class UserController extends Controller
         return (!is_null($receipt) == 1) ? '<html><head><body><pre>'. $receipt->admin_tx .'</pre></body></head></html>' : abort('403', 'make screenshot and contact this state to system administrator.');
     }
 
+    public function RawWallet($hash) {
+        $receipt = Receipt::where('hash', $hash)->whereNotNull('wallet')->first();
+        
+        return (!is_null($receipt) == 1) ? '<html><head><body><pre>'. $receipt->wallet .'</pre></body></head></html>' : abort('403', 'make screenshot and contact this state to system administrator.');
+    }
+
 
     public function BuyHistory() {
         $receipts = User::find(Auth::id())->receipt;

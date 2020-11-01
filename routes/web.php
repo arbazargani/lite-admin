@@ -116,6 +116,8 @@ Route::middleware(['CheckRegion'])->group(function () {
                 });
 
                 Route::get('/receipt/raw/tx/{hash}', 'UserController@RawTx')->name('User > Receipt > Raw');
+
+                Route::get('/receipt/raw/wallet/{hash}', 'UserController@RawWallet')->name('User > Receipt > Raw > Wallet');
                 
                 Route::get('/transaction/raw/tx/{hash}', 'TransactionController@RawTx')->name('User > Transaction > Raw');
                 Route::get('/transaction/raw/tracking_id/{hash}', 'TransactionController@RawTrackingID')->name('User > Transaction > Tracking ID > Raw');

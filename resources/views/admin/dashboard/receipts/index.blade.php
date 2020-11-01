@@ -27,6 +27,7 @@
                                     <th>سفارش</th>
                                     <th>مبلغ (تومان)</th>
                                     <th>وضعیت سفارش</th>
+                                    <th>اطلاعات</th>
                                     <th>عملیات</th>
                                 </tr>
                             </thead>
@@ -57,6 +58,9 @@
                                             <p>وضعیت پرداخت: {!! (!is_null($receipt->paid_at)) ? '<span title="'. $receipt->payment->trans_id .'"><span style="color: green">پرداخت شده</span> <i class="fas fa-external-link-alt"></i></span>' : '<span style="color: red; font-weight: 800">در انتظار پرداخت</span>' !!}</p>
                                             <p>تاریخ پرداخت: {{ (!is_null($receipt->paid_at)) ? Facades\Verta::instance($receipt->paid_at) : '-' }}</p>
                                         </div>
+                                    </td>
+                                    <td>
+                                        <span style="color: green" onclick="window.open('{{ route('User > Receipt > Raw > Wallet', $receipt->hash) }}','name','width=600,height=400')">نمایش آدرس ولت</span>
                                     </td>
                                     <td>
                                         @if(is_null($receipt->admin_tx))
