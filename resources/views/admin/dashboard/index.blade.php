@@ -84,6 +84,14 @@
                                 display: inline-block;
                                 color: white;
                             }
+                            .minimal-has-child div {
+                                margin: 1%;
+                                padding: 2%;
+                                border-radius: 7px;
+                                display: inline-block;
+                                color: white;
+                            }
+
                             .has-child div p {
                                 text-align: right;
                                 color: white;
@@ -119,6 +127,23 @@
                                 <a>{{ $active_users }}</a>
                             </div>
                         
+                    </div>
+
+                    <hr>
+
+                    <div class="orders-table">
+                        <h3>وضعیت سامانه</h3>
+                        <br>
+                        <div>
+                            <h5>کاربران</h5>
+                            <br>
+                            @include('admin.dashboard.charts.users')
+                        </div>
+                        <div>
+                            <h5>رسید‌ها</h5>
+                            <br>
+                            @include('admin.dashboard.charts.receipts')
+                        </div>
                     </div>
 
                     <hr>
@@ -169,11 +194,31 @@
                     <div>
                         <h3>لاگ‌های سیستم</h3>
                         <br>
-                        <ul class="info-list">
+                        <style>
+                            .log-list-wrapper {
+                                background: #101416;
+                                padding: 3px;
+                            }
+                            .log-list-wrapper h3{
+                                color: white;
+                            }
+                            .log-list li p {
+                                font-family: monospace;
+                                font-size: 10px;
+                                color:  #52fc03;
+                            }
+                            .timestamp {
+                                background: #f2f2f2;
+                                color: #101416;
+                            }
+                        </style>
+                        <div class="log-list-wrapper">
+                        <ul class="log-list">
                             @foreach ($logs as $log)
-                            <li><p style="direction: ltr; text-align: left">{{ $log->content }}</li>
+                            <li><p style="direction: ltr; text-align: left">{!! $loop->iteration . '. <span class="timestamp">' . Facades\Verta::instance($log->created_at) . '</span>->' . $log->content !!}</p></li>
                             @endforeach
                         </ul>
+                        </div>
                     </div>
 
                 </div>

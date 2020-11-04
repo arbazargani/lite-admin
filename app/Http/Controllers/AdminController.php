@@ -13,6 +13,7 @@ use App\AlertTrait;
 use App\Log;
 use App\LogTrait;
 use App\Receipt;
+use App\Coin;
 
 use Auth;
 
@@ -46,8 +47,22 @@ class AdminController extends Controller
         $today_receipts = Receipt::whereDate('created_at', Carbon::today())->get()->count();
         $active_users = User::where('status', 'verified')->where('rule', 'user')->get()->count();
         $logs = Log::latest()->take(15)->get();
+        $coins = Coin::all();
 
-        return view('admin.dashboard.index', compact(['payments', 'alerts', 'today_sells', 'today_receipts', 'active_users', 'logs']));
+        $receipts_dataset = [
+            'all_receipts' => Receipt::count(),
+            'paid_receipts' => Receipt::where('status', 'paid')->count(),
+            'unpaid_receipts' => Receipt::where('status', 'unpaid')->count(),
+        ];
+
+        $users_dataset = [
+            'all_users' => User::count(),
+            'active_users' => User::where('status', 'verified')->count(),
+            'suspended_users' => User::where('status', 'suspended')->count(),
+        ];
+        
+
+        return view('admin.dashboard.index', compact(['payments', 'alerts', 'today_sells', 'today_receipts', 'active_users', 'logs', 'coins', 'receipts_dataset', 'users_dataset']));
     }
 
     public function ManageUsers()

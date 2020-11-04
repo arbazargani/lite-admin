@@ -317,6 +317,10 @@ class CoinController extends Controller
 
         $current = Coin::where('slug', $slug)->update([
             'ahead_usd_price' => $current = Coin::where('slug', $slug)->first()->usd_price,
+            'ahead_usd_price_1' => $current = Coin::where('slug', $slug)->first()->ahead_usd_price,
+            'ahead_usd_price_2' => $current = Coin::where('slug', $slug)->first()->ahead_usd_price_1,
+            'ahead_usd_price_3' => $current = Coin::where('slug', $slug)->first()->ahead_usd_price_2,
+            'ahead_usd_price_4' => $current = Coin::where('slug', $slug)->first()->ahead_usd_price_3,
             'usd_price' => $price,
             'toman_price' => $this->CalculatePrice($name, 1, $usd_price, 'tomans')
         ]);
