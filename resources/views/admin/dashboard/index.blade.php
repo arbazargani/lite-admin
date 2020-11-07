@@ -221,6 +221,60 @@
                         </div>
                     </div>
 
+                    <hr>
+
+                    <div>
+                        <h3>تست API</h3>
+                        <div>
+                            <p>
+                                <pre>Endpoint -> {{ route('CoinExchange') }}</pre>
+                                <br>
+                                <ul>
+                                    <li>Response-Buy: <span id="buy-tomans"></span></li>
+                                    <li>Response-Sell: <span id="sell-tomans"></span></li>
+                                    <li>Response-Dollar: <span id="dollars"></span></li>
+                                    <li>Callbacked in miliseconds: <span id="exec-time"></span></li>
+                                </ul>
+                            </p>
+                            <button onclick="makeExchange('buy')">Send sample buy request</button>
+                            <button onclick="makeExchange('sell')">Send sample sell request</button>
+                            <script>
+                                function makeExchange(type) {
+                                    var start = new Date();
+                                    var number = 1;
+                                    var from = 'bitcoin';
+                                    console.log("converting " + number + " from " + from + " to USD");
+                                    var xhttp = new XMLHttpRequest();
+                                    xhttp.onreadystatechange = function() {
+                                        if (this.readyState == 4 && this.status == 200) {
+                                            var response = JSON.parse(this.responseText);
+                                            if (response.ok == true) {
+                                                console.log(this);
+                                                document.getElementById(type+"-tomans").innerHTML = response.tomans;
+                                                document.getElementById("dollars").innerHTML = response.dollars;
+                        
+                                                console.log('done: ' + response.ok + ':' + response.dollars + ':' + response.tomans);
+
+                                                var end = new Date();
+                                                document.getElementById("exec-time").innerHTML = end-start;
+                                            } else {
+                                                document.getElementById(type+"-tomans").innerHTML = '<code>' + response.error + '<br/>[contact system administrator.]</code>';
+                                            }
+                                        }
+                                    };
+                                    if (type == 'buy') {
+                                        xhttp.open("GET", "{{ route('CoinExchangeBuy') }}?currency-in=" + from + "&amount=" + number, true);
+                                    }
+                                    if (type == 'sell') {
+                                        xhttp.open("GET", "{{ route('CoinExchange') }}?currency-in=" + from + "&amount=" + number, true);
+                                    }
+                                    
+                                    xhttp.send();
+                                }
+                            </script>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
