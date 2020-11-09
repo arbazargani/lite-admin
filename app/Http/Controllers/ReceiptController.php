@@ -10,6 +10,7 @@ use App\User;
 use App\Receipt;
 use App\StringTrait;
 use App\Settings;
+use App\Coin;
 
 class ReceiptController extends Controller
 {
@@ -181,9 +182,15 @@ class ReceiptController extends Controller
     public function MakeReceipt(Request $request)
     {
         $request->validate([
-            'wallet' => 'required|min:5',
-            'amount' => 'required|min:0.1',
             'coin' => 'required'
+        ]);
+
+        $min = Coin::whereRaw("lower(name) LIKE '%" . $request['coin'] . "%'")->first()->min_ex_balance;
+        $max = Coin::whereRaw("lower(name) LIKE '%" . $request['coin'] . "%'")->first()->max_ex_balance;
+
+        $request->validate([
+            'wallet' => 'required|min:5',
+            'amount' => "required|min:$min|max:$max",
         ]);
 
         $settings = [

@@ -160,8 +160,11 @@ class TransactionController extends Controller
 
     public function MakeTransaction(Request $request, $type = 'buy')
     {
+        $min = Coin::whereRaw("lower(name) LIKE '%" . $request['coin'] . "%'")->first()->min_ex_balance;
+        $max = Coin::whereRaw("lower(name) LIKE '%" . $request['coin'] . "%'")->first()->max_ex_balance;
+
         $request->validate([
-            'amount' => 'required|min:0.1',
+            'amount' => "required|min:$min",
             'coin' => 'required'
         ]);
 
