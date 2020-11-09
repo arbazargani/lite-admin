@@ -93,7 +93,7 @@
                                 </td>
                                 <td>
                                     @if(is_null($receipt->paid_at))
-                                    <form action="{{ route('Payment > Request', $receipt->id) }}" method="post">
+                                    <form action="{{ route('Payment > Request', $receipt->hash) }}" method="post">
                                         @csrf
                                         <button type="submit" class="button td-btn">پرداخت</button>
                                     </form>

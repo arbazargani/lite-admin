@@ -134,7 +134,7 @@ class UserController extends Controller
 
     public function BuyCoin()
     {
-        $coins = Coin::all();
+        $coins = Coin::whereRaw('balance > 0 AND max_ex_limit <= balance')->get();
         $usd_price = Settings::where('name', 'dollar_price_buy')->first();
         return view("user.panel.buy", compact('usd_price', 'coins'));
     }

@@ -13,22 +13,27 @@ use App\Receipt;
 use App\StringTrait;
 use App\User;
 use App\AlertTrait;
+use App\Coin;
 
 class PaymentController extends Controller
 {
     use StringTrait;
     use AlertTrait;
 
-    public function Request(Request $request, $receipt_id)
+    public function Request(Request $request, $hash)
     {
         // validate receipt
-        if ($receipt_id != $request['receipt_id']) {
-            return abort(403, 'Unauthorized action.');
-        }
+        // if ($receipt_id != $request['receipt_id']) {
+        //     return abort(403, 'Unauthorized action.');
+        // }
 
-        $receipt = Receipt::findOrFail($receipt_id);
+        // $receipt = Receipt::findOrFail($receipt_id);
+        $receipt = Receipt::where('hash', $hash)->first();
+        $receipt_id = $receipt->id;
+
         $amount = (int)$this->NormalizePrice($receipt->payable);
         $description = $receipt->description;
+        $selected_coin = $receipt->selected_coin;
 
         // Create new invoice.
         $invoice = new Invoice;
@@ -69,7 +74,7 @@ class PaymentController extends Controller
         // );
 
         // Pay on the fly, redirect to gateway
-        return Payment::purchase($invoice, function ($driver, $transactionId) use ($amount, $description, $receipt_id) {
+        return Payment::purchase($invoice, function ($driver, $transactionId) use ($amount, $description, $receipt_id, $selected_coin) {
             echo "transID: $transactionId<br/>";
             // We can store $transactionId in database.
             $transaction = new Pay;
@@ -110,14 +115,24 @@ class PaymentController extends Controller
                 'status' => 'paid'
             ]);
             $receipt_id = Pay::where('trans_id', $transaction_id)->first()->receipt_id;
+            $selected_coin = Receipt::where('id', $receipt_id)->first()->selected_coin;
             $receipt = Receipt::where('id', $receipt_id)->update([
                 'status' => 'paid',
                 'paid_at' => now()
             ]);
+            $coins = Coin::all();
+            foreach ($coins as $coin) {
+                if (strtolower($coin->name) == strtolower($selected_coin)) {
+                    $coin_amount = Receipt::where('id', $receipt_id)->first()->amount;
+                    Coin::where('name', $coin->name)->update([
+                        'balance' => $coin->balance-$coin_amount,
+                    ]);
+                }
+            }
             $message = 'پرداخت موردنظر با موفقیت انجام شد.';
             session(['status' => 'factored', 'message' => $message]);
             $this->MakeAlert(1, "یک فاکتور پرداخت شد.", 'successss');
-            return redirect(route('User > Panel'));
+            return back();
 
         } catch (InvalidPaymentException $exception) {
             /**

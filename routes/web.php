@@ -66,7 +66,7 @@ Route::middleware(['auth', 'HasAdminAccess'])->group(function () {
         Route::post('/settings/update', 'SettingsController@Update')->name('Admin > Settings > Update');
 
         Route::get('/settings/coins', 'SettingsController@CoinsSettings')->name('Admin > Settings > Coins');
-        Route::post('/settings/coins/update/price/{id}', 'SettingsController@UpdateCoins')->name('Admin > Settings > Coins > Update');
+        Route::post('/settings/coins/update/{id}', 'SettingsController@UpdateCoins')->name('Admin > Settings > Coins > Update');
 
 
         Route::get('/storage/uploads/certifications/{slug}', 'AssetsController@SafeAssetsRender')->name('Admin > Images > Show');
@@ -130,7 +130,7 @@ Route::middleware(['CheckRegion'])->group(function () {
     });
 
     Route::prefix('pay')->group(function () {
-        Route::post('/request/{receipt_id}', 'PaymentController@Request')->name('Payment > Request');
+        Route::post('/request/{hash}', 'PaymentController@Request')->name('Payment > Request');
         Route::any('/callback.php', 'PaymentController@Callback')->name('Payment > Callback');
         Route::any('/receipt', 'PaymentController@PayReceipt')->name('MakeReceipt');
     });

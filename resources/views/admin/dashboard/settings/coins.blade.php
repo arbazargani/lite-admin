@@ -25,6 +25,12 @@
                                     @endforeach
                                 </div>
                             @endif
+                            @if (session('error'))
+                                <p>{{ session('error') }}</p>
+                                @php
+                                    session()->forget('error')
+                                @endphp
+                            @endif
                             <h2>مدیرت ارزها</h2>
                             <br>
                             <style>
@@ -53,6 +59,12 @@
                                     height: 23px !important;
                                     font-family: monospace !important
                                 }
+                                .alerted {
+                                    background: rgb(255 102 102 / 50%) !important;
+                                }
+                                .danger {
+                                    background: red;
+                                }
                             </style>
                             <div class="workspace-content">
                                 <div class="table-wrapper">
@@ -67,9 +79,10 @@
                                             <th>وضعیت</th>
                                             <th>حداقل خرید</th>
                                             <th>حداکثر خرید</th>
+                                            <th>موجودی</th>
                                             </tr>
                                             @foreach ($coins as $coin)
-                                            <tr>
+                                            <tr @if ( ($coin->balance <= 0) || ($coin->max_ex_limit > $coin->balance) ) class="alerted" @endif>
                                                 <td>{{ $coin->name }}</td>
                                                 <td>{{ $coin->slug }}</td>
                                                 <td>{{ $coin->usd_price }}</td>
@@ -90,6 +103,14 @@
                                                         <input type="hidden" name="coin_id" value="{{ $coin->id }}" class="minimal-input">
                                                         <input type="text" name="max_ex_limit" value="{{ $coin->max_ex_limit }}" class="minimal-input">
                                                         <button type="submit" class="minimal-btn"><i class="fas fa-check"></i></button>
+                                                    </form>
+                                                </td>
+                                                <td>
+                                                    <form action="{{ route('Admin > Settings > Coins > Update', $coin->id) }}" method="post">
+                                                        @csrf
+                                                        <input type="hidden" name="coin_id" value="{{ $coin->id }}" class="minimal-input">
+                                                        <input type="text" name="balance" value="{{ $coin->balance }}" class="minimal-input">
+                                                        <button type="submit" class="minimal-btn danger"><i class="fas fa-check"></i></button>
                                                     </form>
                                                 </td>
                                             </tr>

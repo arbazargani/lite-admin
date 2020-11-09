@@ -207,6 +207,7 @@ class ReceiptController extends Controller
         $payable = $this->CalculatePrice($request['coin'], $request['amount'], 'tomans', $usd_price);
         $receipt->payable = $this->NormalizePrice($payable);
         $receipt->description = 'تعداد :' . $request['amount'] . ' | ' . 'ارز موردنظر :' . $request['coin'];
+        $receipt->selected_coin = $request['coin'];
         $receipt->save();
 
         $receipt->hash = sha1($receipt->id);

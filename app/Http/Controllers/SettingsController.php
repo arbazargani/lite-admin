@@ -81,15 +81,28 @@ class SettingsController extends Controller
         $request->validate([
             'coin_id' => 'required'
         ]);
-
+        $coin = Coin::findOrFail($id);
         if ($request->has('min_ex_limit')) {
+            if ($request->min_ex_limit > $coin->balance) {
+                $request->session()->put('error','نمیتوانید حداقل خرید را بیشتر از موجودی وارد کنید.');
+                return back();
+            }
             Coin::where('id', $request['coin_id'])->update([
                 'min_ex_limit' => $request['min_ex_limit']
             ]);
             return back();
         } elseif ($request->has('max_ex_limit')) {
+            if ($request->max_ex_limit > $coin->balance) {
+                $request->session()->put('error','نمیتوانید حدکثر خرید را بیشتر از موجودی وارد کنید.');
+                return back();
+            }
             Coin::where('id', $request['coin_id'])->update([
                 'max_ex_limit' => $request['max_ex_limit']
+            ]);
+            return back();
+        } elseif ($request->has('balance')) {
+            Coin::where('id', $request['coin_id'])->update([
+                'balance' => $request['balance']
             ]);
             return back();
         } else {

@@ -192,6 +192,29 @@
                     <hr>
 
                     <div>
+                        <h3>ارز های سیستم</h3>
+                        <div style="padding: 5px; border-radius: 2px; border: 1px solid red">
+                            @php
+                                $coins_has_alert = 0;
+                            @endphp
+                            @foreach ($coins as $coin)
+                            @if ($coin->balance < $coin->min_ex_limit)
+                            @php
+                                $coins_has_alert = 1;
+                            @endphp
+                            <p>موجودی ارز <span class="da">{{ $coin->name }}</span> کمتر از حداقل خرید است.</p>
+                            @endif
+                            @endforeach
+                            
+                            @if (!$coins_has_alert)
+                                <p>موردی جهت اعلام وجود ندارد.</p>
+                            @endif
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <div>
                         <h3>لاگ‌های سیستم</h3>
                         <br>
                         <style>
