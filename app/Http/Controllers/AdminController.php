@@ -172,7 +172,9 @@ class AdminController extends Controller
     public function VerifyTransaction(Request $request, $id = 0)
     {
         if ($request->isMethod('get')) {
-            $transactions = Transaction::where('status', 'waiting')->paginate(10);
+            $transactions = Transaction::where('status', '!=', 'unpaid')->latest()->paginate(10);
+            // $transactions = Transaction::paginate(10);
+            
             return view('admin.dashboard.transactions.verification', compact(['transactions']));
         } elseif ($request->isMethod('post')) {
             $transaction = Transaction::find($id);
@@ -209,7 +211,7 @@ class AdminController extends Controller
 
     public function ShowPayments()
     {
-        $receipts = Receipt::where('status', 'paid')->latest()->paginate(10);
+        $receipts = Receipt::where('status', '!=', 'unpaid')->latest()->paginate(10);
         return view("admin.dashboard.receipts.index", compact(['receipts']));
     }
 
@@ -269,5 +271,16 @@ class AdminController extends Controller
 
     public function BroadcastMessage(Request $request, $id) {
         $this->MakeAlert($id, $request['content'], 'danger', true);
+    }
+
+    public function GetUserInfo($id) {
+        $user = User::findOrFail($id);
+        $bef = '<html dir="rtl"><head>اطلاعات کاربر</head><body>';
+        $aft = '</body>';
+        if (!is_null($user) == 1) {
+            return $bef . "<pre><strong>شماره شبا:</strong>" . $user->sheba_account . "</pre><hr/>" . "<pre><strong>شماره حساب:</strong>" . $user->credit_account . "</pre><hr/>" . "<pre><strong>شماره کارت:</strong>" . $user->credit_card . "</pre>" . $aft;
+        } else {
+            abort('403', 'make screenshot and contact this state to system administrator.');
+        }
     }
 }

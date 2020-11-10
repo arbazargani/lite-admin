@@ -14,6 +14,7 @@ use App\AlertTrait;
 use App\User;
 use App\Settings;
 use Auth;
+use App\Coin;
 
 class TransactionController extends Controller
 {

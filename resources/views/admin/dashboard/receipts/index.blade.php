@@ -60,7 +60,9 @@
                                         </div>
                                     </td>
                                     <td>
-                                        <span style="color: green" onclick="window.open('{{ route('User > Receipt > Raw > Wallet', $receipt->hash) }}','name','width=600,height=400')">نمایش آدرس ولت</span>
+                                        <span style="color: green" onclick="window.open('{{ route('User > Receipt > Raw > Wallet', $receipt->hash) }}','name','width=600,height=400')">آدرس ولت</span>
+                                        <hr>
+                                        <span style="color: blue" onclick="window.open('{{ route('Admin > Users > Raw > Payment Info', $receipt->user->id) }}','name','width=600,height=400')">شماره حساب</span>
                                     </td>
                                     <td>
                                         @if(is_null($receipt->admin_tx))

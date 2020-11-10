@@ -56,6 +56,8 @@ Route::middleware(['auth', 'HasAdminAccess'])->group(function () {
         Route::post('/users/block/{id}', 'AdminController@BlockUser')->name('Admin > Users > Block User');
         Route::post('/users/unblock/{id}', 'AdminController@UnblockUser')->name('Admin > Users > Unblock User');
 
+        Route::get('/users/raw/info/{id}', 'AdminController@GetUserInfo')->name('Admin > Users > Raw > Payment Info');
+
         Route::get('/receipts/paid', 'AdminController@ShowPayments')->name('Admin > Receipts > List');
         Route::post('/receipts/action/{id}', 'AdminController@PaymentDoAction')->name('Admin > Receipts > Action');
 

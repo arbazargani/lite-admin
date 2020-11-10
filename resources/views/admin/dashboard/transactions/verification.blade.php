@@ -43,7 +43,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                        @foreach( $transactions->reverse() as $transaction )
+                        @foreach( $transactions as $transaction )
                         <tr>
                             <td>{{ $transaction->id }}</td>
                             <td><a href="{{ route('Admin > User > Edit', $transaction->user->id) }}" target="_blank">{{ $transaction->user->name }}</a></td>
@@ -61,19 +61,30 @@
                             </td>
                             
                             <td>
-                                <input type="text" name="pay_tracking_id" placeholder="شناسه پرداخت" style="max-width: 160px;" form="accept_form_{{ $transaction->hash }}" required>
+                                @if ($transaction->status == 'waiting')
+                                    <input type="text" name="pay_tracking_id" placeholder="شناسه پرداخت" style="max-width: 160px;" form="accept_form_{{ $transaction->hash }}" required>
+                                @else
+                                    <span>مجاز نیست</span>
+                                @endif
+                                
                             </td>
                             <td>
-                            <form action="{{ route('Admin > Transactions > Verify Transaction', $transaction->id) }}" style="display: inline-block; vertical-align: middle;" method="post">
-                                @csrf
-                                <input type="hidden" name="action" value="reject">
-                                <button type="submit" class="button td-btn del-btn" type="button"><i class="fas fa-times"></i></button>
-                            </form>
-                            <form action="{{ route('Admin > Transactions > Verify Transaction', $transaction->id) }}" style="display: inline-block; vertical-align: middle;" method="post" id="accept_form_{{ $transaction->hash }}">
-                                @csrf
-                                <input type="hidden" name="action" value="accept">
-                                <button type="submit" class="button td-btn" type="button"><i class="fas fa-check"></i></button>
-                            </form>
+                            @if ($transaction->status == 'waiting')
+                                <form action="{{ route('Admin > Transactions > Verify Transaction', $transaction->id) }}" style="display: inline-block; vertical-align: middle;" method="post">
+                                    @csrf
+                                    <input type="hidden" name="action" value="reject">
+                                    <button type="submit" class="button td-btn del-btn" type="button"><i class="fas fa-times"></i></button>
+                                </form>
+                                <form action="{{ route('Admin > Transactions > Verify Transaction', $transaction->id) }}" style="display: inline-block; vertical-align: middle;" method="post" id="accept_form_{{ $transaction->hash }}">
+                                    @csrf
+                                    <input type="hidden" name="action" value="accept">
+                                    <button type="submit" class="button td-btn" type="button"><i class="fas fa-check"></i></button>
+                                </form>
+                            @elseif($transaction->status == 'rejected')
+                                <span>رد شده</span>
+                            @elseif($transaction->status == 'verified')
+                                <span>تایید شده</span>
+                            @endif
                             </td>
                         </tr>
                         @endforeach
