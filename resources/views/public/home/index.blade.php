@@ -20,23 +20,133 @@
 					<a href="#">
 						<li>
 						<img src="/assets/v3/src/icon/btc.svg" alt="bitcoin">
-						BTC/USD {{ $coins_usd->where('name', 'Bitcoin')->first()->usd_price }} $</li>
+						@php
+							$dataset = [];
+							$dataset[1] = $coins->where('name', 'Bitcoin')->first()->ahead_usd_price_4;
+							$dataset[2]= $coins->where('name', 'Bitcoin')->first()->ahead_usd_price_3;
+							$dataset[3]= $coins->where('name', 'Bitcoin')->first()->ahead_usd_price_2;
+							$dataset[4]= $coins->where('name', 'Bitcoin')->first()->ahead_usd_price_1;
+							$dataset[5]= $coins->where('name', 'Bitcoin')->first()->ahead_usd_price;
+							$dataset[6]= $coins->where('name', 'Bitcoin')->first()->usd_price;
+						@endphp
+						<canvas id="Bitcoin_canvas" style="width: 30px !important; height: 10px !important"></canvas>
+						<script>
+							var chart = new Graph({
+								data: [{{ $dataset[1] . ',' . $dataset[2] . ',' . $dataset[3] . ',' . $dataset[4] . ',' . $dataset[5] . ',' . $dataset[6] }}],
+								target: document.querySelector('#Bitcoin_canvas'),
+								background: "#2e3044",
+								lineColor: "#F47E12",
+								showCircle: true,
+								circle: "#F47E12",
+								circleSize: 4,
+							});
+						</script>
+						BTC/USD {{ $coins_usd->where('name', 'Bitcoin')->first()->usd_price }} $
+						</li>
 
 						<li>
 						<img src="/assets/v3/src/icon/eth.svg" alt="ethereum">
-						ETH/USD {{ $coins_usd->where('name', 'Ethereum')->first()->usd_price }} $</li>
+						@php
+							$dataset = [];
+							$dataset[1] = $coins->where('name', 'Ethereum')->first()->ahead_usd_price_4;
+							$dataset[2]= $coins->where('name', 'Ethereum')->first()->ahead_usd_price_3;
+							$dataset[3]= $coins->where('name', 'Ethereum')->first()->ahead_usd_price_2;
+							$dataset[4]= $coins->where('name', 'Ethereum')->first()->ahead_usd_price_1;
+							$dataset[5]= $coins->where('name', 'Ethereum')->first()->ahead_usd_price;
+							$dataset[6]= $coins->where('name', 'Ethereum')->first()->usd_price;
+						@endphp
+						<canvas id="Ethereum_canvas" style="width: 30px !important; height: 10px !important"></canvas>
+						<script>
+							var chart = new Graph({
+								data: [{{ $dataset[1] . ',' . $dataset[2] . ',' . $dataset[3] . ',' . $dataset[4] . ',' . $dataset[5] . ',' . $dataset[6] }}],
+								target: document.querySelector('#Ethereum_canvas'),
+								background: "#2e3044",
+								lineColor: "#5672E6",
+								showCircle: true,
+								circle: "#5672E6",
+								circleSize: 4,
+							});
+						</script>
+						ETH/USD {{ $coins_usd->where('name', 'Ethereum')->first()->usd_price }} $
+						</li>
 
 						<li>
 						<img src="/assets/v3/src/icon/ltc.svg" alt="litecoin">
-						LTC/USD {{ $coins_usd->where('name', 'Litecoin')->first()->usd_price }} $</li>
+						@php
+							$dataset = [];
+							$dataset[1] = $coins->where('name', 'Litecoin')->first()->ahead_usd_price_4;
+							$dataset[2]= $coins->where('name', 'Litecoin')->first()->ahead_usd_price_3;
+							$dataset[3]= $coins->where('name', 'Litecoin')->first()->ahead_usd_price_2;
+							$dataset[4]= $coins->where('name', 'Litecoin')->first()->ahead_usd_price_1;
+							$dataset[5]= $coins->where('name', 'Litecoin')->first()->ahead_usd_price;
+							$dataset[6]= $coins->where('name', 'Litecoin')->first()->usd_price;
+						@endphp
+						<canvas id="Litecoin_canvas" style="width: 30px !important; height: 10px !important"></canvas>
+						<script>
+							var chart = new Graph({
+								data: [{{ $dataset[1] . ',' . $dataset[2] . ',' . $dataset[3] . ',' . $dataset[4] . ',' . $dataset[5] . ',' . $dataset[6] }}],
+								target: document.querySelector('#Litecoin_canvas'),
+								background: "#2e3044",
+								lineColor: "#C7C3C3",
+								showCircle: true,
+								circle: "#C7C3C3",
+								circleSize: 4,
+							});
+						</script>
+						LTC/USD {{ $coins_usd->where('name', 'Litecoin')->first()->usd_price }} $
+						</li>
 						
 						<li>
 						<img src="/assets/v3/src/icon/zec.svg" alt="zecash">
-						ZEC/USD {{ $coins_usd->where('name', 'Zecash')->first()->usd_price }} $</li>
+						@php
+							$dataset = [];
+							$dataset[1] = $coins->where('name', 'Zecash')->first()->ahead_usd_price_4;
+							$dataset[2]= $coins->where('name', 'Zecash')->first()->ahead_usd_price_3;
+							$dataset[3]= $coins->where('name', 'Zecash')->first()->ahead_usd_price_2;
+							$dataset[4]= $coins->where('name', 'Zecash')->first()->ahead_usd_price_1;
+							$dataset[5]= $coins->where('name', 'Zecash')->first()->ahead_usd_price;
+							$dataset[6]= $coins->where('name', 'Zecash')->first()->usd_price;
+						@endphp
+						<canvas id="Zecash_canvas" style="width: 30px !important; height: 10px !important"></canvas>
+						<script>
+							var chart = new Graph({
+								data: [{{ $dataset[1] . ',' . $dataset[2] . ',' . $dataset[3] . ',' . $dataset[4] . ',' . $dataset[5] . ',' . $dataset[6] }}],
+								target: document.querySelector('#Zecash_canvas'),
+								background: "#2e3044",
+								lineColor: "#EFBE59",
+								showCircle: true,
+								circle: "#EFBE59",
+								circleSize: 4,
+							});
+						</script>
+						ZEC/USD {{ $coins_usd->where('name', 'Zecash')->first()->usd_price }} $
+						</li>
 						
 						<li>
 						<img src="/assets/v3/src/icon/usdt.svg" alt="tether">
-						USDT/USD {{ $coins_usd->where('name', 'Tether')->first()->usd_price }} $</li>
+						@php
+							$dataset = [];
+							$dataset[1] = $coins->where('name', 'Tether')->first()->ahead_usd_price_4;
+							$dataset[2]= $coins->where('name', 'Tether')->first()->ahead_usd_price_3;
+							$dataset[3]= $coins->where('name', 'Tether')->first()->ahead_usd_price_2;
+							$dataset[4]= $coins->where('name', 'Tether')->first()->ahead_usd_price_1;
+							$dataset[5]= $coins->where('name', 'Tether')->first()->ahead_usd_price;
+							$dataset[6]= $coins->where('name', 'Tether')->first()->usd_price;
+						@endphp
+						<canvas id="Tether_canvas" style="width: 30px !important; height: 10px !important"></canvas>
+						<script>
+							var chart = new Graph({
+								data: [{{ $dataset[1] . ',' . $dataset[2] . ',' . $dataset[3] . ',' . $dataset[4] . ',' . $dataset[5] . ',' . $dataset[6] }}],
+								target: document.querySelector('#Tether_canvas'),
+								background: "#2e3044",
+								lineColor: "#2EA782",
+								showCircle: true,
+								circle: "#2EA782",
+								circleSize: 4,
+							});
+						</script>
+						USDT/USD {{ $coins_usd->where('name', 'Tether')->first()->usd_price }} $
+						</li>
 					</a>
 				</ul>
 			</div>

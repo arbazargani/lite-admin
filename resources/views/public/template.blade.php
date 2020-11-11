@@ -23,8 +23,11 @@
 	<!-- End Favication icon -->
 
 
-
+	<!--Theme styles-->
 	<link type="text/css" rel="stylesheet" media="all" href="/assets/v3/style.css">
+
+	<!--Minimalist charts-->
+	<script src="/assets/v3/assets/js/minimalist-charts/chart.js"></script>
 		
 	<!--Font Awsome-->
 	<link href="/assets/v3/assets/fonts/fontawesome-pro-5.14.0-web/css/all.min.css" rel="stylesheet">
