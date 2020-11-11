@@ -20,7 +20,7 @@
 	<link rel="manifest" href="/assets/v3/src/favicon/site.webmanifest">
 	<link rel="mask-icon" href="/assets/v3/src/favicon/safari-pinned-tab.svg" color="#232424">
 	<meta name="msapplication-TileColor" content="#292929">
-	<meta name="theme-color" content="#46D1AA">
+	<meta name="theme-color" content="#45D799">
 	<!-- End Favication icon -->
 
 
