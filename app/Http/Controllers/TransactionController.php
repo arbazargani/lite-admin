@@ -165,7 +165,7 @@ class TransactionController extends Controller
         $max = Coin::whereRaw("lower(name) LIKE '%" . $request['coin'] . "%'")->first()->max_ex_balance;
 
         $request->validate([
-            'amount' => "required|min:$min",
+            'amount' => "required",
             'coin' => 'required'
         ]);
 

@@ -190,7 +190,8 @@ class ReceiptController extends Controller
 
         $request->validate([
             'wallet' => 'required|min:5',
-            'amount' => "required|min:$min|max:$max",
+            // 'amount' => "numeric|required|min:$min|max:$max",
+            'amount' => "numeric|required",
         ]);
 
         $settings = [
