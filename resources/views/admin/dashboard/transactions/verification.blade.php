@@ -47,7 +47,11 @@
                         <tr>
                             <td>{{ $transaction->id }}</td>
                             <td><a href="{{ route('Admin > User > Edit', $transaction->user->id) }}" target="_blank">{{ $transaction->user->name }}</a></td>
-                            <td>{{ $transaction->description }}</td>
+                            <td>
+                                {{ $transaction->description }}
+                                <br>
+                                <span style="color: blue" onclick="window.open('{{ route('Admin > Users > Raw > Payment Info', $transaction->user->id) }}','name','width=600,height=400')">اطلاعات حساب</span>
+                            </td>
                             <td>{{ number_format($transaction->payable) }}</td>
                             <td>{{ Facades\Verta::instance($transaction->created_at) }}</td>
                             <td>
@@ -59,14 +63,14 @@
                                     @endif
                                 </p>
                             </td>
-                            
+
                             <td>
                                 @if ($transaction->status == 'waiting')
                                     <input type="text" name="pay_tracking_id" placeholder="شناسه پرداخت" style="max-width: 160px;" form="accept_form_{{ $transaction->hash }}" required>
                                 @else
                                     <span>مجاز نیست</span>
                                 @endif
-                                
+
                             </td>
                             <td>
                             @if ($transaction->status == 'waiting')
