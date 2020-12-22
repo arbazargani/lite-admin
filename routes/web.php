@@ -52,6 +52,7 @@ Route::middleware(['auth', 'HasAdminAccess'])->group(function () {
         Route::post('/users/verify/{id}', 'AdminController@Verification')->name('Admin > Users > Verify Person');
 
         Route::post('/users/quick_verify/{id}', 'AdminController@QuickVerify')->name('Admin > Users > Quick Verify Person');
+        Route::post('/users/anonymous_verify/{id}', 'AdminController@AnonymousVerify')->name('Admin > Users > Anonymous Verify Person');
 
         Route::post('/users/block/{id}', 'AdminController@BlockUser')->name('Admin > Users > Block User');
         Route::post('/users/unblock/{id}', 'AdminController@UnblockUser')->name('Admin > Users > Unblock User');

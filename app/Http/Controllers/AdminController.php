@@ -163,6 +163,21 @@ class AdminController extends Controller
         return back();
     }
 
+    public function AnonymousVerify($id)
+    {
+        $user = User::find($id);
+
+        $user->where('id', $id)->update(['status' => 'verified']);
+            $message = 'کاربر با موفقیت تایید شد.';
+            session(['status' => 'accepted', 'message' => $message]);
+            $this->MakeAlert($id, 'اکانت شما به تایید کارشناس سامانه رسید.', 'success');
+
+        $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Approved ' . " $user->id-" . $user->name . '-' . $user->email . '- verification requets.';
+
+        $this->MakeLog(Auth::id(), $log);
+        return back();
+    }
+
     public function ShowMessages()
     {
         $alerts = User::find(Auth::id())->alert()->paginate(10);

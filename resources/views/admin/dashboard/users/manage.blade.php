@@ -25,7 +25,16 @@
                         @foreach($users as $user)
                             <tr>
                                 <td>{{ $user->id }}</td>
-                                <td>{{ $user->name }}</td>
+                                <td>
+                                    {{ $user->name }}
+                                    @if($user->rule != 'admin' && $user->rule != 'root' && $user->status != 'verified')
+                                    <form action="{{ Route('Admin > Users > Anonymous Verify Person', $user->id) }}" method="post" id="anonymous-verify-{{ $user->id }}" style="visibility: hidden">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{ $user->id }}">
+                                    </form>
+                                    <span style="background: #df3737; color: white; border-radius: 2px; padding: 1px 13px; font-size: 11px; font-weight: bolder;" onclick='document.getElementById("anonymous-verify-{{ $user->id }}").submit();'>تایید سریع</span>
+                                    @endif
+                                </td>
                                 <td>{{ $user->email }}</td>
                                 <td>{{ $user->phone_number }}</td>
                                 <td>{{ $user->national_code }}</td>
