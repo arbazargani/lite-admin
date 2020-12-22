@@ -146,6 +146,15 @@ class ReceiptController extends Controller
             $response = (Cache::has("ETHUSDT-usd-price")) ? Cache::get("ETHUSDT-usd-price") : $this->binance('ETHUSDT');
             // $response = $this->binance('ETHUSDT');
 
+        } elseif ($currency == 'ethereum-classic') {
+
+            $response = (Cache::has("ETCUSDT-usd-price")) ? Cache::get("ETCUSDT-usd-price") : $this->binance('ETCUSDT');
+            // $response = $this->binance('ETCUSDT');
+
+        }  elseif ($currency == 'ravencoin') {
+            $response = (Cache::has("RVNDUSDT-usd-price")) ? Cache::get("RVNDUSDT-usd-price") : $this->binance('RVNDUSDT');
+            // $response = $this->binance('RVNDUSDT');
+            
         } elseif ($currency == 'zecash') {
 
             $response = (Cache::has("ZECUSDT-usd-price")) ? Cache::get("ZECUSDT-usd-price") : $this->binance('ZECUSDT');

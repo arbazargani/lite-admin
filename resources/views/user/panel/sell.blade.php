@@ -79,6 +79,8 @@
                             @foreach ($coins as $coin)
                             <option value="{{ strtolower($coin->name) }}">{{ $coin->name }}</option>
                             @endforeach
+                            <option value="ethereum-classic">Ethereum Classic</option>
+                            <option value="ravencoin">Ravencoin</option>
                             {{-- <option value="bitcoin">Bitcoin / BTC</option>
                             <option value="ethereum">Ethereum / ETH</option>
                             <option value="zecash">Zcash / ZEC</option>

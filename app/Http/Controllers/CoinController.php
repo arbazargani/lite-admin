@@ -63,6 +63,11 @@ class CoinController extends Controller
             $response = (Cache::has("ETHUSDT-usd-price")) ? Cache::get("ETHUSDT-usd-price") : $this->binance('ETHUSDT');
             // $response = $this->binance('ETHUSDT');
 
+        }  elseif ($currency == 'ethereum-classic') {
+
+            $response = (Cache::has("ETCUSDT-usd-price")) ? Cache::get("ETCUSDT-usd-price") : $this->binance('ETCUSDT');
+            // $response = $this->binance('ETCUSDT');
+
         } elseif ($currency == 'zecash') {
 
             $response = (Cache::has("ZECUSDT-usd-price")) ? Cache::get("ZECUSDT-usd-price") : $this->binance('ZECUSDT');
@@ -71,7 +76,11 @@ class CoinController extends Controller
         } elseif ($currency == 'tether') {
             $response = (Cache::has("BUSDUSDT-usd-price")) ? Cache::get("BUSDUSDT-usd-price") : $this->binance('BUSDUSDT');
             // $response = $this->binance('BUSDUSDT');
-
+            
+        } elseif ($currency == 'ravencoin') {
+            $response = (Cache::has("RVNDUSDT-usd-price")) ? Cache::get("RVNDUSDT-usd-price") : $this->binance('RVNDUSDT');
+            // $response = $this->binance('RVNDUSDT');
+            
         } else {
 
             return abort('403', 'ارز موردنظر پشتیبانی نمیشود.');
