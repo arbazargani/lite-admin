@@ -18,6 +18,14 @@ class CoinController extends Controller
 {
     use StringTrait;
 
+    public function AddCoin() {
+        return view('admin.dashboard.coin.index');
+    }
+
+    public function UpdateCoin(Request $request, $id) {
+
+    }
+
     public function GetDollarPrice()
     {
         $response = Currency::usd();
@@ -105,8 +113,7 @@ class CoinController extends Controller
         }
     }
 
-    public function ExchangeSell(Request $request)
-    {
+    public function ExchangeSell(Request $request) {
         if (env('API_DOWN')) {
             $array = array('ok' => false,
                 'error' => 'System under maintenance.'
@@ -140,8 +147,7 @@ class CoinController extends Controller
         }
     }
 
-    public function ExchangeBuy(Request $request)
-    {
+    public function ExchangeBuy(Request $request) {
         if (env('API_DOWN')) {
             $array = array('ok' => false,
                 'error' => 'System under maintenance.'
@@ -173,6 +179,7 @@ class CoinController extends Controller
             return json_encode($array);
         }
     }
+
     public function Binance_v1() {
         $endpoint = 'https://api.binance.com/api/v3/ticker/price?symbol=LTCBTC&timestamp=' . Carbon::now()->toDateTimeString();
         try
@@ -225,6 +232,7 @@ class CoinController extends Controller
 
         return var_dump($json);
     }
+
     public function Binance_v3() {
         $key = "ThzJPQ6k32JEQQtvtAmt4gMqcbELDdRqPl9RG5NnIur27zCdKIk7AA3Mf6sEEao2";
         $secret = "vEKoKnJ5QeT99mgjcsqyABsvBfsTe6PsKGGEz5UasWedWE7HZ7NmnX6htiMNhTen";
