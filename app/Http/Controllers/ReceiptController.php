@@ -161,7 +161,7 @@ class ReceiptController extends Controller
             // $response = $this->binance('ZECUSD');
 
         } elseif ($currency == 'tether') {
-            $response = (Cache::has("BUSDUSDT-usd-price")) ? Cache::get("BUSDUSDT-usd-price") : $this->binance('BUSDUSDT');
+            $response = (Cache::has("RVNUSDT-usd-price")) ? Cache::get("RVNUSDT-usd-price") : $this->binance('RVNUSDT');
             // $response = $this->binance('BUSDUSDT');
 
         } else {

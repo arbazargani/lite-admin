@@ -313,7 +313,7 @@
 			
             if (document.getElementById(type+"-tomans-loader").style.display !== null && document.getElementById(type+"-tomans-loader").style.display !== "inline") {
                 document.getElementById(type+"-tomans-loader").style.display = "inline";
-            }
+			}
             var from = getSelectedCurrency(type+'-currency-in');
             var number = document.getElementById(type+'-amount').value;
             console.log("converting " + number + " from " + from + " to USD");
@@ -324,6 +324,7 @@
                     if (response.ok == true) {
                         document.getElementById(type+"-tomans").innerHTML = response.tomans;
                         document.getElementById(type+"-tomans-loader").style.display = "none";
+						console.table(response);
 
                         console.log('done: ' + response.ok + ':' + response.dollars + ':' + response.tomans);
                     } else {

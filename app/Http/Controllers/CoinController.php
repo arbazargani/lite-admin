@@ -86,7 +86,7 @@ class CoinController extends Controller
             // $response = $this->binance('BUSDUSDT');
             
         } elseif ($currency == 'ravencoin') {
-            $response = (Cache::has("RVNDUSDT-usd-price")) ? Cache::get("RVNDUSDT-usd-price") : $this->binance('RVNDUSDT');
+            $response = (Cache::has("RVNUSDT-usd-price")) ? Cache::get("RVNUSDT-usd-price") : $this->binance('RVNUSDT');
             // $response = $this->binance('RVNDUSDT');
             
         } else {
@@ -94,7 +94,9 @@ class CoinController extends Controller
             return abort('403', 'ارز موردنظر پشتیبانی نمیشود.');
 
         }
-        return round(json_decode(json_encode($response->price)));
+        // return round(json_decode(json_encode($response->price)));
+        // return round(json_decode(json_encode($response->price))) <= 0 ? json_decode(json_encode($response->price)) : round(json_decode(json_encode($response->price)));
+        return (json_decode(json_encode($response->price)));
     }
 
     public function CalculatePrice($currency, $amount, $usd_price, $output_currency = 'tomans') {
