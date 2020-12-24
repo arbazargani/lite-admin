@@ -50,5 +50,21 @@ class CoinTableSeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        // Coin: Ravencoin
+        DB::table('coins')->insert([
+            'name' => 'Ravencoin',
+            'slug' => 'RVNUSDT',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        // Coin: Tether
+        DB::table('coins')->insert([
+            'name' => 'Ethereum_classic',
+            'slug' => 'ETCUSDT',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 }

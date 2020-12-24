@@ -71,6 +71,32 @@
 						</li>
 
 						<li>
+						<img src="/assets/v3/src/icon/etc.svg" alt="ethereum">
+						@php
+							$dataset = [];
+							$dataset[1] = $coins->where('name', 'Ethereum_classic')->first()->ahead_usd_price_4;
+							$dataset[2]= $coins->where('name', 'Ethereum_classic')->first()->ahead_usd_price_3;
+							$dataset[3]= $coins->where('name', 'Ethereum_classic')->first()->ahead_usd_price_2;
+							$dataset[4]= $coins->where('name', 'Ethereum_classic')->first()->ahead_usd_price_1;
+							$dataset[5]= $coins->where('name', 'Ethereum_classic')->first()->ahead_usd_price;
+							$dataset[6]= $coins->where('name', 'Ethereum_classic')->first()->usd_price;
+						@endphp
+						<canvas id="Ethereum_classic_canvas" style="width: 30px !important; height: 10px !important"></canvas>
+						<script>
+							var chart = new Graph({
+								data: [{{ $dataset[1] . ',' . $dataset[2] . ',' . $dataset[3] . ',' . $dataset[4] . ',' . $dataset[5] . ',' . $dataset[6] }}],
+								target: document.querySelector('#Ethereum_classic_canvas'),
+								background: "#2e3044",
+								lineColor: "#41893A",
+								showCircle: true,
+								circle: "#41893A",
+								circleSize: 4,
+							});
+						</script>
+						ETC/USD {{ $coins_usd->where('name', 'Ethereum_classic')->first()->usd_price }} $
+						</li>
+
+						<li>
 						<img src="/assets/v3/src/icon/ltc.svg" alt="litecoin">
 						@php
 							$dataset = [];
@@ -122,6 +148,32 @@
 						ZEC/USD {{ $coins_usd->where('name', 'Zecash')->first()->usd_price }} $
 						</li>
 						
+						<li>
+						<img src="/assets/v3/src/icon/rvn.svg" alt="tether">
+						@php
+							$dataset = [];
+							$dataset[1] = $coins->where('name', 'Ravencoin')->first()->ahead_usd_price_4;
+							$dataset[2]= $coins->where('name', 'Ravencoin')->first()->ahead_usd_price_3;
+							$dataset[3]= $coins->where('name', 'Ravencoin')->first()->ahead_usd_price_2;
+							$dataset[4]= $coins->where('name', 'Ravencoin')->first()->ahead_usd_price_1;
+							$dataset[5]= $coins->where('name', 'Ravencoin')->first()->ahead_usd_price;
+							$dataset[6]= $coins->where('name', 'Ravencoin')->first()->usd_price;
+						@endphp
+						<canvas id="Raven_canvas" style="width: 30px !important; height: 10px !important"></canvas>
+						<script>
+							var chart = new Graph({
+								data: [{{ $dataset[1] . ',' . $dataset[2] . ',' . $dataset[3] . ',' . $dataset[4] . ',' . $dataset[5] . ',' . $dataset[6] }}],
+								target: document.querySelector('#Raven_canvas'),
+								background: "#2e3044",
+								lineColor: "#6c71b8",
+								showCircle: true,
+								circle: "#6c71b8",
+								circleSize: 4,
+							});
+						</script>
+						RVN/USD {{ $coins_usd->where('name', 'Ravencoin')->first()->usd_price }} $
+						</li>
+
 						<li>
 						<img src="/assets/v3/src/icon/usdt.svg" alt="tether">
 						@php
