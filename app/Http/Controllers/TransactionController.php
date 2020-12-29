@@ -204,7 +204,7 @@ class TransactionController extends Controller
         $transaction->selected_coin = $request['coin'];
 
 
-        $transaction->usd_amount = $this->CalculatePrice($request['coin'], $request['amount'], 'dollar', $usd_price);
+        $transaction->usd_amount = $this->CalculatePrice($request['coin'], $request['amount'], $usd_price , 'dollar');
         $transaction->usd_price = $usd_price;
 
         $transaction->save();
