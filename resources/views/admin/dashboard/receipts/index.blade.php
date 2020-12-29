@@ -49,6 +49,8 @@
                                             <!-- <div><p><span>معادل: </span>74.78 USD</p></div> -->
                                             <!-- <div><p><span>نرخ ارز: </span>23,880 Toman</p></div> -->
                                             <div><p><span>تاریخ ایجاد: {{ Facades\Verta::instance($receipt->created_at) }}</span></p></div>
+                                            <div><p><span>قیمت دلار: {{ $receipt->usd_amount }}</span></p></div>
+                                            <div><p><span>قیمت محاسبه دلار: {{ $receipt->usd_price  }}</span></p></div>
                                         </div>
                                     </td>
                                     <td><p>{{ number_format($receipt->payable) }} ت</p></td>

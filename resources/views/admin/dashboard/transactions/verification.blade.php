@@ -51,6 +51,8 @@
                                 {{ $transaction->description }}
                                 <br>
                                 <span style="color: blue" onclick="window.open('{{ route('Admin > Users > Raw > Payment Info', $transaction->user->id) }}','name','width=600,height=400')">اطلاعات حساب</span>
+                                <div><p><span>قیمت دلار: {{ $transaction->usd_amount }}</span></p></div>
+                                <div><p><span>قیمت محاسبه دلار: {{ $transaction->usd_price  }}</span></p></div>
                             </td>
                             <td>{{ number_format($transaction->payable) }}</td>
                             <td>{{ Facades\Verta::instance($transaction->created_at) }}</td>
