@@ -44,12 +44,39 @@
             @if(is_null($transaction->tx_id))
             <div class="site-wallet">
                 <h3>آدرس ولت Bitcoin:</h3>
-                <img src="/assets/wallets/BTC-WALLET.jpg" alt="ولت بیت‌کوین" style="max-width: 200px;">
                 <span style="word-break: break-all">{{ $settings['public_btc_wallet']->value }}</span>
                 <hr>
-                <h3>آدرس ولت Tether:</h3>
-                <img src="/assets/wallets/USDT-WALLET.jpg" alt="ولت تتر" style="max-width: 200px;">
+                <h3>آدرس ولت Tether Erc20:</h3>
                 <span style="word-break: break-all">{{ $settings['public_usdt_wallet']->value }}</span>
+                <hr>
+                <h3>آدرس ولت Tether Trc20:</h3>
+                <span style="word-break: break-all">TRSSJ7d4fAcbv1tecUz1QdDcpsrJ8y1Lg6</span>
+                <hr>
+                <h3>آدرس ولت Zcash:</h3>
+                <span style="word-break: break-all">t1XRJzKXJRbvL8P9XL1nJQnc9G7SuWdyWk4</span>
+                <hr>
+                <h3>آدرس ولت Etherum classic:</h3>
+                <span style="word-break: break-all">0xdd45f252092bfc2aa2fc57dc77118aa5f159c2cc</span>
+                <hr>
+                <h3>آدرس ولت Ravencoin:</h3>
+                <span style="word-break: break-all">RS5TKpnAmMQTzJ4mPx8qU8iaBpzZg2M1zu</span>
+                <hr>
+                <h3>آدرس ولت Etherum:</h3>
+                <span style="word-break: break-all">0xdd45f252092bfc2aa2fc57dc77118aa5f159c2cc</span>
+                <hr>
+                <h3>آدرس ولت Litecoin:</h3>
+                <span style="word-break: break-all">Lfj9BtDnViMJaBN2QFkz29s4jjmgSVD3Mj</span>
+                <hr>
+                <h3>آدرس ولت Tron:</h3>
+                <span style="word-break: break-all">TRSSJ7d4fAcbv1tecUz1QdDcpsrJ8y1Lg6</span>
+                <hr>
+                <h3>آدرس ولت Ripple:</h3>
+                <span style="word-break: break-all">rEb8TK3gBgk5auZkwc6sHnwrGVJH8DuaLh</span>
+                <hr>
+                <h3>آدرس ولت Ripple:</h3>
+                <span style="word-break: break-all">rEb8TK3gBgk5auZkwc6sHnwrGVJH8DuaLh</span>
+
+
             </div>
             <hr>
             <div class="txid-wrap">

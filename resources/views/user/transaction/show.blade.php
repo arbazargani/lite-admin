@@ -116,7 +116,7 @@
                     <p>فاکتور مورد نظر در تاریخ {{ Facades\Verta::instance($transaction->paid_at) }} پرداخت شده است.</p>
                     @if (!is_null($transaction->tx_id))
                         <p>TX-ID ثبت شده برای این سفارش:</p>
-                        <pre>f4184fc596403b9d638783cf57adfe4c75c605f6356fbc91338530e9831e9e16</pre>
+                        <pre>{{ $transaction->tx_id }}</pre>
                     @endif
                 @endif
             </div>
