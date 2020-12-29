@@ -202,6 +202,11 @@ class TransactionController extends Controller
         $transaction->payable = $this->NormalizePrice($payable);
         $transaction->description = 'تعداد :' . $request['amount'] . ' | ' . 'ارز موردنظر :' . $request['coin'];
         $transaction->selected_coin = $request['coin'];
+
+
+        $transaction->usd_amount = $this->CalculatePrice($request['coin'], $request['amount'], 'dollar', $usd_price);
+        $transaction->usd_price = $usd_price;
+
         $transaction->save();
 
         $transaction->hash = sha1($transaction->id);

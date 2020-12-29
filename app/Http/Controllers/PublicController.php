@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use OneAPI\Laravel\API\Crypto;
 use OneAPI\Laravel\API\Currency;
+use Illuminate\Support\Facades\Redis;
 
 use App\Settings;
 use App\Coin;
@@ -26,5 +27,23 @@ class PublicController extends Controller
         $coins = Coin::all();
 
         return view('public.home.index', compact(['settings', 'coins_usd', 'coins']));
+    }
+
+    public function Redis() {
+        $handler = app()->make('redis');
+
+        for ($i = 0; $i < 20000000; $i++) {
+            $handler->set('key_'.$i, 'val_'.$i);
+        }
+        return 'job done.';
+    }
+
+    public function RedisReader() {
+        $handler = app()->make('redis');
+        for ($i = 0; $i < 1001; $i++) {
+            $res = $handler->get('key_'.$i);
+            echo "$res<br/>";
+        }
+        return;
     }
 }

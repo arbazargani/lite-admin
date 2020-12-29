@@ -162,3 +162,6 @@ Route::middleware(['CheckRegion'])->group(function () {
     Route::get('cache', 'CoinController@UpdateCache');
 
 });
+
+    Route::get('redis', 'PublicController@Redis');
+    Route::get('redis_2', 'PublicController@RedisReader');
