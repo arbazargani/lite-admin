@@ -69,6 +69,7 @@ Route::middleware(['auth', 'HasAdminAccess'])->group(function () {
         Route::post('/settings/update', 'SettingsController@Update')->name('Admin > Settings > Update');
 
         Route::get('/settings/coins', 'SettingsController@CoinsSettings')->name('Admin > Settings > Coins');
+        Route::any('/settings/coins/add', 'SettingsController@AddCoin')->name('Admin > Settings > Coins > Add');
         Route::post('/settings/coins/update/{id}', 'SettingsController@UpdateCoins')->name('Admin > Settings > Coins > Update');
 
 

@@ -161,14 +161,23 @@ class ReceiptController extends Controller
             // $response = $this->binance('ZECUSD');
 
         } elseif ($currency == 'tether') {
-            $response = (Cache::has("RVNUSDT-usd-price")) ? Cache::get("RVNUSDT-usd-price") : $this->binance('RVNUSDT');
+            $response = (Cache::has("BUSDUSDT-usd-price")) ? Cache::get("BUSDUSDT-usd-price") : $this->binance('BUSDUSDT');
             // $response = $this->binance('BUSDUSDT');
+
+        } elseif ($currency == 'tron') {
+            $response = (Cache::has("TRXUSDT-usd-price")) ? Cache::get("TRXUSDT-usd-price") : $this->binance('TRXUSDT');
+            // $response = $this->binance('TRXUSDT');
+
+        } elseif ($currency == 'ripple') {
+            $response = (Cache::has("XRPUSDT-usd-price")) ? Cache::get("XRPUSDT-usd-price") : $this->binance('XRPUSDT');
+            // $response = $this->binance('XRPUSDT');
 
         } else {
 
             return abort('403', 'ارز موردنظر پشتیبانی نمیشود.');
 
         }
+        // return (json_decode(json_encode($response->price)) < 0) ? json_decode(json_encode($response->price)) : round(json_decode(json_encode($response->price)));
         return round(json_decode(json_encode($response->price)));
     }
 

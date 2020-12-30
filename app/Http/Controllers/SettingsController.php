@@ -77,6 +77,34 @@ class SettingsController extends Controller
         return view('admin.dashboard.settings.coins', compact(['coins']));
     }
 
+    public function AddCoin(Request $request) {
+        if ($request->isMethod('get')) {
+            return view('admin.dashboard.settings.AddCoin');
+        } elseif ($request->isMethod('post')) {
+            $request->validate([
+                'name' => 'required',
+                'slug' => 'required',
+                'balance' => 'required',
+                'activate' => 'required',
+                'wallet_address' => 'required',
+                'min_ex_limit' => 'required',
+                'max_ex_limit' => 'required'
+            ]);
+            $coin = new Coin;
+            $coin->name = str_replace('-', '_', $request['name']);
+            $coin->slug = strtoupper($request['slug']).'USDT';
+            $coin->balance = $request['balance'];
+            $coin->wallet_address = $request['wallet_address'];
+            $coin->min_ex_limit = $request['min_ex_limit'];
+            $coin->max_ex_limit = $request['max_ex_limit'];
+            $coin->save();
+            $request->session()->put('status','ارز با موفقیت افزوده شد.');
+            return back();
+        } else {
+            abort(403, 'Bad method.');
+        }   
+    }
+
     public function UpdateCoins(Request $request, $id) {
         $request->validate([
             'coin_id' => 'required'

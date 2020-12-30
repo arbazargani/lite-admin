@@ -167,6 +167,26 @@
                 document.getElementById("submit").disabled = true;
                 return false
             }
+            if (slug == 'ethereum_classic') {
+                if (amount >= ethereum_classic_min_ex_limit && amount <= ethereum_classic_max_ex_limit) {
+                    document.getElementById("limit").innerHTML = '';
+                    document.getElementById("submit").disabled = false;
+                    return true;
+                }
+                document.getElementById("limit").innerHTML = 'حداقل ' + ethereum_classic_min_ex_limit + ' و حداکثر ' + ethereum_classic_max_ex_limit;
+                document.getElementById("submit").disabled = true;
+                return false
+            }
+            if (slug == 'ravencoin') {
+                if (amount >= ravencoin_min_ex_limit && amount <= ravencoin_max_ex_limit) {
+                    document.getElementById("limit").innerHTML = '';
+                    document.getElementById("submit").disabled = false;
+                    return true;
+                }
+                document.getElementById("limit").innerHTML = 'حداقل ' + ravencoin_min_ex_limit + ' و حداکثر ' + ravencoin_max_ex_limit;
+                document.getElementById("submit").disabled = true;
+                return false
+            }
             if (slug == 'zecash') {
                 if (amount >= zecash_min_ex_limit && amount <= zecash_max_ex_limit) {
                     document.getElementById("limit").innerHTML = '';
@@ -184,6 +204,26 @@
                     return true;
                 }
                 document.getElementById("limit").innerHTML = 'حداقل ' + tether_min_ex_limit + ' و حداکثر ' + tether_max_ex_limit;
+                document.getElementById("submit").disabled = true;
+                return false
+            }
+            if (slug == 'tron') {
+                if (amount >= tron_min_ex_limit && amount <= tron_max_ex_limit) {
+                    document.getElementById("limit").innerHTML = '';
+                    document.getElementById("submit").disabled = false;
+                    return true;
+                }
+                document.getElementById("limit").innerHTML = 'حداقل ' + tron_min_ex_limit + ' و حداکثر ' + tron_max_ex_limit;
+                document.getElementById("submit").disabled = true;
+                return false
+            }
+            if (slug == 'ripple') {
+                if (amount >= ripple_min_ex_limit && amount <= ripple_max_ex_limit) {
+                    document.getElementById("limit").innerHTML = '';
+                    document.getElementById("submit").disabled = false;
+                    return true;
+                }
+                document.getElementById("limit").innerHTML = 'حداقل ' + ripple_min_ex_limit + ' و حداکثر ' + ripple_max_ex_limit;
                 document.getElementById("submit").disabled = true;
                 return false
             }
