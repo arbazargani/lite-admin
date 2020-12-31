@@ -136,8 +136,8 @@ class TransactionController extends Controller
             // $response = $this->binance('ETCUSDT');
 
         }  elseif ($currency == 'ravencoin') {
-            $response = (Cache::has("RVNDUSDT-usd-price")) ? Cache::get("RVNDUSDT-usd-price") : $this->binance('RVNDUSDT');
-            // $response = $this->binance('RVNDUSDT');
+            $response = (Cache::has("RVNUSDT-usd-price")) ? Cache::get("RVNUSDT-usd-price") : $this->binance('RVNUSDT');
+            // $response = $this->binance('RVNUSDT');
             
         } elseif ($currency == 'zecash') {
 
