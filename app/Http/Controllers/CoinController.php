@@ -103,7 +103,7 @@ class CoinController extends Controller
 
         }
         // return (json_decode(json_encode($response->price)) < 0) ? json_decode(json_encode($response->price)) : round(json_decode(json_encode($response->price)));
-        return round(json_decode(json_encode($response->price)));
+        return (json_decode(json_encode($response->price)));
     }
 
     public function CalculatePrice($currency, $amount, $usd_price, $output_currency = 'tomans') {
