@@ -36,11 +36,11 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'mail.cryptiner.com'),
-            'port' => env('MAIL_PORT', 25),
+            'host' => env('MAIL_HOST', 'mailtrap.io'),
+            'port' => env('MAIL_PORT', 2525),
             'encryption' => env('MAIL_ENCRYPTION'),
-            'username' => env('MAIL_USERNAME', 'operator@cryptiner.com'),
-            'password' => env('MAIL_PASSWORD', 'operator@cryptiner.com'),
+            'username' => env('MAIL_USERNAME', 'acb9808cd27f9e'),
+            'password' => env('MAIL_PASSWORD', '1e9a568bf7b785'),
             'timeout' => null,
             'auth_mode' => null,
         ],

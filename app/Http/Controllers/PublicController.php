@@ -7,8 +7,12 @@ use OneAPI\Laravel\API\Crypto;
 use OneAPI\Laravel\API\Currency;
 use Illuminate\Support\Facades\Redis;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\IdentityConfirmation;
+
 use App\Settings;
 use App\Coin;
+use App\User;
 
 class PublicController extends Controller
 {
@@ -45,5 +49,10 @@ class PublicController extends Controller
             echo "$res<br/>";
         }
         return;
+    }
+
+    Public function Mail() {
+        $user = User::findOrFail(1);
+        Mail::to($user->email)->send(new IdentityConfirmation($user));
     }
 }

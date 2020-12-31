@@ -166,3 +166,9 @@ Route::middleware(['CheckRegion'])->group(function () {
 
     Route::get('redis', 'PublicController@Redis');
     Route::get('redis_2', 'PublicController@RedisReader');
+
+    Route::get('mail', 'PublicController@Mail');
+
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::get('verified', 'PublicController@Mail');
+    });
