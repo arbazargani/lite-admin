@@ -55,6 +55,7 @@ class CoinController extends Controller
     }
 
     public function COIN_TO_USD($currency) {
+        return 1;
         $currency = strtolower($currency);
         if ($currency == 'bitcoin') {
 

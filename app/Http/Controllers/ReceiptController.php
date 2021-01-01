@@ -4,6 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
+use Carbon\Carbon;
+
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ReceiptCreation;
+
+use App\Jobs\SendReceiptCreationMail;
 
 use Auth;
 use App\User;
@@ -130,6 +136,7 @@ class ReceiptController extends Controller
     }
 
     public function COIN_TO_USD($currency) {
+        return 1;
         $currency = strtolower($currency);
         if ($currency == 'bitcoin') {
 
@@ -243,6 +250,15 @@ class ReceiptController extends Controller
 
         $receipt->hash = sha1($receipt->id);
         $receipt->save();
+
+        $user = Auth::user();
+        // Mail::to($user->email)->send(new ReceiptCreation($receipt, $user));
+
+        // SendReceiptCreationMail::dispatch($receipt, $user);
+        $emailJob = (new  SendReceiptCreationMail($receipt, $user))->delay(Carbon::now()->addMinutes(2));
+        dispatch($emailJob);
+
+        
 
         $message = 'درخواست شما ثبت شد و از طریق بخش فاکتورها قابل پیگیری است.';
         session(['status' => 'factored', 'message' => $message]);

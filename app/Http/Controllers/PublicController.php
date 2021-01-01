@@ -52,7 +52,9 @@ class PublicController extends Controller
     }
 
     Public function Mail() {
-        $user = User::findOrFail(1);
-        Mail::to($user->email)->send(new IdentityConfirmation($user));
+        // $user = User::findOrFail(1);
+        // return view('emails.ReceiptCreation', compact('user'));
+        // $user = User::findOrFail(1);
+        // Mail::to($user->email)->send(new IdentityConfirmation($user));
     }
 }
