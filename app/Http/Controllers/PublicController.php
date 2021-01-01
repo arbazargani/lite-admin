@@ -13,6 +13,9 @@ use App\Mail\IdentityConfirmation;
 use App\Settings;
 use App\Coin;
 use App\User;
+use App\Receipt;
+
+use Auth;
 
 class PublicController extends Controller
 {
@@ -56,5 +59,12 @@ class PublicController extends Controller
         // return view('emails.ReceiptCreation', compact('user'));
         // $user = User::findOrFail(1);
         // Mail::to($user->email)->send(new IdentityConfirmation($user));
+    }
+
+    public function Test() {
+        $receipts = Receipt::where('status', '!=', 'unpaid')->first();
+        $user = Auth::User();
+        return $receipts->user->name;
+
     }
 }

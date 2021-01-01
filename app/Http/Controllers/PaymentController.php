@@ -7,6 +7,11 @@ use Shetabit\Payment\Invoice;
 use Shetabit\Payment\Facade\Payment;
 use Shetabit\Payment\Exceptions\InvalidPaymentException;
 
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ReceiptPaid;
+
+use App\Jobs\SendReceiptPadiMail;
+
 use Auth;
 use App\Payment as Pay;
 use App\Receipt;
@@ -132,6 +137,13 @@ class PaymentController extends Controller
             $message = 'پرداخت موردنظر با موفقیت انجام شد.';
             session(['status' => 'factored', 'message' => $message]);
             $this->MakeAlert(1, "یک فاکتور پرداخت شد.", 'successss');
+
+            $user = Auth::user();
+            // Mail::to($user->email)->send(new ReceiptPadi($receipt, $user));
+            // SendReceiptPadiMail::dispatch($receipt, $user);
+            $emailJob = (new  SendReceiptPadiMail($receipt, $user))->delay(Carbon::now()->addMinutes(2));
+            dispatch($emailJob);
+            
             return back();
 
         } catch (InvalidPaymentException $exception) {

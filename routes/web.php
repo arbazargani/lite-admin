@@ -172,3 +172,5 @@ Route::middleware(['CheckRegion'])->group(function () {
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('verified', 'PublicController@Mail');
     });
+
+    Route::get('rec', 'PublicController@Test');

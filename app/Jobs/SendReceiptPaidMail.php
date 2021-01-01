@@ -9,12 +9,12 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
 use Illuminate\Support\Facades\Mail;
-use App\Mail\IdentityConfirmation;
+use App\Mail\ReceiptPaid;
 
 use App\Receipt;
 use App\User;
 
-class SendMail implements ShouldQueue
+class SendReceiptPaidMail implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
@@ -39,7 +39,7 @@ class SendMail implements ShouldQueue
      */
     public function handle()
     {
-        // $user = $this->user;
-        // Mail::to($user->email)->send(new IdentityConfirmation($user));
+        $email = new ReceiptPaid($this->receipt, $this->user);
+        Mail::to('operator@cryptiner.com')->send($email);
     }
 }
