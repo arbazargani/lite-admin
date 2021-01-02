@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Shetabit\Payment\Invoice;
 use Shetabit\Payment\Facade\Payment;
 use Shetabit\Payment\Exceptions\InvalidPaymentException;
+use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReceiptPaid;
