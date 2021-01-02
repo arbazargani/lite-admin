@@ -141,7 +141,7 @@ class PaymentController extends Controller
             // $user = Pay::where('trans_id', $transaction_id)->first()->user_id;
             // $user = findOrFail($user);
             $receipt = Receipt::findOrFail($receipt_id);
-            $user = findOrFail($receipt->user_id);
+            $user = User::findOrFail($receipt->user_id);
             // Mail::to($user->email)->send(new ReceiptPadi($receipt, $user));
             // SendReceiptPadiMail::dispatch($receipt, $user);
             $emailJob = (new  SendReceiptPaidMail($receipt, $user))->delay(Carbon::now()->addMinutes(2));
