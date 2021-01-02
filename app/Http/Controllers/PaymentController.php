@@ -10,7 +10,7 @@ use Shetabit\Payment\Exceptions\InvalidPaymentException;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReceiptPaid;
 
-use App\Jobs\SendReceiptPadiMail;
+use App\Jobs\SendReceiptPaidMail;
 
 use Auth;
 use App\Payment as Pay;
@@ -141,7 +141,7 @@ class PaymentController extends Controller
             $user = Auth::user();
             // Mail::to($user->email)->send(new ReceiptPadi($receipt, $user));
             // SendReceiptPadiMail::dispatch($receipt, $user);
-            $emailJob = (new  SendReceiptPadiMail($receipt, $user))->delay(Carbon::now()->addMinutes(2));
+            $emailJob = (new  SendReceiptPaidMail($receipt, $user))->delay(Carbon::now()->addMinutes(2));
             dispatch($emailJob);
             
             return back();
