@@ -148,7 +148,7 @@ class PaymentController extends Controller
             $emailJob = (new  SendReceiptPaidMail($receipt, $user))->delay(Carbon::now()->addMinutes(2));
             dispatch($emailJob);
             
-            return back();
+            return redirect()->route('User > Panel');
 
         } catch (InvalidPaymentException $exception) {
             /**

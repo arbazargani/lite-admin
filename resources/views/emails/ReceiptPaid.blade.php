@@ -302,7 +302,7 @@
                             <tr>
                               <td align="right">
                                 <ul>
-                                    <li>نام کاربر: {{ $receipts->user->name }}</li>
+                                    <li>نام کاربر: {{ $receipt->user->name }}</li>
                                     <li>مبلف پرداخت شده: {{ number_format($receipt->payable) }} ت</li>
                                     <li>معادل دلار: {{ number_format($receipt->usd_amount) }} $</li>
                                     <li>قیمت محاسبه دلار: {{ number_format($receipt->usd_price) }} $</li>

@@ -6,9 +6,15 @@ use Illuminate\Http\Request;
 use OneAPI\Laravel\API\Crypto;
 use OneAPI\Laravel\API\Currency;
 use Illuminate\Support\Facades\Redis;
+use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Mail;
-use App\Mail\IdentityConfirmation;
+
+use App\Mail\ReceiptCreation;
+use App\Mail\ReceiptPaid;
+
+use App\Jobs\SendReceiptCreationMail;
+use App\Jobs\SendReceiptPaidMail;
 
 use App\Settings;
 use App\Coin;
@@ -59,6 +65,14 @@ class PublicController extends Controller
         // return view('emails.ReceiptCreation', compact('user'));
         // $user = User::findOrFail(1);
         // Mail::to($user->email)->send(new IdentityConfirmation($user));
+
+        $receipt = Receipt::findOrFail(10);
+        // return $receipt;
+        $user = User::findOrFail($receipt->user_id);
+        // return $user;
+
+        $emailJob = (new  SendReceiptPaidMail($receipt, $user));
+        dispatch($emailJob);
     }
 
     public function Test() {
