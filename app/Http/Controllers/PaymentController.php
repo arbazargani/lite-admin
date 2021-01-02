@@ -139,6 +139,7 @@ class PaymentController extends Controller
             $this->MakeAlert(1, "یک فاکتور پرداخت شد.", 'successss');
 
             $user = Auth::user();
+            $receipt = Receipt::findOrFail($receipt_id);
             // Mail::to($user->email)->send(new ReceiptPadi($receipt, $user));
             // SendReceiptPadiMail::dispatch($receipt, $user);
             $emailJob = (new  SendReceiptPaidMail($receipt, $user))->delay(Carbon::now()->addMinutes(2));
