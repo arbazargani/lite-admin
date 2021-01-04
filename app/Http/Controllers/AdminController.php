@@ -83,9 +83,13 @@ class AdminController extends Controller
     public function UpdateUser(Request $request, $id)
     {
         User::where('id', $id)->update([
+            'national_code' => $request['national_code'],
+            'phone_number' => $request['phone_number'],
+            'home_number' => $request['home_number'],
             'home_address' => $request['home_address'],
             'credit_card' => $request['credit_card'],
-            'credit_account' => $request['credit_account']
+            'credit_account' => $request['credit_account'],
+            'sheba_account' => $request['sheba_account']
         ]);
 
         $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Updated ' . " $id-" . User::find($id)->name . '-' . User::find($id)->email . '- profile';

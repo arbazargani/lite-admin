@@ -64,27 +64,34 @@
             <div id="user-personal-info" class="user-left-box-tabs">
                 <form class="user-info-form" action="{{ route('Admin > User > Update', $user->id) }}" method="POST">
                     @csrf
-                    <label for="user-name">نام کامل:</label>
+                    <label for="name">نام کامل:</label>
+                    <input type="text" name="name" id="user-name" value="{{ $user->name }}">
 {{--                    <input type="text" name="name" id="user-name">--}}
-                    <p>{{ $user->name }}</p>
-                    <label for="user-mail">ایمیل:</label>
+                        {{-- <p>{{ $user->name }}</p> --}}
+                    <label for="email">ایمیل:</label>
+                    <input type="text" name="email" id="email" value="{{ $user->email }}">
 {{--                    <input type="text" name="email" id="user-mail">--}}
-                    <p>{{ $user->email }}</p>
-                    <label for="user-mail">شماره موبایل:</label>
+                        {{-- <p>{{ $user->email }}</p> --}}
+                    <label for="phone_number">شماره موبایل:</label>
+                    <input type="text" name="phone_number" id="phone_number" value="{{ $user->phone_number }}">
 {{--                    <input type="text" name="phone-number" id="user-phone-number">--}}
-                    <p>{!! ($user->phone_number) != NULL ? $user->phone_number : '<span class="text-tomato">ثبت نشده</span>' !!}</p>
-                    <label for="user-mail">شماره ثابت:</label>
+                        {{-- <p>{!! ($user->phone_number) != NULL ? $user->phone_number : '<span class="text-tomato">ثبت نشده</span>' !!}</p> --}}
+                    <label for="home_number">شماره ثابت:</label>
+                    <input type="text" name="home_number" id="home_number" value="{{ $user->home_number }}">
 {{--                    <input type="text" name="static-number" id="user-static-number">--}}
-                    <p>{!! ($user->phone_number) != NULL ? $user->phone_number : '<span class="text-tomato">ثبت نشده</span>' !!}</p>
-                    <label for="user-mail">کد ملی:</label>
+                    {{-- <p>{!! ($user->phone_number) != NULL ? $user->phone_number : '<span class="text-tomato">ثبت نشده</span>' !!}</p> --}}
+                    <label for="national_code">کد ملی:</label>
+                    <input type="text" name="national_code" id="national_code" value="{{ $user->national_code }}">
 {{--                    <input type="text" name="nat-code" id="user-nat-code">--}}
-                    <p>{!! ($user->national_code) != NULL ? $user->national_code : '<span class="text-tomato">ثبت نشده</span>' !!}</p>
+                    {{-- <p>{!! ($user->national_code) != NULL ? $user->national_code : '<span class="text-tomato">ثبت نشده</span>' !!}</p> --}}
                     <label for="user-mail">آدرس:</label>
                     <input type="text" name="home_address" id="user-address" value="{{ $user->home_address }}">
                     <label for="user-mail">شماره کارت:</label>
                     <input type="text" name="credit_card" id="user-credit-card-number" value="{{ $user->credit_card }}">
                     <label for="user-mail">شماره حساب:</label>
                     <input type="text" name="credit_account" id="user-credit-account" value="{{ $user->credit_account }}">
+                    <label for="user-mail">شماره شبا:</label>
+                    <input type="text" name="sheba_account" id="user-sheba-account" value="{{ $user->sheba_account }}">
                     <hr>
                     <button class="btn1 btn" type="submit">بروزرسانی</button>
                 </form>
