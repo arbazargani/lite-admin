@@ -44,10 +44,10 @@
             @if(is_null($transaction->tx_id))
             <div class="site-wallet">
                 <h3>آدرس ولت Bitcoin:</h3>
-                <span style="word-break: break-all">{{ $settings['public_btc_wallet']->value }}</span>
+                <span style="word-break: break-all">1HFrsrcMXDxPV6CjYLFeAaGPKaEAgcksXv</span>
                 <hr>
                 <h3>آدرس ولت Tether Erc20:</h3>
-                <span style="word-break: break-all">{{ $settings['public_usdt_wallet']->value }}</span>
+                <span style="word-break: break-all">0xdd45f252092bfc2aa2fc57dc77118aa5f159c2cc</span>
                 <hr>
                 <h3>آدرس ولت Tether Trc20:</h3>
                 <span style="word-break: break-all">TRSSJ7d4fAcbv1tecUz1QdDcpsrJ8y1Lg6</span>
@@ -73,9 +73,11 @@
                 <h3>آدرس ولت Ripple:</h3>
                 <span style="word-break: break-all">rEb8TK3gBgk5auZkwc6sHnwrGVJH8DuaLh</span>
                 <hr>
-                <h3>آدرس ولت Ripple:</h3>
-                <span style="word-break: break-all">rEb8TK3gBgk5auZkwc6sHnwrGVJH8DuaLh</span>
-
+                <h3>آدرس ولت Linkusdt:</h3>
+                <span style="word-break: break-all">0xdd45f252092bfc2aa2fc57dc77118aa5f159c2cc</span>
+                <hr>
+                <h3>آدرس ولت Neo:</h3>
+                <span style="word-break: break-all">AVmXA1Uwaz27sHs9qa1vcj2gj9XuEBampf</span>
 
             </div>
             <hr>
