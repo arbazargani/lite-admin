@@ -95,6 +95,10 @@
                                 <p>مرا به خاطر بسپار</p>
                             </label>
                         </div>
+                        @if(Request::url() == route('login'))
+                        <div class="g-recaptcha" id="rcaptcha"  data-sitekey="6LcbDiIaAAAAAKX0hgjlo2Xj9OQybTl9K_KRoYBf"></div>
+                        <span id="captcha" style="color:red"></span> <!-- this will show captcha errors -->
+                        @endif
                         <div class="submit">
                             <button type="submit" class="btn1">ورود به پنل</button>
                         </div>
@@ -146,6 +150,12 @@
                         <input id="password_confirm" name="password_confirm" type="password" placeholder="تکرار رمز عبور" class="form-control" @error('password_confirm') style="border: 1px solid lightred;" @enderror required>
                         @error('password_confirm')<p class="not-valid">{{ $message }}</p>@enderror
 
+
+                        @if(Request::url() == route('register'))
+                        <div class="g-recaptcha" id="rcaptcha"  data-sitekey="6LcbDiIaAAAAAKX0hgjlo2Xj9OQybTl9K_KRoYBf"></div>
+                        <span id="captcha" style="color:red"></span> <!-- this will show captcha errors -->
+                        @endif
+
                         <div class="submit">
                             <button type="submit" class="btn1">ثبت نام</button>
                         </div>
@@ -155,5 +165,24 @@
         </div>
     </div>
 </div>
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script>
+
+function get_action(form) 
+{
+    var v = grecaptcha.getResponse();
+    if(v.length == 0)
+    {
+        document.getElementById('captcha').innerHTML="You can't leave Captcha Code empty";
+        return false;
+    }
+    else
+    {
+         document.getElementById('captcha').innerHTML="Captcha completed";
+        return true; 
+    }
+}
+
+</script>
 </body>
 </html>
