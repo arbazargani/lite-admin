@@ -80,7 +80,7 @@ class SettingsController extends Controller
     public function WalletsSettings(Request $request) {
         if ($request->isMethod('get')) {
             $coins = Coin::all();
-            return view('admin.dashboard.settings.Wallets', compact(['coins']));
+            return view('admin.dashboard.settings.wallets', compact(['coins']));
         } elseif ($request->isMethod('post')) {
             $request->validate([
                 'coin_id' => 'required',
