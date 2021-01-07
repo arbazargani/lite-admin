@@ -136,6 +136,8 @@ class ReceiptController extends Controller
     }
 
     public function COIN_TO_USD($currency) {
+        $response = (Cache::has("$currency-usd-price")) ? Cache::get("$currency-usd-price") : $this->binance($currency);
+        /*
         $currency = strtolower($currency);
         if ($currency == 'bitcoin') {
 
@@ -183,19 +185,19 @@ class ReceiptController extends Controller
             return abort('403', 'ارز موردنظر پشتیبانی نمیشود.');
 
         }
+        */
         // return (json_decode(json_encode($response->price)) < 0) ? json_decode(json_encode($response->price)) : round(json_decode(json_encode($response->price)));
         return (json_decode(json_encode($response->price)));
     }
 
-    public function CalculatePrice($currency, $amount, $output_currency = 'tomans', $usd_price) {
+    public function CalculatePrice($currency, $amount, $usd_price, $output_currency = 'tomans') {
         $TO_USD = $this->COIN_TO_USD($currency);
         $price = $amount * $TO_USD;
-        if ($output_currency == 'tomans') {
 
+        if ($output_currency == 'tomans') {
             return $price * $usd_price;
 
         } elseif ($output_currency == 'dollar') {
-
             return $price;
 
         } else {
@@ -209,8 +211,8 @@ class ReceiptController extends Controller
             'coin' => 'required'
         ]);
 
-        $min = Coin::whereRaw("lower(name) LIKE '%" . $request['coin'] . "%'")->first()->min_ex_balance;
-        $max = Coin::whereRaw("lower(name) LIKE '%" . $request['coin'] . "%'")->first()->max_ex_balance;
+        $min = Coin::whereRaw("lower(slug) LIKE '%" . strtolower($request['coin']) . "%'")->first()->min_ex_balance;
+        $max = Coin::whereRaw("lower(slug) LIKE '%" . strtolower($request['coin']) . "%'")->first()->max_ex_balance;
 
         $request->validate([
             'wallet' => 'required|min:5',
@@ -236,13 +238,13 @@ class ReceiptController extends Controller
 
         $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_buy']->value;
 
-        $payable = $this->CalculatePrice($request['coin'], $request['amount'], 'tomans', $usd_price);
+        $payable = $this->CalculatePrice($request['coin'], $request['amount'], $usd_price, 'tomans');
         $receipt->payable = $this->NormalizePrice($payable);
         $receipt->description = 'تعداد :' . $request['amount'] . ' | ' . 'ارز موردنظر :' . $request['coin'];
         $receipt->selected_coin = $request['coin'];
 
 
-        $receipt->usd_amount = $this->CalculatePrice($request['coin'], $request['amount'], 'dollar', $usd_price);
+        $receipt->usd_amount = $this->CalculatePrice($request['coin'], $request['amount'], $usd_price, 'dollar');
         $receipt->usd_price = $usd_price;
 
         $receipt->save();

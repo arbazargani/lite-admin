@@ -8,12 +8,7 @@
                     <div class="admin-settings-right">
                         <h3><i class="fad fa-cogs"></i> تنظیمات</h3>
                         <div class="admin-settings-nav">
-                            <ul>
-                                <li class="active"><a href="{{ route('Admin > Settings > Show') }}">تنظیمات سایت</a></li>
-                                <li><a href="#">تنظیمات کاربران</a></li>
-                                <li><a href="#">تنطیمات محلی</a></li>
-                                <li><a href="{{ route('Admin > Settings > Coins') }}">تنظیمات ارزهای سیستم</a></li>
-                            </ul>
+                            @include('admin.dashboard.settings.options')
                         </div>
                     </div>
                     <div class="admin-settings-left">

@@ -50,8 +50,8 @@
                                     font-size: 13px !important;
                                     color: black !important;
                                     border: 0px solid none !important;
-                                    max-width: 50px !important;
-                                    height: 23px !important;
+                                    /* max-width: 50px !important; */
+                                    height: 32px !important;
                                     font-family: monospace !important
                                 }
                                 .alerted {
@@ -69,42 +69,20 @@
                                             <th>نام</th>
                                             <th>اسلاگ</th>
                                             <th>قیمت دلار</th>
-                                            <th>قیمت دلار -1</th>
-                                            <th>قیمت تومان</th>
                                             <th>وضعیت</th>
-                                            <th>حداقل خرید</th>
-                                            <th>حداکثر خرید</th>
-                                            <th>موجودی</th>
+                                            <th>ولت</th>
                                             </tr>
                                             @foreach ($coins as $coin)
-                                            <tr @if ( ($coin->balance <= 0) || ($coin->max_ex_limit > $coin->balance) ) class="alerted" @endif>
+                                            <tr>
                                                 <td>{{ $coin->name }}</td>
                                                 <td>{{ $coin->slug }}</td>
                                                 <td>{{ $coin->usd_price }}</td>
-                                                <td>{{ $coin->ahead_usd_price }}</td>
-                                                <td>{{ $coin->toman_price }}</td>
                                                 <td>{{ $coin->activate }}</td>
                                                 <td>
-                                                    <form action="{{ route('Admin > Settings > Coins > Update', $coin->id) }}" method="post">
+                                                    <form action="{{ route('Admin > Settings > Wallets') }}" method="post">
                                                         @csrf
                                                         <input type="hidden" name="coin_id" value="{{ $coin->id }}" class="minimal-input">
-                                                        <input type="text" name="min_ex_limit" value="{{ $coin->min_ex_limit }}" class="minimal-input">
-                                                        <button type="submit" class="minimal-btn"><i class="fas fa-check"></i></button>
-                                                    </form>
-                                                </td>
-                                                <td>
-                                                    <form action="{{ route('Admin > Settings > Coins > Update', $coin->id) }}" method="post">
-                                                        @csrf
-                                                        <input type="hidden" name="coin_id" value="{{ $coin->id }}" class="minimal-input">
-                                                        <input type="text" name="max_ex_limit" value="{{ $coin->max_ex_limit }}" class="minimal-input">
-                                                        <button type="submit" class="minimal-btn"><i class="fas fa-check"></i></button>
-                                                    </form>
-                                                </td>
-                                                <td>
-                                                    <form action="{{ route('Admin > Settings > Coins > Update', $coin->id) }}" method="post">
-                                                        @csrf
-                                                        <input type="hidden" name="coin_id" value="{{ $coin->id }}" class="minimal-input">
-                                                        <input type="text" name="balance" value="{{ $coin->balance }}" class="minimal-input">
+                                                        <input type="text" name="wallet_address" value="{{ $coin->wallet_address }}" class="minimal-input">
                                                         <button type="submit" class="minimal-btn danger"><i class="fas fa-check"></i></button>
                                                     </form>
                                                 </td>

@@ -72,7 +72,7 @@
                     @csrf
                     <select class="wide" name="coin" id="buy-currency-in" onchange="makeExchange('buy')">
                         @foreach ($coins as $coin)
-						<option value="{{ strtolower($coin->name) }}">{{ $coin->name }}</option>	
+						<option value="{{ $coin->slug }}">{{ $coin->name }}</option>
 						@endforeach
 						{{-- <option value="bitcoin">Bitcoin / BTC</option>
 						<option value="ethereum">Ethereum / ETH</option>
@@ -129,14 +129,27 @@
         function CheckLimit(type) {
             @php
             foreach($coins as $coin) {
-            echo 'var ' . strtolower($coin->name) . "_max_ex_limit = " . $coin->max_ex_limit . "; \r\n";
-            echo 'var ' . strtolower($coin->name) . "_min_ex_limit = " . $coin->min_ex_limit . "; \r\n";
+            echo 'var ' . $coin->slug . "_max_ex_limit = " . $coin->max_ex_limit . "; \r\n";
+            echo 'var ' . $coin->slug . "_min_ex_limit = " . $coin->min_ex_limit . "; \r\n";
             }
             @endphp
 
             var slug = getSelectedCurrency(type+'-currency-in');
             var amount = document.getElementById(type+'-amount').value;
             
+            @foreach($coins as $coin)
+            if (slug == '{{ $coin->slug }}') {
+                if (amount >= {{ $coin->slug }}_min_ex_limit && amount <= {{ $coin->slug }}_max_ex_limit) {
+                                        document.getElementById("limit").innerHTML = '';
+                    document.getElementById("submit").disabled = false;
+                    return true;
+                }
+                document.getElementById("limit").innerHTML = 'حداقل ' + {{ $coin->slug }}_min_ex_limit + ' و حداکثر ' + {{ $coin->slug }}_max_ex_limit;
+                document.getElementById("submit").disabled = true;
+                return false
+            }
+            @endforeach
+
             if (slug == 'bitcoin') {
                 if (amount >= bitcoin_min_ex_limit && amount <= bitcoin_max_ex_limit) {
                                         document.getElementById("limit").innerHTML = '';

@@ -77,6 +77,26 @@ class SettingsController extends Controller
         return view('admin.dashboard.settings.coins', compact(['coins']));
     }
 
+    public function WalletsSettings(Request $request) {
+        if ($request->isMethod('get')) {
+            $coins = Coin::all();
+            return view('admin.dashboard.settings.Wallets', compact(['coins']));
+        } elseif ($request->isMethod('post')) {
+            $request->validate([
+                'coin_id' => 'required',
+                'wallet_address' => 'required|min:8',
+            ]);
+            $coin = Coin::findOrFail($request['coin_id']);
+            $coin->wallet_address = $request['wallet_address'];
+            $coin->save();
+            $request->session()->put('status','کیف پول با موفقیت بروزرسانی شد.');
+            return back();
+        } else {
+            abort(403, 'Bad method.');
+
+        }
+    }
+
     public function AddCoin(Request $request) {
         if ($request->isMethod('get')) {
             return view('admin.dashboard.settings.AddCoin');

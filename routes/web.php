@@ -72,6 +72,8 @@ Route::middleware(['auth', 'HasAdminAccess'])->group(function () {
         Route::any('/settings/coins/add', 'SettingsController@AddCoin')->name('Admin > Settings > Coins > Add');
         Route::post('/settings/coins/update/{id}', 'SettingsController@UpdateCoins')->name('Admin > Settings > Coins > Update');
 
+        Route::any('/settings/wallets', 'SettingsController@WalletsSettings')->name('Admin > Settings > Wallets');
+
 
         Route::get('/storage/uploads/certifications/{slug}', 'AssetsController@SafeAssetsRender')->name('Admin > Images > Show');
 

@@ -114,6 +114,8 @@ class TransactionController extends Controller
     }
 
     public function COIN_TO_USD($currency) {
+        $response = (Cache::has("$currency-usd-price")) ? Cache::get("$currency-usd-price") : $this->binance($currency);
+        /*
         $currency = strtolower($currency);
         if ($currency == 'bitcoin') {
 
@@ -161,6 +163,7 @@ class TransactionController extends Controller
             return abort('403', 'ارز موردنظر پشتیبانی نمیشود.');
 
         }
+        */
         // return (json_decode(json_encode($response->price)) < 0) ? json_decode(json_encode($response->price)) : round(json_decode(json_encode($response->price)));
         return (json_decode(json_encode($response->price)));
     }
@@ -183,8 +186,8 @@ class TransactionController extends Controller
 
     public function MakeTransaction(Request $request, $type = 'buy')
     {
-        $min = Coin::whereRaw("lower(name) LIKE '%" . $request['coin'] . "%'")->first()->min_ex_balance;
-        $max = Coin::whereRaw("lower(name) LIKE '%" . $request['coin'] . "%'")->first()->max_ex_balance;
+        $min = Coin::whereRaw("lower(slug) LIKE '%" . strtolower($request['coin']) . "%'")->first()->min_ex_balance;
+        $max = Coin::whereRaw("lower(slug) LIKE '%" . strtolower($request['coin']) . "%'")->first()->max_ex_balance;
 
         $request->validate([
             'amount' => "required",

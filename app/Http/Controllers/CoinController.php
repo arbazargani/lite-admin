@@ -55,6 +55,8 @@ class CoinController extends Controller
     }
 
     public function COIN_TO_USD($currency) {
+        $response = (Cache::has("$currency-usd-price")) ? Cache::get("$currency-usd-price") : $this->binance($currency);
+        /*
         $currency = strtolower($currency);
         if ($currency == 'bitcoin') {
 
@@ -102,6 +104,7 @@ class CoinController extends Controller
             return abort('403', 'ارز موردنظر پشتیبانی نمیشود.');
 
         }
+        */
         // return (json_decode(json_encode($response->price)) < 0) ? json_decode(json_encode($response->price)) : round(json_decode(json_encode($response->price)));
         return (json_decode(json_encode($response->price)));
     }
