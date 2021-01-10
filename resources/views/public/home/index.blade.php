@@ -306,7 +306,7 @@
 				<form>
 					<select class="wide" id="sell-currency-in" onchange="makeExchange('sell')">
 						@foreach ($coins as $coin)
-						<option value="{{ strtolower($coin->name) }}">{{ $coin->name }}</option>	
+						<option value="{{ $coin->slug }}">{{ $coin->name }}</option>	
 						@endforeach
 						{{-- <option value="bitcoin">Bitcoin / BTC</option>
 						<option value="ethereum">Ethereum / ETH</option>
