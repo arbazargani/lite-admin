@@ -5,6 +5,7 @@
     <title> کریپتاینر | Cryptiner </title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link type="text/css" rel="stylesheet" media="all" href="/assets/v2/login.css">
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
         function toggle_panel(a){
             var data = a.getAttribute("data-type"); 
@@ -136,7 +137,7 @@
                         </ul>
                     </div>
                     @endif
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" id="register_form">
                         @csrf
                         <input id="name" name="name" type="text" placeholder="نام و نام خانوادگی" class="form-control" @error('name') style="border: 1px solid lightred;" @enderror value="{{ old('name') }}" required autocomplete="name">
                         @error('name')<p class="not-valid">{{ $message }}</p>@enderror
@@ -152,12 +153,13 @@
 
 
                         @if(Request::url() == route('register'))
-                        <div class="g-recaptcha" id="rcaptcha"  data-sitekey="6LcbDiIaAAAAAKX0hgjlo2Xj9OQybTl9K_KRoYBf"></div>
-                        <span id="captcha" style="color:red"></span> <!-- this will show captcha errors -->
+                        <!-- <div class="g-recaptcha" id="rcaptcha"  data-sitekey="6LcbDiIaAAAAAKX0hgjlo2Xj9OQybTl9K_KRoYBf"></div>
+                        <span id="captcha" style="color:red"></span> --> <!-- this will show captcha errors -->
                         @endif
 
                         <div class="submit">
-                            <button type="submit" class="btn1">ثبت نام</button>
+                            <button type="submit" class="btn1 g-recaptcha" data-sitekey="{{ env('recaptcha_invisible_site_key') }}" data-callback='onSubmit'>ثبت‌نام</button>
+                            <!-- <button type="submit" class="btn1">ثبت نام</button> -->
                         </div>
                     </form>
                 </div>
@@ -165,24 +167,10 @@
         </div>
     </div>
 </div>
-<script src='https://www.google.com/recaptcha/api.js'></script>
 <script>
-
-function get_action(form) 
-{
-    var v = grecaptcha.getResponse();
-    if(v.length == 0)
-    {
-        document.getElementById('captcha').innerHTML="You can't leave Captcha Code empty";
-        return false;
+    function onSubmit(token) {
+        document.getElementById("register_form").submit();
     }
-    else
-    {
-         document.getElementById('captcha').innerHTML="Captcha completed";
-        return true; 
-    }
-}
-
 </script>
 </body>
 </html>

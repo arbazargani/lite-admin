@@ -8,6 +8,7 @@ use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -32,6 +33,13 @@ class RegisterController extends Controller
     protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
+     * To put the request inside.
+     *
+     * @var string
+     */
+    protected $request;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
@@ -39,6 +47,7 @@ class RegisterController extends Controller
     public function __construct()
     {
         $this->middleware('guest');
+        $this->request = new Request();
     }
 
     /**
@@ -49,14 +58,23 @@ class RegisterController extends Controller
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            // 'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'password' => ['required', 'string', 'min:8', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%]).*$/'],
-            'password' => ['required', 'string', 'min:8'],
-            'password_confirm' => ['required', 'string', 'min:8', 'same:password'],
-        ]);
+        #https://www.google.com/recaptcha/api/siteverify?secret=your_secret&response=response_string&remoteip=user_ip_address
+        $Gesponse = file_get_contents("https://www.google.com/recaptcha/api/siteverify?secret=" . env('recaptcha_invisible_secret_key') . "&response=" . $data['g-recaptcha-response'] . "&remoteip=" . $this->request->ip());
+        // die();
+
+        if (json_decode($Gesponse)->success == true) {
+            return Validator::make($data, [
+                'name' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                // 'password' => ['required', 'string', 'min:8', 'confirmed'],
+                'password' => ['required', 'string', 'min:8', 'regex:/^.*(?=.{3,})(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[\d\X])(?=.*[!$#%]).*$/'],
+                'password' => ['required', 'string', 'min:8'],
+                'password_confirm' => ['required', 'string', 'min:8', 'same:password'],
+                'g-recaptcha-response' => ['required', 'min:1'],
+            ]);
+        } else {
+            die('We cannot determine your digital identity, sorrey. <a href="'. route('register') .'">retry</a>');
+        }
     }
 
     /**
