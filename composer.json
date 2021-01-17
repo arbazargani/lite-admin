@@ -19,6 +19,7 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.0",
         "masihjay-z/kavenegar": "^1.3",
+        "melipayamak/php": "1.0.0",
         "predis/predis": "^1.1",
         "pusher/pusher-php-server": "^4.1",
         "shetabit/payment": "^2.4",

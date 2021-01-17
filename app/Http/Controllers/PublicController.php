@@ -7,6 +7,7 @@ use OneAPI\Laravel\API\Crypto;
 use OneAPI\Laravel\API\Currency;
 use Illuminate\Support\Facades\Redis;
 use Carbon\Carbon;
+use Melipayamak\MelipayamakApi;
 
 use Illuminate\Support\Facades\Mail;
 
@@ -15,6 +16,7 @@ use App\Mail\ReceiptPaid;
 
 use App\Jobs\SendReceiptCreationMail;
 use App\Jobs\SendReceiptPaidMail;
+use App\Jobs\SendSms;
 
 use App\Settings;
 use App\Coin;
@@ -80,5 +82,13 @@ class PublicController extends Controller
         $user = Auth::User();
         return $receipts->user->name;
 
+    }
+
+    public function Sms() {
+        $information = [
+            'to' => '09213840980',
+            'text' =>  "این یک عبارت آزمایشی است.",
+        ];
+        // SendSms::dispatch($information)->delay(now()->addMinutes(1));
     }
 }

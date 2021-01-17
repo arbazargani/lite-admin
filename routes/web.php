@@ -176,3 +176,5 @@ Route::middleware(['CheckRegion'])->group(function () {
     });
 
     Route::get('rec', 'PublicController@Test');
+
+    Route::get('sms', 'PublicController@Sms');

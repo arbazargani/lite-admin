@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Ghasedak\GhasedakApi;
+use App\Jobs\SendSms;
 
 use App\User;
 use App\Transaction;
@@ -115,6 +116,12 @@ class AdminController extends Controller
                 session(['status' => 'accepted', 'message' => $message]);
                 $this->MakeAlert($id, 'اکانت شما به تایید کارشناس سامانه رسید.', 'success');
 
+                $information = [
+                    'to' => $user->phone_number,
+                    'text' =>  "$user->name عزیز، اکانت شما به تایید کارشناس سامانه رسید.",
+                ];
+                SendSms::dispatch($information)->delay(now()->addMinutes(1));
+
                 $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Approved ' . " $user->id-" . $user->name . '-' . $user->email . '- verification requets.';
                 $this->MakeLog(Auth::id(), $log);
 
@@ -158,6 +165,12 @@ class AdminController extends Controller
             session(['status' => 'accepted', 'message' => $message]);
             $this->MakeAlert($id, 'اکانت شما به تایید کارشناس سامانه رسید.', 'success');
 
+            $information = [
+                'to' => $user->phone_number,
+                'text' =>  "$user->name عزیز، اکانت شما به تایید کارشناس سامانه رسید.",
+            ];
+            SendSms::dispatch($information)->delay(now()->addMinutes(1));
+
             $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Approved ' . " $user->id-" . $user->name . '-' . $user->email . '- verification requets.';
             $this->MakeLog(Auth::id(), $log);
         } else {
@@ -175,6 +188,12 @@ class AdminController extends Controller
             $message = 'کاربر با موفقیت تایید شد.';
             session(['status' => 'accepted', 'message' => $message]);
             $this->MakeAlert($id, 'اکانت شما به تایید کارشناس سامانه رسید.', 'success');
+
+            $information = [
+                'to' => $user->phone_number,
+                'text' =>  "$user->name عزیز، اکانت شما به تایید کارشناس سامانه رسید." . " - کریپتاینر",
+            ];
+            SendSms::dispatch($information)->delay(now()->addMinutes(1));
 
         $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Approved ' . " $user->id-" . $user->name . '-' . $user->email . '- verification requets.';
 
