@@ -147,6 +147,31 @@ class PaymentController extends Controller
             // SendReceiptPadiMail::dispatch($receipt, $user);
             $emailJob = (new  SendReceiptPaidMail($receipt, $user))->delay(Carbon::now()->addMinutes(2));
             dispatch($emailJob);
+
+            $information = [
+                'to' => $user->phone_number,
+                'text' =>  "اعلان پرداخت - کاربر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
+            ];
+            SendSms::dispatch($information)->delay(now()->addMinutes(1));
+
+            
+            $information = [
+                'to' => '09308990856',
+                'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
+            ];
+            SendSms::dispatch($information)->delay(now()->addMinutes(0));
+
+            $information = [
+                'to' => '09356252177',
+                'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
+            ];
+            SendSms::dispatch($information)->delay(now()->addMinutes(0));
+
+            $information = [
+                'to' => '09213840980',
+                'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
+            ];
+            SendSms::dispatch($information)->delay(now()->addMinutes(0));
             
             return redirect()->route('User > Panel');
 

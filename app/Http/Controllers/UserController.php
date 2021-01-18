@@ -212,7 +212,7 @@ class UserController extends Controller
         ]);
         return back();
     }
-    public function SendRegistrationSms($information) {
+    public function SendSms($information) {
         if (!array_key_exists('to', $information) || !array_key_exists('text', $information)) {
             return;
         }
@@ -221,15 +221,15 @@ class UserController extends Controller
             ini_set("soap.wsdl_cache_enabled",0);
             $sms = new \SoapClient("http://api.payamak-panel.com/post/Send.asmx?wsdl",array("encoding"=>"UTF-8"));
             $data = array(
-                "username"=>"09213840980" ,
-                "password"=>"8218",
-                "to"=>array($information['to']),
-                "from"=>"30008666840980",
-                "text"=>$information['text'],
-                "isflash"=>false
+                "username" => env('meli_payamak_username'),
+                "password" => env('meli_payamak_password'),
+                "to" => array($information['to']),
+                "from" => env('meli_payamak_send_number'),
+                "text" => $information['text'],
+                "isflash" => false
             );
             $result = $sms->SendSimpleSMS($data)->SendSimpleSMSResult;
-        }catch(Exception $e){
+        } catch(Exception $e) {
             echo $e->getMessage();
         }
     }

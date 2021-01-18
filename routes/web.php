@@ -100,7 +100,7 @@ Route::middleware(['CheckRegion'])->group(function () {
                 Route::get('/sell/history', 'UserController@SellHistory')->name('User > Sell History');
                 Route::get('/transaction/verify');
 
-                Route::middleware(['OpenCloseStatus'])->group(function () {
+                // Route::middleware(['OpenCloseStatus'])->group(function () {
                     Route::get('/exchange', 'ExchangeController@ExchangeCoin')->name('User > Exchange Coin');
                     Route::post('/exchange/make', 'ExchangeController@MakeExchange')->name('User > Exchange > Make');
 
@@ -119,7 +119,7 @@ Route::middleware(['CheckRegion'])->group(function () {
                     Route::get('/transaction/show/{hash}', 'TransactionController@ShowTransaction')->name('User > Transaction > Show');
                     // Route::any('/transaction/add_tx/{id}', 'TransactionController@AddTX')->name('User > Transaction > ADD Tx ID');
                     Route::any('/transaction/add_tx/{hash}', 'TransactionController@AddTX')->name('User > Transaction > ADD Tx ID');
-                });
+                // });
 
                 Route::get('/receipt/raw/tx/{hash}', 'UserController@RawTx')->name('User > Receipt > Raw');
 

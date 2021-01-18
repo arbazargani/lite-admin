@@ -8,7 +8,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\ActionController;
 
 class SendSms implements ShouldQueue
 {
@@ -33,7 +33,7 @@ class SendSms implements ShouldQueue
      */
     public function handle()
     {
-        $handle = new UserController();
-        $handle->SendRegistrationSms($this->information);
+        $handle = new ActionController();
+        $handle->SendSms($this->information);
     }
 }

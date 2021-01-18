@@ -129,7 +129,13 @@ class AdminController extends Controller
                 $user->status = 'suspended';
                 $message = 'کاربر موردنظر تایید نشد.';
                 session(['status' => 'rejected', 'message' => $message]);
-                $this->MakeAlert($id, 'اکانت شما به تایید کارشناس سامانه نرسیده است. لطفا دوباره مدارک خود را بارگزاری نمایید.', 'danger');
+                $this->MakeAlert($id, 'اکانت شما به تایید کارشناس سامانه نرسیده است. لطفا دوباره مدارک خود را بارگزاری نمایید. کریپتاینر', 'danger');
+
+                $information = [
+                    'to' => $user->phone_number,
+                    'text' =>  "$user->name عزیز، اکانت شما به تایید کارشناس سامانه نرسید. لطفا مجددا جهت احراز هویت اقدام نمایید. کریپتاینر.",
+                ];
+                SendSms::dispatch($information)->delay(now()->addMinutes(1));
 
                 $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Rejected ' . " $user->id-" . $user->name . '-' . $user->email . '- verification requets.';
                 $this->MakeLog(Auth::id(), $log);
@@ -167,7 +173,7 @@ class AdminController extends Controller
 
             $information = [
                 'to' => $user->phone_number,
-                'text' =>  "$user->name عزیز، اکانت شما به تایید کارشناس سامانه رسید.",
+                'text' =>  "$user->name عزیز، اکانت شما به تایید کارشناس سامانه رسید. کریپتاینر",
             ];
             SendSms::dispatch($information)->delay(now()->addMinutes(1));
 
