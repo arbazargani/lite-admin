@@ -141,6 +141,11 @@ Route::middleware(['CheckRegion'])->group(function () {
         Route::any('/receipt', 'PaymentController@PayReceipt')->name('MakeReceipt');
     });
 
+    Route::prefix('ipg')->group(function () {
+        Route::get('/request/{hash}', 'PaymentController@Request_v2')->name('Ipg > Request');
+        Route::any('/callback.php', 'PaymentController@Callback_v2')->name('Ipg > Callback');
+    });
+
     Route::post('/push-chat', 'ChatController@triggerChannel')->name('Chat');
 
     Route::get('/server-info', function () {

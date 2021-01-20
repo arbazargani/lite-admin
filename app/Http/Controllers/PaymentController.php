@@ -7,6 +7,7 @@ use Shetabit\Payment\Invoice;
 use Shetabit\Payment\Facade\Payment;
 use Shetabit\Payment\Exceptions\InvalidPaymentException;
 use Carbon\Carbon;
+use Vandar\Laravel\Facade\Vandar;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReceiptPaid;
@@ -191,5 +192,113 @@ class PaymentController extends Controller
         $transaction = Pay::where('trans_id', $transaction_id)->get();
         $user = User::find(Auth::user()->id);
         return $user->receipt->first()->payment;
+    }
+
+    public function Request_v2(Request $request, $hash) {
+        $receipt = Receipt::where('hash', $hash)->first();
+        $receipt_id = $receipt->id;
+
+        $amount = (int)$this->NormalizePrice($receipt->payable);
+        $description = $receipt->description;
+        $selected_coin = $receipt->selected_coin;
+        $callback = route('Ipg > Callback');
+
+        // $info = array(
+        //     $receipt_id,
+        //     $amount,
+        //     $description,
+        //     $selected_coin,
+        //     $callback
+        // );
+
+        // public function request($amount, $callback, $mobile = null, $factorNumber = null, $description = null)
+        $result = Vandar::request($amount, $callback, null, $receipt_id, $description);
+        // return $result;
+
+        $transaction = new Pay;
+        $transaction->trans_id = $result['token'];
+        $transaction->amount = $amount;
+        $transaction->user_id = Auth::user()->id;
+        $transaction->receipt_id = $receipt_id;
+        $transaction->save();
+
+        Vandar::redirect();
+    }
+
+    public function Callback_v2(Request $request)
+    {
+        if (isset($_GET['token'])) {
+            $transaction_id = $_GET['token'];
+            $amount = Pay::where('trans_id', $transaction_id)->first();
+            $result = Vandar::verify($transaction_id);
+    
+    
+            if ($result['status'] == 1) {
+                $transaction = Pay::where('trans_id', $transaction_id)->update([
+                    'order_id' => $result['transId'],
+                    'card_holder' => $request['cardNumber'],
+                    'status' => 'paid'
+                ]);
+                $receipt_id = Pay::where('trans_id', $transaction_id)->first()->receipt_id;
+                $selected_coin = Receipt::where('id', $receipt_id)->first()->selected_coin;
+                $receipt = Receipt::where('id', $receipt_id)->update([
+                    'status' => 'paid',
+                    'paid_at' => now()
+                ]);
+                $coins = Coin::all();
+                foreach ($coins as $coin) {
+                    if (strtolower($coin->name) == strtolower($selected_coin)) {
+                        $coin_amount = Receipt::where('id', $receipt_id)->first()->amount;
+                        Coin::where('name', $coin->name)->update([
+                            'balance' => $coin->balance-$coin_amount,
+                        ]);
+                    }
+                }
+                $message = 'پرداخت موردنظر با موفقیت انجام شد.';
+                session(['status' => 'factored', 'message' => $message]);
+                $this->MakeAlert(1, "یک فاکتور پرداخت شد.", 'successss');
+        
+                // $user = Pay::where('trans_id', $transaction_id)->first()->user_id;
+                // $user = findOrFail($user);
+                $receipt = Receipt::findOrFail($receipt_id);
+                $user = User::findOrFail($receipt->user_id);
+                // Mail::to($user->email)->send(new ReceiptPadi($receipt, $user));
+                // SendReceiptPadiMail::dispatch($receipt, $user);
+                $emailJob = (new  SendReceiptPaidMail($receipt, $user))->delay(Carbon::now()->addMinutes(2));
+                dispatch($emailJob);
+        
+                $information = [
+                    'to' => $user->phone_number,
+                    'text' =>  "اعلان پرداخت - کاربر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
+                ];
+                SendSms::dispatch($information)->delay(now()->addMinutes(1));
+        
+                
+                $information = [
+                    'to' => '09308990856',
+                    'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
+                ];
+                SendSms::dispatch($information)->delay(now()->addMinutes(0));
+        
+                $information = [
+                    'to' => '09356252177',
+                    'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
+                ];
+                SendSms::dispatch($information)->delay(now()->addMinutes(0));
+        
+                $information = [
+                    'to' => '09213840980',
+                    'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
+                ];
+                SendSms::dispatch($information)->delay(now()->addMinutes(0));
+            } else {
+                $message = 'پرداخت با خطا مواجه شده است. لطفا مجدد تلاش کنید.';
+                session(['status' => 'factored', 'message' => $message]);
+            }
+            
+            return redirect()->route('User > Panel');
+        } else {
+            return abort('403', 'Bad request.');
+        }
     }
 }

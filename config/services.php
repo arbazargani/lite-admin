@@ -30,4 +30,9 @@ return [
         'region' => env('AWS_DEFAULT_REGION', 'us-east-1'),
     ],
 
+    'vandar' => [
+        'api' => env('vandar_api_key'),
+        'test' => false
+    ],
+
 ];

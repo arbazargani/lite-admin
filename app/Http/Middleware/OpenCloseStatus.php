@@ -16,6 +16,8 @@ class OpenCloseStatus
      */
     public function handle($request, Closure $next)
     {
+        return $next($request);
+        /*
         $settings = [
             'application_start_time' => Settings::where('name', 'application_start_time')->first(),
             'application_close_time' => Settings::where('name', 'application_close_time')->first(),
@@ -30,5 +32,6 @@ class OpenCloseStatus
         } else {
             return abort('503', 'از ساعت' . " $uptime " . 'سایت در دسترس می باشد.');
         }
+        */
     }
 }
