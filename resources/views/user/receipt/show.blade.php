@@ -103,7 +103,7 @@
                             </div>
                         </div>
                         <div>
-                            <form action="{{ route('Payment > Request', $receipt->hash) }}" method="post">
+                            <form action="{{ route('Ipg > Request', $receipt->hash) }}" method="post">
                                 @csrf
                                 <button type="submit" class="button td-btn">پرداخت</button>
                             </form>

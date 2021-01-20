@@ -92,16 +92,28 @@
                                     </div>
                                 </td>
                                 <td>
-                                    @if(is_null($receipt->paid_at))
-                                    <form action="{{ route('Payment > Request', $receipt->hash) }}" method="post">
-                                        @csrf
-                                        <button type="submit" class="button td-btn">پرداخت</button>
-                                    </form>
+                                    @php
+                                        $exptime = \Carbon\Carbon::parse($receipt->created_at)->addMinutes(20);
+                                        $now = \Carbon\Carbon::parse(date("Y-m-d H:i:s"));
+                                    @endphp
+                                    @if($now > $exptime)
+                                        @if(is_null($receipt->paid_at))
+                                        <span>اتمام اعتبار رسید</span>
+                                        @endif
+                                        @if(!is_null($receipt->paid_at) && !is_null($receipt->admin_tx) && $receipt->admin_action == 'accept')
+                                            <span>اتمام | <a style="color: green" href="{{ route('User > Receipt > Raw', $receipt->hash) }}">نمایش TX</a></span>
+                                        @endif
+                                    @else
+                                        @if(is_null($receipt->paid_at))
+                                            <form action="{{ route('Ipg > Request', $receipt->hash) }}" method="post">
+                                                @csrf
+                                                <button type="submit" class="button td-btn">پرداخت</button>
+                                            </form>
+                                        @endif
+                                        @if(!is_null($receipt->admin_tx) && $receipt->admin_action == 'accept')
+                                            <span>اتمام | <a style="color: green" href="{{ route('User > Receipt > Raw', $receipt->hash) }}">نمایش TX</a></span>
+                                        @endif
                                     @endif
-                                    @if(!is_null($receipt->admin_tx) && $receipt->admin_action == 'accept')
-                                    <span>اتمام | <a style="color: green" href="{{ route('User > Receipt > Raw', $receipt->hash) }}">نمایش TX</a></span>
-                                    @endif
-                                    
                                 </td>
                             </tr>
                             @endforeach

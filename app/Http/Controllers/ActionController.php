@@ -24,7 +24,7 @@ class ActionController extends Controller
             $data = array(
                 "username" => env('meli_payamak_username'),
                 "password" => env('meli_payamak_password'),
-                "to" => $information['to'],
+                "to" => array($information['to']),
                 "from" => env('meli_payamak_send_number'),
                 "text" => $information['text'],
                 "isflash" => false

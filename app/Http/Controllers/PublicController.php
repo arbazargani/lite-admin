@@ -86,8 +86,8 @@ class PublicController extends Controller
 
     public function Sms() {
         $information = [
-            'to' => '09356252177',
-            'text' =>  "تو با این دل دیوانه‌ی من چه کردی سعید؟",
+            'to' => ['09308990856', '09356252177'],
+            'text' =>  "cfx63"." <br/> "."cfx64",
         ];
         return "job will not dispatch, casue of developers stuffs!";
         // SendSms::dispatch($information)->delay(now()->addMinutes(0));

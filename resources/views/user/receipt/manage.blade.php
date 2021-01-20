@@ -61,7 +61,7 @@
                                         @endif
                                     @else
                                         @if(is_null($receipt->paid_at))
-                                            <form action="{{ route('Payment > Request', $receipt->hash) }}" method="post">
+                                            <form action="{{ route('Ipg > Request', $receipt->hash) }}" method="post">
                                                 @csrf
                                                 <button type="submit" class="button td-btn">پرداخت</button>
                                             </form>
@@ -70,7 +70,6 @@
                                             <span>اتمام | <a style="color: green" href="{{ route('User > Receipt > Raw', $receipt->hash) }}">نمایش TX</a></span>
                                         @endif
                                     @endif
-                                    
                                 </td>
                             </tr>
                             @endforeach

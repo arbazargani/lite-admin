@@ -142,7 +142,7 @@ Route::middleware(['CheckRegion'])->group(function () {
     });
 
     Route::prefix('ipg')->group(function () {
-        Route::get('/request/{hash}', 'PaymentController@Request_v2')->name('Ipg > Request');
+        Route::post('/request/{hash}', 'PaymentController@Request_v2')->name('Ipg > Request');
         Route::any('/callback.php', 'PaymentController@Callback_v2')->name('Ipg > Callback');
     });
 

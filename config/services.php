@@ -32,6 +32,7 @@ return [
 
     'vandar' => [
         'api' => env('vandar_api_key'),
+        // 'api' => env('vandar_api_key_sandbox'),
         'test' => false
     ],
 

@@ -10,9 +10,12 @@ use Carbon\Carbon;
 use Vandar\Laravel\Facade\Vandar;
 
 use Illuminate\Support\Facades\Mail;
+
 use App\Mail\ReceiptPaid;
 
+use App\Jobs\SendReceiptCreationMail;
 use App\Jobs\SendReceiptPaidMail;
+use App\Jobs\SendSms;
 
 use Auth;
 use App\Payment as Pay;
@@ -150,26 +153,26 @@ class PaymentController extends Controller
             dispatch($emailJob);
 
             $information = [
-                'to' => $user->phone_number,
+                'to' => [$user->phone_number],
                 'text' =>  "اعلان پرداخت - کاربر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
             ];
             SendSms::dispatch($information)->delay(now()->addMinutes(1));
 
             
             $information = [
-                'to' => '09308990856',
+                'to' => ['09308990856'],
                 'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
             ];
             SendSms::dispatch($information)->delay(now()->addMinutes(0));
 
             $information = [
-                'to' => '09356252177',
+                'to' => ['09356252177'],
                 'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
             ];
             SendSms::dispatch($information)->delay(now()->addMinutes(0));
 
             $information = [
-                'to' => '09213840980',
+                'to' => ['09213840980'],
                 'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
             ];
             SendSms::dispatch($information)->delay(now()->addMinutes(0));
@@ -196,33 +199,42 @@ class PaymentController extends Controller
 
     public function Request_v2(Request $request, $hash) {
         $receipt = Receipt::where('hash', $hash)->first();
-        $receipt_id = $receipt->id;
+        if (!is_null($receipt) && $receipt->status == 'unpaid') {
 
-        $amount = (int)$this->NormalizePrice($receipt->payable);
-        $description = $receipt->description;
-        $selected_coin = $receipt->selected_coin;
-        $callback = route('Ipg > Callback');
+            $receipt_id = $receipt->id;
 
-        // $info = array(
-        //     $receipt_id,
-        //     $amount,
-        //     $description,
-        //     $selected_coin,
-        //     $callback
-        // );
-
-        // public function request($amount, $callback, $mobile = null, $factorNumber = null, $description = null)
-        $result = Vandar::request($amount, $callback, null, $receipt_id, $description);
-        // return $result;
-
-        $transaction = new Pay;
-        $transaction->trans_id = $result['token'];
-        $transaction->amount = $amount;
-        $transaction->user_id = Auth::user()->id;
-        $transaction->receipt_id = $receipt_id;
-        $transaction->save();
-
-        Vandar::redirect();
+            $amount = (int)$this->NormalizePrice($receipt->payable);
+            $description = $receipt->description;
+            $selected_coin = $receipt->selected_coin;
+            $callback = route('Ipg > Callback');
+    
+            // $info = array(
+            //     $receipt_id,
+            //     $amount,
+            //     $description,
+            //     $selected_coin,
+            //     $callback
+            // );
+    
+            // public function request($amount, $callback, $mobile = null, $factorNumber = null, $description = null)
+            $result = Vandar::request($amount, $callback, null, $receipt_id, $description);
+            
+            if ($result['status'] == 1) {
+                $transaction = new Pay;
+                $transaction->trans_id = $result['token'];
+                $transaction->amount = $amount;
+                $transaction->user_id = Auth::user()->id;
+                $transaction->receipt_id = $receipt_id;
+                $transaction->save();
+        
+                Vandar::redirect();
+            } else {
+                return $result;
+            }
+        } else {
+            return abort('403', 'Bad request');
+        }
+        
     }
 
     public function Callback_v2(Request $request)
@@ -268,29 +280,29 @@ class PaymentController extends Controller
                 dispatch($emailJob);
         
                 $information = [
-                    'to' => $user->phone_number,
-                    'text' =>  "اعلان پرداخت - کاربر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
+                    'to' => [$user->phone_number],
+                    'text' =>  "اعلان پرداخت - کاربر گرامی، فاکتور شماره " . $receipt_id . " به مبلغ " . number_format($receipt->payable) . "ت پرداخت و در سیستم ثبت گردید. کریپتاینر",
                 ];
                 SendSms::dispatch($information)->delay(now()->addMinutes(1));
         
                 
                 $information = [
-                    'to' => '09308990856',
-                    'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
+                    'to' => ['09308990856', '09356252177', '09213840980'],
+                    'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt_id . " به مبلغ " . number_format($receipt->payable) . " ت پرداخت و در سیستم ثبت گردید. کریپتاینر",
                 ];
                 SendSms::dispatch($information)->delay(now()->addMinutes(0));
-        
-                $information = [
-                    'to' => '09356252177',
-                    'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
-                ];
-                SendSms::dispatch($information)->delay(now()->addMinutes(0));
-        
-                $information = [
-                    'to' => '09213840980',
-                    'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
-                ];
-                SendSms::dispatch($information)->delay(now()->addMinutes(0));
+
+                // $information = [
+                //     'to' => ['09356252177'],
+                //     'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt_id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
+                // ];
+                // SendSms::dispatch($information)->delay(now()->addMinutes(0));
+                // $information = [
+                //     'to' => ['09213840980'],
+                //     'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt_id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
+                // ];
+                // SendSms::dispatch($information)->delay(now()->addMinutes(0));
+                
             } else {
                 $message = 'پرداخت با خطا مواجه شده است. لطفا مجدد تلاش کنید.';
                 session(['status' => 'factored', 'message' => $message]);
