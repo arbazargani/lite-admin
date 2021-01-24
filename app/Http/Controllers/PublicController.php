@@ -92,4 +92,17 @@ class PublicController extends Controller
         return "job will not dispatch, casue of developers stuffs!";
         // SendSms::dispatch($information)->delay(now()->addMinutes(0));
     }
+
+    public function phpredis1() {
+        Redis::pipeline(function ($pipe) {
+            for ($i = 0; $i < 1000; $i++) {
+                $pipe->set("key:$i", $i);
+            }
+        });
+    }
+
+    public function phpredis2() {
+        $values = Redis::keys("*");
+        return $values;
+    }
 }
