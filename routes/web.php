@@ -77,6 +77,8 @@ Route::middleware(['auth', 'HasAdminAccess'])->group(function () {
 
         Route::get('/storage/uploads/certifications/{slug}', 'AssetsController@SafeAssetsRender')->name('Admin > Images > Show');
 
+        Route::post('/sessions/destroy', 'AdminController@DestroyOtherSessions')->name('Admin > Sessions > Destroy');
+
     });
 
 });

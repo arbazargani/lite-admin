@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth as SessionAuthenticator;
 use function Composer\Autoload\includeFile;
+
 
 use Auth;
 use App\User;
@@ -232,5 +234,10 @@ class UserController extends Controller
         } catch(Exception $e) {
             echo $e->getMessage();
         }
+    }
+
+    public function DestroyOtherSessions($password) {
+        SessionAuthenticator::logoutOtherDevices($password);
+        return back();
     }
 }

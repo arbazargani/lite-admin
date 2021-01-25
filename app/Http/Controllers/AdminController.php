@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth as SessionAuthenticator;
 use Carbon\Carbon;
 use Ghasedak\GhasedakApi;
 use App\Jobs\SendSms;
@@ -326,5 +327,10 @@ class AdminController extends Controller
         } else {
             abort('403', 'make screenshot and contact this state to system administrator.');
         }
+    }
+
+    public function DestroyOtherSessions(Request $request) {
+        SessionAuthenticator::logoutOtherDevices($request['password']);
+        return back();
     }
 }

@@ -298,6 +298,18 @@
                         </div>
                     </div>
 
+                    <hr>
+
+                    <div>
+                        <h3>خروج از تمامی نشست‌ها</h3>
+                        <div>
+                            <form action="{{ route('Admin > Sessions > Destroy') }}" method="post">
+                                @csrf
+                                <input type="password" name="pasword" id="password" placeholder="password">
+                                <button type="submit">destroy all!</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
