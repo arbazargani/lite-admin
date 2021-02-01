@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth as SessionAuthenticator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Cache;
 use Ghasedak\GhasedakApi;
 use App\Jobs\SendSms;
 
@@ -40,31 +41,90 @@ class AdminController extends Controller
         return $price;
     }
 
+    public function all_receipts_count() {
+        if (Cache::has("all_receipts_count")) {
+            $response = Cache::get("all_receipts_count");
+        } else {
+            $response = Receipt::count();
+            Cache::put("all_receipts_count", $response, now()->addMinutes(10));
+        }
+        return $response;
+    }
+
+    public function paid_receipts_count() {
+        if (Cache::has("paid_receipts_count")) {
+            $response = Cache::get("paid_receipts_count");
+        } else {
+            $response = Receipt::where('status', 'paid')->count();
+            Cache::put("paid_receipts_count", $response, now()->addMinutes(10));
+        }
+        return $response;
+    }
+
+    public function unpaid_receipts_count () {
+        if (Cache::has("unpaid_receipts_count")) {
+            $response = Cache::get("unpaid_receipts_count");
+        } else {
+            $response = Receipt::where('status', 'unpaid')->count();
+            Cache::put("unpaid_receipts_count", $response, now()->addMinutes(10));
+        }
+        return $response;
+    }
+
+    public function all_users_count() {
+        if (Cache::has("all_users_count")) {
+            $response = Cache::get("all_users_count");
+        } else {
+            $response = User::count();
+            Cache::put("all_users_count", $response, now()->addMinutes(10));
+        }
+        return $response;
+    }
+
+    public function active_users_count() {
+        if (Cache::has("active_users_count")) {
+            $response = Cache::get("active_users_count");
+        } else {
+            $response = User::where('status', 'verified')->count();
+            Cache::put("active_users_count", $response, now()->addMinutes(10));
+        }
+        return $response;
+    }
+
+    public function suspended_users_count() {
+        if (Cache::has("suspended_users_count")) {
+            $response = Cache::get("suspended_users_count");
+        } else {
+            $response = User::where('status', 'suspended')->count();
+            Cache::put("suspended_users_count", $response, now()->addMinutes(10));
+        }
+        return $response;
+    }
+
     public function Index()
     {
-        $payments = null;
-        // $BTC_IRR = $this->GetPrice();
         $alerts = User::find(Auth::id())->alert->where('read', 0)->count();
-        $today_sells = Receipt::whereDate('created_at', Carbon::today())->where('status', 'paid')->get()->sum('payable');
-        $today_receipts = Receipt::whereDate('created_at', Carbon::today())->get()->count();
+        $receipts = Receipt::whereDate('created_at', Carbon::today());
+        $today_sells = $receipts->where('status', 'paid')->get()->sum('payable');
+        $today_receipts = $receipts->get()->count();
         $active_users = User::where('status', 'verified')->where('rule', 'user')->get()->count();
         $logs = Log::latest()->take(15)->get();
         $coins = Coin::all();
 
         $receipts_dataset = [
-            'all_receipts' => Receipt::count(),
-            'paid_receipts' => Receipt::where('status', 'paid')->count(),
-            'unpaid_receipts' => Receipt::where('status', 'unpaid')->count(),
+            'all_receipts' => $this->all_receipts_count(),
+            'paid_receipts' => $this->paid_receipts_count(),
+            'unpaid_receipts' => $this->unpaid_receipts_count(),
         ];
 
         $users_dataset = [
-            'all_users' => User::count(),
-            'active_users' => User::where('status', 'verified')->count(),
-            'suspended_users' => User::where('status', 'suspended')->count(),
+            'all_users' => $this->all_users_count(),
+            'active_users' => $this->active_users_count(),
+            'suspended_users' => $this->suspended_users_count(),
         ];
         
 
-        return view('admin.dashboard.index', compact(['payments', 'alerts', 'today_sells', 'today_receipts', 'active_users', 'logs', 'coins', 'receipts_dataset', 'users_dataset']));
+        return view('admin.dashboard.index', compact(['alerts', 'today_sells', 'today_receipts', 'active_users', 'logs', 'coins', 'receipts_dataset', 'users_dataset']));
     }
 
     public function ManageUsers()

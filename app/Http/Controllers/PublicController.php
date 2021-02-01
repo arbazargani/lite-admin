@@ -24,20 +24,12 @@ use App\User;
 use App\Receipt;
 
 use Auth;
+use Session;
 
 class PublicController extends Controller
 {
     public function Index() {
-        $settings = [
-            'price_calculation_method' => Settings::where('name', 'price_calculation_method')->first(),
-            'dollar_price_buy' => Settings::where('name', 'dollar_price_buy')->first(),
-            'dollar_price_sell' => Settings::where('name', 'dollar_price_sell')->first(),
-            'application_index_meta_title' => Settings::where('name', 'application_index_meta_title')->first(),
-            'application_index_meta_description' => Settings::where('name', 'application_index_meta_description')->first(),
-            'application_index_meta_keyword' => Settings::where('name', 'application_index_meta_keyword')->first(),
-            'application_index_meta_robots' => Settings::where('name', 'application_index_meta_robots')->first(),
-        ];
-
+        $settings = Settings::all();
         $coins_usd = Coin::select(['name', 'usd_price'])->get();
         $coins = Coin::all();
 
@@ -104,5 +96,28 @@ class PublicController extends Controller
     public function phpredis2() {
         $values = Redis::keys("*");
         return $values;
+    }
+
+    public function Session(Request $request) {
+        // return dd($request->session());
+        // $session_id = new Session;
+        // $session_id = $request->session()->all();
+        // $methods = get_class_methods($session_id);
+        // foreach ($methods as $method_name) {
+        //     echo "$method_name<hr/>";
+        // }
+        // $session_info = Redis::keys("*$session_id");
+        // $info = Redis::get($session_info[0]);
+        // return $session_id;
+        
+        $session_id = Session::getId();
+        // Redis::set('key2', 'val2');
+        // echo Redis::get('key2');
+        $key = Redis::keys("*$session_id")[0];
+        $session_value = Redis::get(str_replace(strtolower(env('APP_NAME')).'_database_', '', $key));
+
+        echo (isset($_COOKIE[strtolower(env('APP_NAME'))."_session"]) == $session_id) ? 'authenticated.' : 'unathorized session.';
+        
+        
     }
 }

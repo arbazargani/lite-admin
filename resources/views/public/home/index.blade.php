@@ -21,13 +21,14 @@
 						<li>
 						<img src="/assets/v3/src/icon/btc.svg" alt="bitcoin">
 						@php
+							$info = $coins->where('name', 'Bitcoin')->first();
 							$dataset = [];
-							$dataset[1] = $coins->where('name', 'Bitcoin')->first()->ahead_usd_price_4;
-							$dataset[2]= $coins->where('name', 'Bitcoin')->first()->ahead_usd_price_3;
-							$dataset[3]= $coins->where('name', 'Bitcoin')->first()->ahead_usd_price_2;
-							$dataset[4]= $coins->where('name', 'Bitcoin')->first()->ahead_usd_price_1;
-							$dataset[5]= $coins->where('name', 'Bitcoin')->first()->ahead_usd_price;
-							$dataset[6]= $coins->where('name', 'Bitcoin')->first()->usd_price;
+							$dataset[1] = $info->ahead_usd_price_4;
+							$dataset[2]= $info->ahead_usd_price_3;
+							$dataset[3]= $info->ahead_usd_price_2;
+							$dataset[4]= $info->ahead_usd_price_1;
+							$dataset[5]= $info->ahead_usd_price;
+							$dataset[6]= $info->usd_price;
 						@endphp
 						<canvas id="Bitcoin_canvas" style="width: 30px !important; height: 10px !important"></canvas>
 						<script>
@@ -47,13 +48,14 @@
 						<li>
 						<img src="/assets/v3/src/icon/eth.svg" alt="ethereum">
 						@php
+							$info = $coins->where('name', 'Ethereum')->first();
 							$dataset = [];
-							$dataset[1] = $coins->where('name', 'Ethereum')->first()->ahead_usd_price_4;
-							$dataset[2]= $coins->where('name', 'Ethereum')->first()->ahead_usd_price_3;
-							$dataset[3]= $coins->where('name', 'Ethereum')->first()->ahead_usd_price_2;
-							$dataset[4]= $coins->where('name', 'Ethereum')->first()->ahead_usd_price_1;
-							$dataset[5]= $coins->where('name', 'Ethereum')->first()->ahead_usd_price;
-							$dataset[6]= $coins->where('name', 'Ethereum')->first()->usd_price;
+							$dataset[1] = $info->ahead_usd_price_4;
+							$dataset[2]= $info->ahead_usd_price_3;
+							$dataset[3]= $info->ahead_usd_price_2;
+							$dataset[4]= $info->ahead_usd_price_1;
+							$dataset[5]= $info->ahead_usd_price;
+							$dataset[6]= $info->usd_price;
 						@endphp
 						<canvas id="Ethereum_canvas" style="width: 30px !important; height: 10px !important"></canvas>
 						<script>
@@ -73,13 +75,14 @@
 						<li>
 						<img src="/assets/v3/src/icon/etc.svg" alt="ethereum">
 						@php
+							$info = $coins->where('name', 'Ethereum_classic')->first();
 							$dataset = [];
-							$dataset[1] = $coins->where('name', 'Ethereum_classic')->first()->ahead_usd_price_4;
-							$dataset[2]= $coins->where('name', 'Ethereum_classic')->first()->ahead_usd_price_3;
-							$dataset[3]= $coins->where('name', 'Ethereum_classic')->first()->ahead_usd_price_2;
-							$dataset[4]= $coins->where('name', 'Ethereum_classic')->first()->ahead_usd_price_1;
-							$dataset[5]= $coins->where('name', 'Ethereum_classic')->first()->ahead_usd_price;
-							$dataset[6]= $coins->where('name', 'Ethereum_classic')->first()->usd_price;
+							$dataset[1] = $info->ahead_usd_price_4;
+							$dataset[2]= $info->ahead_usd_price_3;
+							$dataset[3]= $info->ahead_usd_price_2;
+							$dataset[4]= $info->ahead_usd_price_1;
+							$dataset[5]= $info->ahead_usd_price;
+							$dataset[6]= $info->usd_price;
 						@endphp
 						<canvas id="Ethereum_classic_canvas" style="width: 30px !important; height: 10px !important"></canvas>
 						<script>
@@ -99,13 +102,14 @@
 						<li>
 						<img src="/assets/v3/src/icon/ltc.svg" alt="litecoin">
 						@php
+							$info = $coins->where('name', 'Litecoin')->first();
 							$dataset = [];
-							$dataset[1] = $coins->where('name', 'Litecoin')->first()->ahead_usd_price_4;
-							$dataset[2]= $coins->where('name', 'Litecoin')->first()->ahead_usd_price_3;
-							$dataset[3]= $coins->where('name', 'Litecoin')->first()->ahead_usd_price_2;
-							$dataset[4]= $coins->where('name', 'Litecoin')->first()->ahead_usd_price_1;
-							$dataset[5]= $coins->where('name', 'Litecoin')->first()->ahead_usd_price;
-							$dataset[6]= $coins->where('name', 'Litecoin')->first()->usd_price;
+							$dataset[1] = $info->ahead_usd_price_4;
+							$dataset[2]= $info->ahead_usd_price_3;
+							$dataset[3]= $info->ahead_usd_price_2;
+							$dataset[4]= $info->ahead_usd_price_1;
+							$dataset[5]= $info->ahead_usd_price;
+							$dataset[6]= $info->usd_price;
 						@endphp
 						<canvas id="Litecoin_canvas" style="width: 30px !important; height: 10px !important"></canvas>
 						<script>
@@ -125,13 +129,14 @@
 						<li>
 						<img src="/assets/v3/src/icon/zec.svg" alt="zecash">
 						@php
+							$info = $coins->where('name', 'Zecash')->first();
 							$dataset = [];
-							$dataset[1] = $coins->where('name', 'Zecash')->first()->ahead_usd_price_4;
-							$dataset[2]= $coins->where('name', 'Zecash')->first()->ahead_usd_price_3;
-							$dataset[3]= $coins->where('name', 'Zecash')->first()->ahead_usd_price_2;
-							$dataset[4]= $coins->where('name', 'Zecash')->first()->ahead_usd_price_1;
-							$dataset[5]= $coins->where('name', 'Zecash')->first()->ahead_usd_price;
-							$dataset[6]= $coins->where('name', 'Zecash')->first()->usd_price;
+							$dataset[1] = $info->ahead_usd_price_4;
+							$dataset[2]= $info->ahead_usd_price_3;
+							$dataset[3]= $info->ahead_usd_price_2;
+							$dataset[4]= $info->ahead_usd_price_1;
+							$dataset[5]= $info->ahead_usd_price;
+							$dataset[6]= $info->usd_price;
 						@endphp
 						<canvas id="Zecash_canvas" style="width: 30px !important; height: 10px !important"></canvas>
 						<script>
@@ -151,13 +156,14 @@
 						<li>
 						<img src="/assets/v3/src/icon/rvn.svg" alt="tether">
 						@php
+							$info = $coins->where('name', 'Ravencoin')->first();
 							$dataset = [];
-							$dataset[1] = $coins->where('name', 'Ravencoin')->first()->ahead_usd_price_4;
-							$dataset[2]= $coins->where('name', 'Ravencoin')->first()->ahead_usd_price_3;
-							$dataset[3]= $coins->where('name', 'Ravencoin')->first()->ahead_usd_price_2;
-							$dataset[4]= $coins->where('name', 'Ravencoin')->first()->ahead_usd_price_1;
-							$dataset[5]= $coins->where('name', 'Ravencoin')->first()->ahead_usd_price;
-							$dataset[6]= $coins->where('name', 'Ravencoin')->first()->usd_price;
+							$dataset[1] = $info->ahead_usd_price_4;
+							$dataset[2]= $info->ahead_usd_price_3;
+							$dataset[3]= $info->ahead_usd_price_2;
+							$dataset[4]= $info->ahead_usd_price_1;
+							$dataset[5]= $info->ahead_usd_price;
+							$dataset[6]= $info->usd_price;
 						@endphp
 						<canvas id="Raven_canvas" style="width: 30px !important; height: 10px !important"></canvas>
 						<script>
@@ -177,13 +183,14 @@
 						<li>
 						<img src="/assets/v3/src/icon/usdt.svg" alt="tether">
 						@php
+							$info = $coins->where('name', 'Tether')->first();
 							$dataset = [];
-							$dataset[1] = $coins->where('name', 'Tether')->first()->ahead_usd_price_4;
-							$dataset[2]= $coins->where('name', 'Tether')->first()->ahead_usd_price_3;
-							$dataset[3]= $coins->where('name', 'Tether')->first()->ahead_usd_price_2;
-							$dataset[4]= $coins->where('name', 'Tether')->first()->ahead_usd_price_1;
-							$dataset[5]= $coins->where('name', 'Tether')->first()->ahead_usd_price;
-							$dataset[6]= $coins->where('name', 'Tether')->first()->usd_price;
+							$dataset[1] = $info->ahead_usd_price_4;
+							$dataset[2]= $info->ahead_usd_price_3;
+							$dataset[3]= $info->ahead_usd_price_2;
+							$dataset[4]= $info->ahead_usd_price_1;
+							$dataset[5]= $info->ahead_usd_price;
+							$dataset[6]= $info->usd_price;
 						@endphp
 						<canvas id="Tether_canvas" style="width: 30px !important; height: 10px !important"></canvas>
 						<script>
@@ -227,9 +234,6 @@
 						</a>
 						<a href="http://shop.cryptiner.com/">
 							<li>تعمیرات</li>
-						</a>
-						<a href="https://blog.cryptiner.com/">
-							<li>بلاگ</li>
 						</a>
 						<a href="https://blog.cryptiner.com/%d8%aa%d9%85%d8%a7%d8%b3-%d8%a8%d8%a7-%d9%85%d8%a7/">
 							<li>تماس با ما</li>
@@ -288,8 +292,8 @@
 					<p>شما دریافت می کنید:</p>
 					<input type="text" id="buy-amount" name="coin-value" placeholder="0.01" onkeyup="setTimeout(makeExchange('buy'), 2000)" autocomplete="off">
 					<div>
-						{{-- <span>{{ number_format($settings['dollar_price_buy']->value) }} Toman</span>
-						<span>USD</span> --}}
+						<span>{{ number_format($settings->where('name', 'dollar_price_buy')->first()->value) }} Toman</span>
+						<span>USD</span>
 					</div>
 				</form>
 			</div>
@@ -323,8 +327,8 @@
 					<p>شما پرداخت می کنید:</p>
 					<input type="text" id="sell-amount" name="coin-value" placeholder="0.01" onkeyup="setTimeout(makeExchange('sell'), 2000)" autocomplete="off">
 					<div>
-						{{-- <span>{{ number_format($settings['dollar_price_sell']->value) }} Toman</span>
-						<span>USD</span> --}}
+						<span>{{ number_format($settings->where('name', 'dollar_price_sell')->first()->value) }} Toman</span>
+						<span>USD</span>
 					</div>
 				</form>
 			</div>

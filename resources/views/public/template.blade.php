@@ -1,12 +1,13 @@
 <!doctype html>
 <html>
 <head>
-	<title>{{ $settings['application_index_meta_title']->value }}</title>
+	
+	<title>{{ $settings->where('name', 'application_index_meta_title')->first()->value }}</title>
     <meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="robots" content="{{ $settings['application_index_meta_robots']->value }}">
-	<meta name="description" content="{{ $settings['application_index_meta_description']->value }}">
-	<meta name="keywords" content="{{ $settings['application_index_meta_keyword']->value }}">
+	<meta name="robots" content="{{ $settings->where('name', 'application_index_meta_robots')->first()->value }}">
+	<meta name="description" content="{{ $settings->where('name', 'application_index_meta_description')->first()->value }}">
+	<meta name="keywords" content="{{ $settings->where('name', 'application_index_meta_keyword')->first()->value }}">
 	<meta name="author" content="cryptiner.com">
 	<meta name="theme-color" content="#45D799">
 	<link rel="canonical" href="{{ env('APP_URL') }}">
