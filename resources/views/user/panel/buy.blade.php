@@ -48,7 +48,11 @@
                 <br>
                 6. در انتها می‌توانید از بخش فروش TxID ثبت شده را ببینید.
                 <hr/>
-                <p style="padding: 4px 10px; border-radius: 3px; background: #ffcbcb; font-size: 13px; font-weight: bold">در نظر داشته باشید مسئولیت ورود اطلاعات اشتباه تماما با شما خواهد بود.</p>
+                <h3 style="padding: 4px 10px; border-radius: 3px; color: #ca3232; font-weight: bold; text-align: right">توجه داشته باشید:</h3>
+                <p style="padding: 4px 10px; border-radius: 3px; background: #ffcbcb; font-size: 13px; font-weight: bold">- مسئولیت ورود اطلاعات اشتباه تماما با شما خواهد بود.
+                <br>
+                - خریداران <strong>بیت‌کوین</strong> در نظر داشته باشند، مقدار <strong>۰.۰۰۰۵ بیت‌کوین </strong> به عنوان <strong>کارمزد انتقال</strong> از میزان واریزی به شما کسر خواهد شد.
+                </p>
             </p>
         </div>
         <div class="sell-options">

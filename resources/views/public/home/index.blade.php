@@ -291,10 +291,10 @@
 				<form>
 					<p>شما دریافت می کنید:</p>
 					<input type="text" id="buy-amount" name="coin-value" placeholder="0.01" onkeyup="setTimeout(makeExchange('buy'), 2000)" autocomplete="off">
-					<div>
+					<!-- <div>
 						<span>{{ number_format($settings->where('name', 'dollar_price_buy')->first()->value) }} Toman</span>
 						<span>USD</span>
-					</div>
+					</div> -->
 				</form>
 			</div>
 			<div class="result">
@@ -326,10 +326,10 @@
 				<form>
 					<p>شما پرداخت می کنید:</p>
 					<input type="text" id="sell-amount" name="coin-value" placeholder="0.01" onkeyup="setTimeout(makeExchange('sell'), 2000)" autocomplete="off">
-					<div>
+					<!--<div>
 						<span>{{ number_format($settings->where('name', 'dollar_price_sell')->first()->value) }} Toman</span>
 						<span>USD</span>
-					</div>
+					</div>-->
 				</form>
 			</div>
 			<div class="result">
