@@ -204,7 +204,8 @@ class PaymentController extends Controller
             $receipt_id = $receipt->id;
 
             $amount = (int)$this->NormalizePrice($receipt->payable)."0";
-            $description = $receipt->description;
+            // $description = $receipt->description;
+            $description = "invoice id:" . $receipt_id;
             $selected_coin = $receipt->selected_coin;
             $callback = route('Ipg > Callback');
     

@@ -147,9 +147,12 @@ class CoinController extends Controller
                 'price_calculation_method' => Settings::where('name', 'price_calculation_method')->first(),
                 'dollar_price_buy' => Settings::where('name', 'dollar_price_buy')->first(),
                 'dollar_price_sell' => Settings::where('name', 'dollar_price_sell')->first(),
+                'dollar_price_buy_tolerance' => Settings::where('name', 'dollar_price_buy_tolerance')->first(),
+                'dollar_price_sell_tolerance' => Settings::where('name', 'dollar_price_sell_tolerance')->first(),
             ];
 
-            $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_sell']->value;;
+            // $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_sell']->value;;
+            $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->Nobitex()-$settings['dollar_price_sell_tolerance']->value : $settings['dollar_price_sell']->value;;
 
             $array = array('ok' => true,
                 'dollars' => number_format($this->COIN_TO_USD($request['currency-in'])),
@@ -181,9 +184,12 @@ class CoinController extends Controller
                 'price_calculation_method' => Settings::where('name', 'price_calculation_method')->first(),
                 'dollar_price_buy' => Settings::where('name', 'dollar_price_buy')->first(),
                 'dollar_price_sell' => Settings::where('name', 'dollar_price_sell')->first(),
+                'dollar_price_buy_tolerance' => Settings::where('name', 'dollar_price_buy_tolerance')->first(),
+                'dollar_price_sell_tolerance' => Settings::where('name', 'dollar_price_sell_tolerance')->first(),
             ];
 
-            $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_buy']->value;
+            // $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_buy']->value;
+            $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->Nobitex()+$settings['dollar_price_buy_tolerance']->value : $settings['dollar_price_buy']->value;
             $array = array('ok' => true,
                 'dollars' => number_format($this->COIN_TO_USD($request['currency-in'])),
                 'tomans' => number_format($this->CalculatePrice($request['currency-in'], $request['amount'], $usd_price, 'tomans')),
@@ -342,7 +348,8 @@ class CoinController extends Controller
             'dollar_price_buy' => Settings::where('name', 'dollar_price_buy')->first(),
             'dollar_price_sell' => Settings::where('name', 'dollar_price_sell')->first(),
         ];
-        $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_sell']->value;
+        // $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_sell']->value;
+        $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->Nobitex() : $settings['dollar_price_sell']->value;
 
         $current = Coin::where('slug', $slug)->update([
             'ahead_usd_price' => $current = Coin::where('slug', $slug)->first()->usd_price,
@@ -353,6 +360,37 @@ class CoinController extends Controller
             'usd_price' => $price,
             'toman_price' => $this->CalculatePrice($name, 1, $usd_price, 'tomans')
         ]);
+        }
+    }
+
+    /*
+    * consider that index should be 'best_buy' or 'best_sell', nothing else allowed.
+    * as you see, default will be best_sell, cause it is bigger than the other :)
+    */
+    public function Nobitex($index = 'best_sell') {
+        if (Cache::has("usd-price-$index")) {
+            return Cache::get("usd-price-$index");
+        } else {
+            /*** curl get  start ***/
+            $url = "http://api.arbazargani.ir/usd.php";
+            $curl = curl_init($url);
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        
+            //for debug only!
+            /*
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            */
+        
+            $res = curl_exec($curl);
+            $response = json_decode($res);
+            // header('Content-Type: application/json');
+            curl_close($curl);
+            // echo json_encode($response);
+
+            Cache::put("usd-price-$index", substr($response->$index, 0, -1), now()->addMinutes(10));
+            return substr($response->$index, 0, -1);
         }
     }
 }

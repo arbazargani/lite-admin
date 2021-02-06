@@ -167,6 +167,7 @@ Route::middleware(['CheckRegion'])->group(function () {
     });
 
     Route::get('binance/{symbol}', 'CoinController@Binance');
+    Route::get('nobitex', 'TransactionController@Nobitex');
 
     Route::get('repo', 'CoinController@UpdateRepository');
     Route::get('cache', 'CoinController@UpdateCache');

@@ -29,6 +29,8 @@ class SettingsController extends Controller
             'application_index_meta_keyword' => Settings::where('name', 'application_index_meta_keyword')->first(),
             'application_index_meta_robots' => Settings::where('name', 'application_index_meta_robots')->first(),
             'check_region' => Settings::where('name', 'check_region')->first(),
+            'dollar_price_buy_tolerance' => Settings::where('name', 'dollar_price_buy_tolerance')->first(),
+            'dollar_price_sell_tolerance' => Settings::where('name', 'dollar_price_sell_tolerance')->first(),
         ];
 
         return view('admin.dashboard.settings.index', compact(['settings']));
@@ -66,6 +68,8 @@ class SettingsController extends Controller
         Settings::where('name', 'application_index_meta_robots')->update(['value' => $request['application_index_meta_robots']]);
         $region = ($request->has('check_region') && $request['check_region'] == "1") ? '1' : '0';
         Settings::where('name', 'check_region')->update(['value' => $region]);
+        Settings::where('name', 'dollar_price_sell_tolerance')->update(['value' => $request['dollar_price_sell_tolerance']]);
+        Settings::where('name', 'dollar_price_buy_tolerance')->update(['value' => $request['dollar_price_buy_tolerance']]);
 
         $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Updated the settings.';
         $this->MakeLog(Auth::id(), $log);

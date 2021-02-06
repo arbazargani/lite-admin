@@ -45,6 +45,14 @@
                                 <label>قیمت فروش دلار (تومان):</label>
                                 <input type="text" name="dollar_price_sell" id="" value="{{ $settings['dollar_price_sell']->value }}">
 
+                                <label for="">تلورانس خرید ارز از کریپتاینر</label>
+                                <input type="text" name="dollar_price_buy_tolerance" id="" value="{{ $settings['dollar_price_buy_tolerance']->value }}">
+                                <p style="color: red; font-size: 12px">این مقدار هنگام خرید ارز به قیمت دلاری اضافه خواهد شد.</p>
+
+                                <label for="">تلورانس فروش ارز به کریپتاینر</label>
+                                <input type="text" name="dollar_price_sell_tolerance" id="" value="{{ $settings['dollar_price_sell_tolerance']->value }}">
+                                <p style="color: red; font-size: 12px">این مقدار هنگام فروش ارز توسط کاربران سامانه از میزان دلاری کم می‌شود.</p>
+
                                 <label>ساعت شروع فعالیت سایت:</label>
                                 {{-- <input type="text" name="dollar_price_sell" id="" value="{{ $settings['dollar_price_sell']->value }}"> --}}
                                 <input type="text" name="application_start_time" class="form-control start-picker" value="{{ $settings['application_start_time']->value }}">

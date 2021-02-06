@@ -8,6 +8,7 @@ use OneAPI\Laravel\API\Currency;
 use Illuminate\Support\Facades\Redis;
 use Carbon\Carbon;
 use Melipayamak\MelipayamakApi;
+use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Support\Facades\Mail;
 
@@ -116,8 +117,6 @@ class PublicController extends Controller
         $key = Redis::keys("*$session_id")[0];
         $session_value = Redis::get(str_replace(strtolower(env('APP_NAME')).'_database_', '', $key));
 
-        echo (isset($_COOKIE[strtolower(env('APP_NAME'))."_session"]) == $session_id) ? 'authenticated.' : 'unathorized session.';
-        
-        
+        echo (isset($_COOKIE[strtolower(env('APP_NAME'))."_session"]) == $session_id) ? 'authenticated.' : 'unathorized session.';        
     }
 }

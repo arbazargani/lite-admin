@@ -202,13 +202,16 @@ class TransactionController extends Controller
             'dollar_price_sell' => Settings::where('name', 'dollar_price_sell')->first(),
             'public_btc_wallet' => Settings::where('name', 'public_btc_wallet')->first(),
             'public_usdt_wallet' => Settings::where('name', 'public_usdt_wallet')->first(),
+            'dollar_price_buy_tolerance' => Settings::where('name', 'dollar_price_buy_tolerance')->first(),
+            'dollar_price_sell_tolerance' => Settings::where('name', 'dollar_price_sell_tolerance')->first(),
         ];
 
         $transaction = new Transaction();
         $transaction->user_id = Auth::user()->id;
         $transaction->amount = $request['amount'];
 
-        $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_sell']->value;
+        // $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_sell']->value;
+        $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->Nobitex()-$settings['dollar_price_sell_tolerance']->value : $settings['dollar_price_sell']->value;
 
         $payable = $this->CalculatePrice($request['coin'], $request['amount'], $usd_price, 'tomans');
         $transaction->payable = $this->NormalizePrice($payable);
@@ -337,5 +340,37 @@ class TransactionController extends Controller
             Cache::put("$symbol-usd-price", $response, now()->addMinutes(1));
             return $response;
         }
+    }
+
+    /*
+    * consider that index should be 'best_buy' or 'best_sell', nothing else allowed.
+    * as you see, default will be best_sell, cause it is bigger than the other :)
+    */
+    public function Nobitex($index = 'best_sell') {
+        if (Cache::has("usd-price-$index")) {
+            return Cache::get("usd-price-$index");
+        } else {
+            /*** curl get  start ***/
+            $url = "http://api.arbazargani.ir/usd.php";
+            $curl = curl_init($url);
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        
+            //for debug only!
+            /*
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            */
+        
+            $res = curl_exec($curl);
+            $response = json_decode($res);
+            // header('Content-Type: application/json');
+            curl_close($curl);
+            // echo json_encode($response);
+
+            Cache::put("usd-price-$index", substr($response->$index, 0, -1), now()->addMinutes(10));
+            return substr($response->$index, 0, -1);
+        }
+
     }
 }
