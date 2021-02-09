@@ -79,11 +79,11 @@ class PublicController extends Controller
 
     public function Sms() {
         $information = [
-            'to' => ['09308990856', '09356252177'],
-            'text' =>  "cfx63"." <br/> "."cfx64",
+            'to' => '09353299729',
+            'text' =>  "Silence is golden.\nbelieve or not.",
         ];
-        return "job will not dispatch, casue of developers stuffs!";
-        // SendSms::dispatch($information)->delay(now()->addMinutes(0));
+        // return "job will not dispatch, casue of developers stuffs!";
+        SendSms::dispatch($information)->delay(now()->addMinutes(0));
     }
 
     public function phpredis1() {

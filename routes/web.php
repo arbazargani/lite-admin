@@ -191,3 +191,5 @@ Route::middleware(['CheckRegion'])->group(function () {
     Route::get('sms', 'PublicController@Sms');
 
     Route::get('session', 'PublicController@Session');
+
+    Route::get('kavenegar', 'TestController@Kavenegar');
