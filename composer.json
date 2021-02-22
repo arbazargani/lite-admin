@@ -25,6 +25,7 @@
         "pusher/pusher-php-server": "^4.1",
         "rfmhb2/vandar-laravel": "^1.1",
         "shetabit/payment": "^2.4",
+        "shieldon/shieldon": "^2.0",
         "symfony/filesystem": "^5.1"
     },
     "require-dev": {

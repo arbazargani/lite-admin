@@ -193,3 +193,17 @@ Route::middleware(['CheckRegion'])->group(function () {
     Route::get('session', 'PublicController@Session');
 
     Route::get('kavenegar', 'TestController@Kavenegar');
+
+    /*
+    Route::any('/firewall/panel/{path?}', function() {
+
+        $panel = new \Shieldon\Firewall\Panel();
+        $panel->csrf(['_token' => csrf_token()]);
+        $panel->entry();
+    
+    })->where('path', '(.*)');
+    */
+
+    Route::prefix('blockchair')->group(function () {
+        Route::get('/transaction/{chain}/{hash}/{is_erc20?}', 'PublicController@blockChairValidator')->name('BlockChair > Validate');
+    });

@@ -119,4 +119,59 @@ class PublicController extends Controller
 
         echo (isset($_COOKIE[strtolower(env('APP_NAME'))."_session"]) == $session_id) ? 'authenticated.' : 'unathorized session.';        
     }
+
+    public function blockChairValidator($chain, $hash, $is_erc = 0) {
+        
+        /*** curl get  start ***/
+        $url = "https://api.blockchair.com/$chain/dashboards/transaction/$hash";
+        if ($is_erc) {
+            $url .= "?erc_20=true";
+        }
+        
+        $curl = curl_init($url);
+        curl_setopt($curl, CURLOPT_URL, $url);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    
+        //for debug only!
+        /*
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        */
+        $res = curl_exec($curl);
+        // header('Content-Type: application/json');
+        $response = json_decode($res, true);
+
+        curl_close($curl);
+        
+        echo "url is : $url <hr/><pre>";
+        if ($chain == 'bitcoin') {
+
+            if ($response['data']["$hash"]['transaction']['block_id'] != -1) {
+                $block_id = (int) $response['data']["$hash"]['transaction']['block_id'];
+                $state = (int) $response['context']['state'];
+                $confirms = $state-$block_id+1;
+    
+                echo "Confirmed [". $confirms . "].";
+            } else {
+                echo "Not confirmed.";
+            }
+
+        } elseif ($chain == 'ethereum') {
+
+            if ($response['data']["$hash"]['transaction']['block_id'] != -1) {
+                $block_id = (int) $response['data']["$hash"]['transaction']['block_id'];
+                $state = (int) $response['context']['state'];
+                $confirms = $state-$block_id+1;
+    
+                echo "Confirmed [". $confirms . "].";
+            } else {
+                echo "Not confirmed.";
+            }
+
+        } else {
+            echo "Unsupported chain.";
+        }
+        
+    }
+
 }
