@@ -21,13 +21,7 @@ Route::get('/register', function() {
     return view('auth.login');
 })->name('register');
 
-Route::get('/logout', function () {
-    if (Auth::check()) {
-        Auth::logout();
-        return redirect('/');
-    }
-    return abort('404');
-})->name('logout');
+Route::get('/logout', 'PublicController@Logout')->name('logout');
 
 Route::get('/', 'PublicController@Index')->name('Public > Home');
 
@@ -35,7 +29,7 @@ Route::get('/', 'PublicController@Index')->name('Public > Home');
 //     return view('public.home.soon');
 // });
 
-Route::middleware(['auth', 'HasAdminAccess'])->group(function () {
+Route::middleware(['auth', 'HasAdminAccess', '2fa'])->group(function () {
 
     Route::prefix('cfx63/dashboard')->group(function () {
         Route::get('/', 'AdminController@Index')->name('Admin > Dashboard');
@@ -85,7 +79,7 @@ Route::middleware(['auth', 'HasAdminAccess'])->group(function () {
 
 Route::middleware(['CheckRegion'])->group(function () {
     
-    Route::middleware(['auth'])->group(function () {
+    Route::middleware(['auth', '2fa'])->group(function () {
 
         Route::prefix('panel')->group(function () {
             Route::get('/', 'UserController@Index')->name('User > Panel');
@@ -207,3 +201,20 @@ Route::middleware(['CheckRegion'])->group(function () {
     Route::prefix('blockchair')->group(function () {
         Route::get('/transaction/{chain}/{hash}/{is_erc20?}', 'PublicController@blockChairValidator')->name('BlockChair > Validate');
     });
+
+    Route::group(['prefix'=>'2fa'], function(){
+        Route::get('/','LoginSecurityController@show2faForm')->name('2fa');
+        Route::post('/generateSecret','LoginSecurityController@generate2faSecret')->name('generate2faSecret');
+        Route::post('/enable2fa','LoginSecurityController@enable2fa')->name('enable2fa');
+        Route::post('/disable2fa','LoginSecurityController@disable2fa')->name('disable2fa');
+    
+        // 2fa middleware
+        Route::post('/2faVerify', function () {
+            return redirect(URL()->previous());
+        })->name('2faVerify')->middleware('2fa');
+    });
+    
+    // test middleware
+    Route::get('/test_middleware', function () {
+        return "2FA middleware work!";
+    })->middleware(['auth', '2fa']);

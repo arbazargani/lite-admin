@@ -37,6 +37,15 @@ class PublicController extends Controller
         return view('public.home.index', compact(['settings', 'coins_usd', 'coins']));
     }
 
+    public function Logout(Request $request) {
+        if (Auth::check()) {
+            $request->session()->forget('google2fa');
+            Auth::logout();
+            return redirect('/');
+        }
+        return abort('404');
+    }
+
     public function Redis() {
         $handler = app()->make('redis');
 

@@ -67,5 +67,6 @@ class Kernel extends HttpKernel
         'IsVerified' => \App\Http\Middleware\IsVerified::class,
         'OpenCloseStatus' => \App\Http\Middleware\OpenCloseStatus::class,
         'CheckRegion' => \App\Http\Middleware\CheckRegion::class,
+        '2fa' => \App\Http\Middleware\LoginSecurityMiddleware::class,
     ];
 }

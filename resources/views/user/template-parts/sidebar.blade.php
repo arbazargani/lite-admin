@@ -44,6 +44,12 @@
                     <p>تیکت ها</p>
                 </li>
             </a>
+            <a href="{{ route("2fa") }}">
+                <li>
+                    <i class="fas fa-user-lock"></i>
+                    <p>ورود دو مرحله‌ای</p>
+                </li>
+            </a>
             <a href="{{ route('logout') }}">
                 <li>
                     <i class="fas fa-sign-out-alt"></i>
