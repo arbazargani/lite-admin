@@ -135,7 +135,7 @@ class PaymentController extends Controller
                 if (strtolower($coin->name) == strtolower($selected_coin)) {
                     $coin_amount = Receipt::where('id', $receipt_id)->first()->amount;
                     Coin::where('name', $coin->name)->update([
-                        'balance' => $coin->balance-$coin_amount,
+                        'balance' => $coin->balance - $coin_amount,
                     ]);
                 }
             }
@@ -154,29 +154,29 @@ class PaymentController extends Controller
 
             $information = [
                 'to' => [$user->phone_number],
-                'text' =>  "اعلان پرداخت - کاربر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
+                'text' => "اعلان پرداخت - کاربر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
             ];
             SendSms::dispatch($information)->delay(now()->addMinutes(1));
 
-            
+
             $information = [
                 'to' => ['09308990856'],
-                'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
+                'text' => "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
             ];
             SendSms::dispatch($information)->delay(now()->addMinutes(0));
 
             $information = [
                 'to' => ['09356252177'],
-                'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
+                'text' => "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
             ];
             SendSms::dispatch($information)->delay(now()->addMinutes(0));
 
             $information = [
                 'to' => ['09213840980'],
-                'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
+                'text' => "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
             ];
             SendSms::dispatch($information)->delay(now()->addMinutes(0));
-            
+
             return redirect()->route('User > Panel');
 
         } catch (InvalidPaymentException $exception) {
@@ -197,18 +197,19 @@ class PaymentController extends Controller
         return $user->receipt->first()->payment;
     }
 
-    public function Request_v2(Request $request, $hash) {
+    public function Request_v2(Request $request, $hash)
+    {
         $receipt = Receipt::where('hash', $hash)->first();
         if (!is_null($receipt) && $receipt->status == 'unpaid') {
 
             $receipt_id = $receipt->id;
 
-            $amount = (int)$this->NormalizePrice($receipt->payable)."0";
+            $amount = (int)$this->NormalizePrice($receipt->payable) . "0";
             // $description = $receipt->description;
             $description = "invoice id:" . $receipt_id;
             $selected_coin = $receipt->selected_coin;
             $callback = route('Ipg > Callback');
-    
+
             // $info = array(
             //     $receipt_id,
             //     $amount,
@@ -216,10 +217,10 @@ class PaymentController extends Controller
             //     $selected_coin,
             //     $callback
             // );
-    
+
             // public function request($amount, $callback, $mobile = null, $factorNumber = null, $description = null)
             $result = Vandar::request($amount, $callback, null, $receipt_id, $description);
-            
+
             if ($result['status'] == 1) {
                 $transaction = new Pay;
                 $transaction->trans_id = $result['token'];
@@ -227,7 +228,7 @@ class PaymentController extends Controller
                 $transaction->user_id = Auth::user()->id;
                 $transaction->receipt_id = $receipt_id;
                 $transaction->save();
-        
+
                 Vandar::redirect();
             } else {
                 return $result;
@@ -235,7 +236,7 @@ class PaymentController extends Controller
         } else {
             return abort('403', 'Bad request');
         }
-        
+
     }
 
     public function Callback_v2(Request $request)
@@ -244,8 +245,8 @@ class PaymentController extends Controller
             $transaction_id = $_GET['token'];
             $amount = Pay::where('trans_id', $transaction_id)->first();
             $result = Vandar::verify($transaction_id);
-    
-    
+
+
             if ($result['status'] == 1) {
                 $transaction = Pay::where('trans_id', $transaction_id)->update([
                     'order_id' => $result['transId'],
@@ -263,14 +264,14 @@ class PaymentController extends Controller
                     if (strtolower($coin->name) == strtolower($selected_coin)) {
                         $coin_amount = Receipt::where('id', $receipt_id)->first()->amount;
                         Coin::where('name', $coin->name)->update([
-                            'balance' => $coin->balance-$coin_amount,
+                            'balance' => $coin->balance - $coin_amount,
                         ]);
                     }
                 }
                 $message = 'پرداخت موردنظر با موفقیت انجام شد.';
                 session(['status' => 'factored', 'message' => $message]);
                 $this->MakeAlert(1, "یک فاکتور پرداخت شد.", 'successss');
-        
+
                 // $user = Pay::where('trans_id', $transaction_id)->first()->user_id;
                 // $user = findOrFail($user);
                 $receipt = Receipt::findOrFail($receipt_id);
@@ -279,17 +280,17 @@ class PaymentController extends Controller
                 // SendReceiptPadiMail::dispatch($receipt, $user);
                 $emailJob = (new  SendReceiptPaidMail($receipt, $user))->delay(Carbon::now()->addMinutes(2));
                 dispatch($emailJob);
-        
+
                 $information = [
                     'to' => [$user->phone_number],
-                    'text' =>  "اعلان پرداخت - کاربر گرامی، فاکتور شماره " . $receipt_id . " به مبلغ " . number_format($receipt->payable) . "ت پرداخت و در سیستم ثبت گردید. کریپتاینر",
+                    'text' => "اعلان پرداخت - کاربر گرامی، فاکتور شماره " . $receipt_id . " به مبلغ " . number_format($receipt->payable) . "ت پرداخت و در سیستم ثبت گردید. کریپتاینر",
                 ];
                 SendSms::dispatch($information)->delay(now()->addMinutes(1));
-        
-                
+
+
                 $information = [
                     'to' => ['09308990856', '09356252177', '09213840980'],
-                    'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt_id . " به مبلغ " . number_format($receipt->payable) . " ت پرداخت و در سیستم ثبت گردید. کریپتاینر",
+                    'text' => "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt_id . " به مبلغ " . number_format($receipt->payable) . " ت پرداخت و در سیستم ثبت گردید. کریپتاینر",
                 ];
                 SendSms::dispatch($information)->delay(now()->addMinutes(0));
 
@@ -303,12 +304,12 @@ class PaymentController extends Controller
                 //     'text' =>  "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt_id . " به مبلغ" . number_format($receipt->payable) . " پرداخت و در سیستم ثبت گردید. کریپتاینر",
                 // ];
                 // SendSms::dispatch($information)->delay(now()->addMinutes(0));
-                
+
             } else {
                 $message = 'پرداخت با خطا مواجه شده است. لطفا مجدد تلاش کنید.';
                 session(['status' => 'factored', 'message' => $message]);
             }
-            
+
             return redirect()->route('User > Panel');
         } else {
             return abort('403', 'Bad request.');

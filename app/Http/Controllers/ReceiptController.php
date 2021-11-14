@@ -83,47 +83,50 @@ class ReceiptController extends Controller
         }
     }
 
-    public function GetDollarPrice($key = "920449d00b2704b58dc040544e1f79a6") {
+    public function GetDollarPrice($key = "920449d00b2704b58dc040544e1f79a6")
+    {
         $ch = curl_init("https://oneapi.ir/api/currency/usd");
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        
+
         curl_setopt($ch, CURLOPT_HTTPHEADER, array("OneAPI-Key: $key"));
-        
+
         $response = curl_exec($ch);
         $response = json_decode($response);
-        
+
         curl_close($ch);
 
         return $response[0]->price;
     }
 
-    public function COIN_TO_USD_OLD_oneApi($currency, $key = "e9375f00b2d1ab8944cb9c64b6482b75") {
+    public function COIN_TO_USD_OLD_oneApi($currency, $key = "e9375f00b2d1ab8944cb9c64b6482b75")
+    {
         $ch = curl_init("https://oneapi.ir/api/crypto/$currency");
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        
+
         curl_setopt($ch, CURLOPT_HTTPHEADER, array("OneAPI-Key: $key"));
-        
+
         $response = curl_exec($ch);
         $response = json_decode($response);
-        
+
         curl_close($ch);
 
         // return ($node != false) ? $response[0]->$node : $response;
         return $response->price;
     }
 
-    public function COIN_TO_USD_old($currency) {
+    public function COIN_TO_USD_old($currency)
+    {
         if ($currency == 'bitcoin') {
 
             $response = $this->binance('BTCUSDT');
 
-        } elseif($currency == 'litecoin') {
+        } elseif ($currency == 'litecoin') {
 
             $response = $this->binance('LTCUSDT');
 
-        } elseif($currency == 'ethereum') {
+        } elseif ($currency == 'ethereum') {
 
             $response = $this->binance('ETHUSDT');
 
@@ -135,7 +138,8 @@ class ReceiptController extends Controller
         return round(json_decode(json_encode($response->price)));
     }
 
-    public function COIN_TO_USD($currency) {
+    public function COIN_TO_USD($currency)
+    {
         $response = (Cache::has("$currency-usd-price")) ? Cache::get("$currency-usd-price") : $this->binance($currency);
         /*
         $currency = strtolower($currency);
@@ -162,7 +166,7 @@ class ReceiptController extends Controller
         }  elseif ($currency == 'ravencoin') {
             $response = (Cache::has("RVNUSDT-usd-price")) ? Cache::get("RVNUSDT-usd-price") : $this->binance('RVNUSDT');
             // $response = $this->binance('RVNUSDT');
-            
+
         } elseif ($currency == 'zecash') {
 
             $response = (Cache::has("ZECUSDT-usd-price")) ? Cache::get("ZECUSDT-usd-price") : $this->binance('ZECUSDT');
@@ -190,7 +194,8 @@ class ReceiptController extends Controller
         return (json_decode(json_encode($response->price)));
     }
 
-    public function CalculatePrice($currency, $amount, $usd_price, $output_currency = 'tomans') {
+    public function CalculatePrice($currency, $amount, $usd_price, $output_currency = 'tomans')
+    {
         $TO_USD = $this->COIN_TO_USD($currency);
         $price = $amount * $TO_USD;
 
@@ -239,7 +244,8 @@ class ReceiptController extends Controller
 
 
         // $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_buy']->value;
-        $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->Nobitex()+$settings['dollar_price_buy_tolerance']->value : $settings['dollar_price_buy']->value;
+//        $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->Nobitex()+$settings['dollar_price_buy_tolerance']->value : $settings['dollar_price_buy']->value;
+        $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->AbanTether() + $settings['dollar_price_buy_tolerance']->value : $settings['dollar_price_buy']->value;
 
         $payable = $this->CalculatePrice($request['coin'], $request['amount'], $usd_price, 'tomans');
         $receipt->payable = $this->NormalizePrice($payable);
@@ -262,14 +268,14 @@ class ReceiptController extends Controller
         $emailJob = (new  SendReceiptCreationMail($receipt, $user))->delay(Carbon::now()->addMinutes(2));
         dispatch($emailJob);
 
-        
 
         $message = 'درخواست شما ثبت شد و از طریق بخش فاکتورها قابل پیگیری است.';
         session(['status' => 'factored', 'message' => $message]);
         return redirect(route('User > Receipt > Show', $receipt->hash));
     }
 
-    public function Manage() {
+    public function Manage()
+    {
         $receipts = User::find(Auth::id())->receipt()->latest()->paginate(10);
         return view('user.receipt.manage', compact(['receipts']));
     }
@@ -279,26 +285,27 @@ class ReceiptController extends Controller
         // $receipt = Receipt::findOrFail($id);
         // return view('user.receipt.show', compact(['receipt']));
         $receipt = Receipt::where('hash', $hash)->first();
-        if ( is_null($receipt) ) {
+        if (is_null($receipt)) {
             return abort(404);
         }
 
         return view('user.receipt.show', compact(['receipt']));
     }
 
-    public function Binance($symbol) {
+    public function Binance($symbol)
+    {
         /*** curl get  start ***/
         $url = "http://api.arbazargani.ir/?symbol=$symbol";
         $curl = curl_init($url);
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-    
+
         //for debug only!
         /*
         curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         */
-    
+
         $res = curl_exec($curl);
         $response = json_decode($res);
         // header('Content-Type: application/json');
@@ -307,8 +314,12 @@ class ReceiptController extends Controller
         return $response;
     }
 
-     // consider that index should be 'best_buy' or 'best_sell', nothing else allowed.
-     public function Nobitex($index) {
+    /*
+    * consider that index should be 'best_buy' or 'best_sell', nothing else allowed.
+    * as you see, default will be best_sell, cause it is bigger than the other :)
+    */
+    public function Nobitex($index = 'best_sell')
+    {
         if (Cache::has("usd-price-$index")) {
             return Cache::get("usd-price-$index");
         } else {
@@ -317,13 +328,13 @@ class ReceiptController extends Controller
             $curl = curl_init($url);
             curl_setopt($curl, CURLOPT_URL, $url);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        
+
             //for debug only!
             /*
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             */
-        
+
             $res = curl_exec($curl);
             $response = json_decode($res);
             // header('Content-Type: application/json');
@@ -334,5 +345,37 @@ class ReceiptController extends Controller
             return substr($response->$index, 0, -1);
         }
 
+    }
+
+    /*
+ * consider that index should be 'best_buy' or 'best_sell', nothing else allowed.
+ * as you see, default will be best_sell, cause it is bigger than the other :)
+ */
+    public function AbanTether($index = 'best_sell')
+    {
+        if (Cache::has("usd-price-$index")) {
+            return Cache::get("usd-price-$index");
+        } else {
+            /*** curl get  start ***/
+            $url = "http://api.arbazargani.ir/usd_v2.php";
+            $curl = curl_init($url);
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+            //for debug only!
+            /*
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            */
+
+            $res = curl_exec($curl);
+            $response = json_decode($res);
+            // header('Content-Type: application/json');
+            curl_close($curl);
+            // echo json_encode($response);
+
+            Cache::put("usd-price-$index", $response->$index, now()->addMinutes(10));
+            return substr($response->$index, 0, -1);
+        }
     }
 }

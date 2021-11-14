@@ -18,11 +18,13 @@ class CoinController extends Controller
 {
     use StringTrait;
 
-    public function AddCoin() {
+    public function AddCoin()
+    {
         return view('admin.dashboard.coin.index');
     }
 
-    public function UpdateCoin(Request $request, $id) {
+    public function UpdateCoin(Request $request, $id)
+    {
 
     }
 
@@ -32,16 +34,17 @@ class CoinController extends Controller
         return $response[0]->price;
     }
 
-    public function COIN_TO_USD_old_oneApi($currency) {
+    public function COIN_TO_USD_old_oneApi($currency)
+    {
         if ($currency == 'bitcoin') {
 
             $response = Crypto::btc();
 
-        } elseif($currency == 'litecoin') {
+        } elseif ($currency == 'litecoin') {
 
             $response = Crypto::ltc();
 
-        } elseif($currency == 'ethereum') {
+        } elseif ($currency == 'ethereum') {
 
             $response = Crypto::eth();
 
@@ -54,7 +57,8 @@ class CoinController extends Controller
         return $response->price;
     }
 
-    public function COIN_TO_USD($currency) {
+    public function COIN_TO_USD($currency)
+    {
         $response = (Cache::has("$currency-usd-price")) ? Cache::get("$currency-usd-price") : $this->binance($currency);
         /*
         $currency = strtolower($currency);
@@ -81,7 +85,7 @@ class CoinController extends Controller
         }  elseif ($currency == 'ravencoin') {
             $response = (Cache::has("RVNUSDT-usd-price")) ? Cache::get("RVNUSDT-usd-price") : $this->binance('RVNUSDT');
             // $response = $this->binance('RVNUSDT');
-            
+
         } elseif ($currency == 'zecash') {
 
             $response = (Cache::has("ZECUSDT-usd-price")) ? Cache::get("ZECUSDT-usd-price") : $this->binance('ZECUSDT');
@@ -109,7 +113,8 @@ class CoinController extends Controller
         return (json_decode(json_encode($response->price)));
     }
 
-    public function CalculatePrice($currency, $amount, $usd_price, $output_currency = 'tomans') {
+    public function CalculatePrice($currency, $amount, $usd_price, $output_currency = 'tomans')
+    {
         $TO_USD = $this->COIN_TO_USD($currency);
         $price = $amount * $TO_USD;
         if ($output_currency == 'tomans') {
@@ -125,7 +130,8 @@ class CoinController extends Controller
         }
     }
 
-    public function ExchangeSell(Request $request) {
+    public function ExchangeSell(Request $request)
+    {
         if (env('API_DOWN')) {
             $array = array('ok' => false,
                 'error' => 'System under maintenance.'
@@ -152,7 +158,8 @@ class CoinController extends Controller
             ];
 
             // $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_sell']->value;;
-            $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->Nobitex()-$settings['dollar_price_sell_tolerance']->value : $settings['dollar_price_sell']->value;;
+            // $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->Nobitex()-$settings['dollar_price_sell_tolerance']->value : $settings['dollar_price_sell']->value;;
+            $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->AbanTether() - $settings['dollar_price_sell_tolerance']->value : $settings['dollar_price_sell']->value;
 
             $array = array('ok' => true,
                 'dollars' => number_format($this->COIN_TO_USD($request['currency-in'])),
@@ -162,7 +169,8 @@ class CoinController extends Controller
         }
     }
 
-    public function ExchangeBuy(Request $request) {
+    public function ExchangeBuy(Request $request)
+    {
         if (env('API_DOWN')) {
             $array = array('ok' => false,
                 'error' => 'System under maintenance.'
@@ -189,7 +197,8 @@ class CoinController extends Controller
             ];
 
             // $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_buy']->value;
-            $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->Nobitex()+$settings['dollar_price_buy_tolerance']->value : $settings['dollar_price_buy']->value;
+            // $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->Nobitex()+$settings['dollar_price_buy_tolerance']->value : $settings['dollar_price_buy']->value;
+            $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->AbanTether() + $settings['dollar_price_buy_tolerance']->value : $settings['dollar_price_buy']->value;
             $array = array('ok' => true,
                 'dollars' => number_format($this->COIN_TO_USD($request['currency-in'])),
                 'tomans' => number_format($this->CalculatePrice($request['currency-in'], $request['amount'], $usd_price, 'tomans')),
@@ -198,14 +207,14 @@ class CoinController extends Controller
         }
     }
 
-    public function Binance_v1() {
+    public function Binance_v1()
+    {
         $endpoint = 'https://api.binance.com/api/v3/ticker/price?symbol=LTCBTC&timestamp=' . Carbon::now()->toDateTimeString();
-        try
-        {
+        try {
             $curl = curl_init();
             if (FALSE === $curl)
                 throw new Exception('Failed to initialize request.');
-            
+
             curl_setopt_array($curl, array(
                 CURLOPT_URL => $endpoint,
                 CURLOPT_RETURNTRANSFER => true,
@@ -227,19 +236,18 @@ class CoinController extends Controller
                 throw new Exception($response, $http_status);
 
             curl_close($curl);
-        }
-        catch(Exception $e)
-        {
-            $response= $e->getCode() . $e->getMessage();
+        } catch (Exception $e) {
+            $response = $e->getCode() . $e->getMessage();
             echo $response;
         }
         return $response;
     }
 
-    public function Binance_v2() {
+    public function Binance_v2()
+    {
         $url = $endpoint = 'https://api.binance.com/api/v1/ticker/price?symbol=LTCBTC';
-        
-        
+
+
         $ch = curl_init($url);
 
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
@@ -251,7 +259,8 @@ class CoinController extends Controller
         return var_dump($json);
     }
 
-    public function Binance_v3() {
+    public function Binance_v3()
+    {
         $key = "ThzJPQ6k32JEQQtvtAmt4gMqcbELDdRqPl9RG5NnIur27zCdKIk7AA3Mf6sEEao2";
         $secret = "vEKoKnJ5QeT99mgjcsqyABsvBfsTe6PsKGGEz5UasWedWE7HZ7NmnX6htiMNhTen";
         $api = new \Binance\API($key, $secret);
@@ -260,15 +269,15 @@ class CoinController extends Controller
         return $price;
     }
 
-    public function Binance_v4() {
+    public function Binance_v4()
+    {
         $endpoint = 'https://api.binance.com/api/v3/time';
         $endpoint = 'https://api.binance.com/api/v1/ticker/price?symbol=LTCBTC';
-        try
-        {
+        try {
             $curl = curl_init();
             if (FALSE === $curl)
                 throw new Exception('Failed to initialize request.');
-            
+
             curl_setopt_array($curl, array(
                 CURLOPT_URL => $endpoint,
                 CURLOPT_RETURNTRANSFER => true,
@@ -298,16 +307,15 @@ class CoinController extends Controller
                 throw new Exception($response, $http_status);
 
             curl_close($curl);
-        }
-        catch(Exception $e)
-        {
-            $response= $e->getCode() . $e->getMessage();
+        } catch (Exception $e) {
+            $response = $e->getCode() . $e->getMessage();
             echo $response;
         }
         return $response;
     }
 
-    public function Binance($symbol) {
+    public function Binance($symbol)
+    {
         $symbol = strtoupper($symbol);
         if (Cache::has("$symbol-usd-price")) {
             return Cache::get("$symbol-usd-price");
@@ -317,13 +325,13 @@ class CoinController extends Controller
             $curl = curl_init($url);
             curl_setopt($curl, CURLOPT_URL, $url);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        
+
             //for debug only!
             /*
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             */
-        
+
             $res = curl_exec($curl);
             $response = json_decode($res);
             // header('Content-Type: application/json');
@@ -335,39 +343,42 @@ class CoinController extends Controller
         }
     }
 
-    public function UpdateRepository() {
+    public function UpdateRepository()
+    {
         $coins = Coin::all();
         foreach ($coins as $coin) {
-        $name = $coin->name;
-        $slug = $coin->slug;
-        $response = $this->binance($slug);
-        $price = round(json_decode(json_encode($response->price)));
-        
-        $settings = [
-            'price_calculation_method' => Settings::where('name', 'price_calculation_method')->first(),
-            'dollar_price_buy' => Settings::where('name', 'dollar_price_buy')->first(),
-            'dollar_price_sell' => Settings::where('name', 'dollar_price_sell')->first(),
-        ];
-        // $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_sell']->value;
-        $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->Nobitex() : $settings['dollar_price_sell']->value;
+            $name = $coin->name;
+            $slug = $coin->slug;
+            $response = $this->binance($slug);
+            $price = round(json_decode(json_encode($response->price)));
 
-        $current = Coin::where('slug', $slug)->update([
-            'ahead_usd_price' => $current = Coin::where('slug', $slug)->first()->usd_price,
-            'ahead_usd_price_1' => $current = Coin::where('slug', $slug)->first()->ahead_usd_price,
-            'ahead_usd_price_2' => $current = Coin::where('slug', $slug)->first()->ahead_usd_price_1,
-            'ahead_usd_price_3' => $current = Coin::where('slug', $slug)->first()->ahead_usd_price_2,
-            'ahead_usd_price_4' => $current = Coin::where('slug', $slug)->first()->ahead_usd_price_3,
-            'usd_price' => $price,
-            'toman_price' => $this->CalculatePrice($name, 1, $usd_price, 'tomans')
-        ]);
+            $settings = [
+                'price_calculation_method' => Settings::where('name', 'price_calculation_method')->first(),
+                'dollar_price_buy' => Settings::where('name', 'dollar_price_buy')->first(),
+                'dollar_price_sell' => Settings::where('name', 'dollar_price_sell')->first(),
+            ];
+            // $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_sell']->value;
+//        $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->Nobitex() : $settings['dollar_price_sell']->value;
+            $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->AbanTether() : $settings['dollar_price_sell']->value;
+
+            $current = Coin::where('slug', $slug)->update([
+                'ahead_usd_price' => $current = Coin::where('slug', $slug)->first()->usd_price,
+                'ahead_usd_price_1' => $current = Coin::where('slug', $slug)->first()->ahead_usd_price,
+                'ahead_usd_price_2' => $current = Coin::where('slug', $slug)->first()->ahead_usd_price_1,
+                'ahead_usd_price_3' => $current = Coin::where('slug', $slug)->first()->ahead_usd_price_2,
+                'ahead_usd_price_4' => $current = Coin::where('slug', $slug)->first()->ahead_usd_price_3,
+                'usd_price' => $price,
+                'toman_price' => $this->CalculatePrice($name, 1, $usd_price, 'tomans')
+            ]);
         }
     }
 
     /*
-    * consider that index should be 'best_buy' or 'best_sell', nothing else allowed.
-    * as you see, default will be best_sell, cause it is bigger than the other :)
+     * consider that index should be 'best_buy' or 'best_sell', nothing else allowed.
+     * as you see, default will be best_sell, cause it is bigger than the other :)
     */
-    public function Nobitex($index = 'best_sell') {
+    public function Nobitex($index = 'best_sell')
+    {
         if (Cache::has("usd-price-$index")) {
             return Cache::get("usd-price-$index");
         } else {
@@ -376,13 +387,13 @@ class CoinController extends Controller
             $curl = curl_init($url);
             curl_setopt($curl, CURLOPT_URL, $url);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        
+
             //for debug only!
             /*
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             */
-        
+
             $res = curl_exec($curl);
             $response = json_decode($res);
             // header('Content-Type: application/json');
@@ -390,6 +401,38 @@ class CoinController extends Controller
             // echo json_encode($response);
 
             Cache::put("usd-price-$index", substr($response->$index, 0, -1), now()->addMinutes(10));
+            return substr($response->$index, 0, -1);
+        }
+    }
+
+    /*
+     * consider that index should be 'best_buy' or 'best_sell', nothing else allowed.
+     * as you see, default will be best_sell, cause it is bigger than the other :)
+     */
+    public function AbanTether($index = 'best_sell')
+    {
+        if (Cache::has("usd-price-$index")) {
+            return Cache::get("usd-price-$index");
+        } else {
+            /*** curl get  start ***/
+            $url = "http://api.arbazargani.ir/usd_v2.php";
+            $curl = curl_init($url);
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+            //for debug only!
+            /*
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            */
+
+            $res = curl_exec($curl);
+            $response = json_decode($res);
+            // header('Content-Type: application/json');
+            curl_close($curl);
+            // echo json_encode($response);
+
+            Cache::put("usd-price-$index", $response->$index, now()->addMinutes(10));
             return substr($response->$index, 0, -1);
         }
     }

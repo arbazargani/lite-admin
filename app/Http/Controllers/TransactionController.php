@@ -82,25 +82,27 @@ class TransactionController extends Controller
         }
     }
 
-    public function GetDollarPrice() {
+    public function GetDollarPrice()
+    {
         $response = Currency::usd();
         return $response[0]->price;
     }
 
-    public function COIN_TO_USD_old_oneApi($currency) {
+    public function COIN_TO_USD_old_oneApi($currency)
+    {
         if ($currency == 'bitcoin') {
 
             $response = Crypto::btc();
 
-        } elseif($currency == 'litecoin') {
+        } elseif ($currency == 'litecoin') {
 
             $response = Crypto::ltc();
 
-        } elseif($currency == 'ethereum') {
+        } elseif ($currency == 'ethereum') {
 
             $response = Crypto::eth();
 
-        } elseif($currency == 'ethereum-classic') {
+        } elseif ($currency == 'ethereum-classic') {
 
             $response = Crypto::eth();
 
@@ -113,7 +115,8 @@ class TransactionController extends Controller
         return $response->price;
     }
 
-    public function COIN_TO_USD($currency) {
+    public function COIN_TO_USD($currency)
+    {
         $response = (Cache::has("$currency-usd-price")) ? Cache::get("$currency-usd-price") : $this->binance($currency);
         /*
         $currency = strtolower($currency);
@@ -140,7 +143,7 @@ class TransactionController extends Controller
         }  elseif ($currency == 'ravencoin') {
             $response = (Cache::has("RVNUSDT-usd-price")) ? Cache::get("RVNUSDT-usd-price") : $this->binance('RVNUSDT');
             // $response = $this->binance('RVNUSDT');
-            
+
         } elseif ($currency == 'zecash') {
 
             $response = (Cache::has("ZECUSDT-usd-price")) ? Cache::get("ZECUSDT-usd-price") : $this->binance('ZECUSDT');
@@ -168,7 +171,8 @@ class TransactionController extends Controller
         return (json_decode(json_encode($response->price)));
     }
 
-    public function CalculatePrice($currency, $amount, $usd_price, $output_currency = 'tomans') {
+    public function CalculatePrice($currency, $amount, $usd_price, $output_currency = 'tomans')
+    {
         $TO_USD = $this->COIN_TO_USD($currency);
         $price = $amount * $TO_USD;
         if ($output_currency == 'tomans') {
@@ -211,7 +215,8 @@ class TransactionController extends Controller
         $transaction->amount = $request['amount'];
 
         // $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->GetDollarPrice() : $settings['dollar_price_sell']->value;
-        $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->Nobitex()-$settings['dollar_price_sell_tolerance']->value : $settings['dollar_price_sell']->value;
+//        $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->Nobitex()-$settings['dollar_price_sell_tolerance']->value : $settings['dollar_price_sell']->value;
+        $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->AbanTether() - $settings['dollar_price_sell_tolerance']->value : $settings['dollar_price_sell']->value;
 
         $payable = $this->CalculatePrice($request['coin'], $request['amount'], $usd_price, 'tomans');
         $transaction->payable = $this->NormalizePrice($payable);
@@ -219,7 +224,7 @@ class TransactionController extends Controller
         $transaction->selected_coin = $request['coin'];
 
 
-        $transaction->usd_amount = $this->CalculatePrice($request['coin'], $request['amount'], $usd_price , 'dollar');
+        $transaction->usd_amount = $this->CalculatePrice($request['coin'], $request['amount'], $usd_price, 'dollar');
         $transaction->usd_price = $usd_price;
 
         $transaction->save();
@@ -237,7 +242,7 @@ class TransactionController extends Controller
     {
         $transaction = Transaction::where('hash', $hash)->first();
 
-        if ( is_null($transaction) ) {
+        if (is_null($transaction)) {
             return abort(404);
         }
 
@@ -282,7 +287,7 @@ class TransactionController extends Controller
     public function ShowTransaction(Request $request, $hash)
     {
         $transaction = Transaction::where('hash', $hash)->first();
-        if ( is_null($transaction) ) {
+        if (is_null($transaction)) {
             return abort(404);
         }
 
@@ -298,24 +303,28 @@ class TransactionController extends Controller
         }
     }
 
-    public function Manage() {
+    public function Manage()
+    {
         $transactions = User::find(Auth::id())->transaction()->latest()->paginate(10);
         return view('user.transaction.manage', compact(['transactions']));
     }
 
-    Public function RawTx($hash) {
+    public function RawTx($hash)
+    {
         $transaction = Transaction::where('hash', $hash)->whereNotNull('tx_id')->first();
-        
-        return (!is_null($transaction) == 1) ? '<html><head><body><pre>'. $transaction->tx_id .'</pre></body></head></html>' : abort('403', 'make screenshot and contact this state to system administrator.');
+
+        return (!is_null($transaction) == 1) ? '<html><head><body><pre>' . $transaction->tx_id . '</pre></body></head></html>' : abort('403', 'make screenshot and contact this state to system administrator.');
     }
 
-    public function RawTrackingID($hash) {
+    public function RawTrackingID($hash)
+    {
         $transaction = Transaction::where('hash', $hash)->whereNotNull('pay_tracking_id')->first();
-        
-        return (!is_null($transaction) == 1) ? '<html><head><body><pre>'. $transaction->pay_tracking_id .'</pre></body></head></html>' : abort('403', 'make screenshot and contact this state to system administrator.');
+
+        return (!is_null($transaction) == 1) ? '<html><head><body><pre>' . $transaction->pay_tracking_id . '</pre></body></head></html>' : abort('403', 'make screenshot and contact this state to system administrator.');
     }
 
-    public function Binance($symbol) {
+    public function Binance($symbol)
+    {
         if (Cache::has("$symbol-usd-price")) {
             return Cache::get("$symbol-usd-price");
         } else {
@@ -324,13 +333,13 @@ class TransactionController extends Controller
             $curl = curl_init($url);
             curl_setopt($curl, CURLOPT_URL, $url);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        
+
             //for debug only!
             /*
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             */
-        
+
             $res = curl_exec($curl);
             $response = json_decode($res);
             // header('Content-Type: application/json');
@@ -346,7 +355,8 @@ class TransactionController extends Controller
     * consider that index should be 'best_buy' or 'best_sell', nothing else allowed.
     * as you see, default will be best_sell, cause it is bigger than the other :)
     */
-    public function Nobitex($index = 'best_sell') {
+    public function Nobitex($index = 'best_sell')
+    {
         if (Cache::has("usd-price-$index")) {
             return Cache::get("usd-price-$index");
         } else {
@@ -355,13 +365,13 @@ class TransactionController extends Controller
             $curl = curl_init($url);
             curl_setopt($curl, CURLOPT_URL, $url);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        
+
             //for debug only!
             /*
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             */
-        
+
             $res = curl_exec($curl);
             $response = json_decode($res);
             // header('Content-Type: application/json');
@@ -372,5 +382,37 @@ class TransactionController extends Controller
             return substr($response->$index, 0, -1);
         }
 
+    }
+
+    /*
+ * consider that index should be 'best_buy' or 'best_sell', nothing else allowed.
+ * as you see, default will be best_sell, cause it is bigger than the other :)
+ */
+    public function AbanTether($index = 'best_sell')
+    {
+        if (Cache::has("usd-price-$index")) {
+            return Cache::get("usd-price-$index");
+        } else {
+            /*** curl get  start ***/
+            $url = "http://api.arbazargani.ir/usd_v2.php";
+            $curl = curl_init($url);
+            curl_setopt($curl, CURLOPT_URL, $url);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+
+            //for debug only!
+            /*
+            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            */
+
+            $res = curl_exec($curl);
+            $response = json_decode($res);
+            // header('Content-Type: application/json');
+            curl_close($curl);
+            // echo json_encode($response);
+
+            Cache::put("usd-price-$index", $response->$index, now()->addMinutes(10));
+            return substr($response->$index, 0, -1);
+        }
     }
 }

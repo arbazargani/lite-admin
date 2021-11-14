@@ -6,7 +6,7 @@
 }
 
 </style>
-    
+
 <!-- Chart code -->
 <script>
 am4core.ready(function() {
@@ -22,10 +22,10 @@ var chart = am4core.create("receipts_chart_div", am4charts.PieChart);
 // Add data
 chart.data = [ {
     "Receipt": "Paid",
-    "Count": {{ ($receipts_dataset['paid_receipts']*100)/$receipts_dataset['all_receipts'] }}
+    "Count": {{ ($receipts_dataset['all_receipts'] != 0) ? ($receipts_dataset['paid_receipts']*100)/$receipts_dataset['all_receipts'] : 0 }}
 }, {
     "Receipt": "Unpaid",
-    "Count": {{ ($receipts_dataset['unpaid_receipts']*100)/$receipts_dataset['all_receipts'] }}
+    "Count": {{ ($receipts_dataset['all_receipts'] !=0) ? ($receipts_dataset['unpaid_receipts']*100)/$receipts_dataset['all_receipts'] : 0 }}
 }];
 
 // Add and configure Series

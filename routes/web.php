@@ -78,7 +78,7 @@ Route::middleware(['auth', 'HasAdminAccess', '2fa'])->group(function () {
 });
 
 Route::middleware(['CheckRegion'])->group(function () {
-    
+
     Route::middleware(['auth', '2fa'])->group(function () {
 
         Route::prefix('panel')->group(function () {
@@ -120,7 +120,7 @@ Route::middleware(['CheckRegion'])->group(function () {
                 Route::get('/receipt/raw/tx/{hash}', 'UserController@RawTx')->name('User > Receipt > Raw');
 
                 Route::get('/receipt/raw/wallet/{hash}', 'UserController@RawWallet')->name('User > Receipt > Raw > Wallet');
-                
+
                 Route::get('/transaction/raw/tx/{hash}', 'TransactionController@RawTx')->name('User > Transaction > Raw');
                 Route::get('/transaction/raw/tracking_id/{hash}', 'TransactionController@RawTrackingID')->name('User > Transaction > Tracking ID > Raw');
 
@@ -194,7 +194,7 @@ Route::middleware(['CheckRegion'])->group(function () {
         $panel = new \Shieldon\Firewall\Panel();
         $panel->csrf(['_token' => csrf_token()]);
         $panel->entry();
-    
+
     })->where('path', '(.*)');
     */
 
@@ -207,13 +207,13 @@ Route::middleware(['CheckRegion'])->group(function () {
         Route::post('/generateSecret','LoginSecurityController@generate2faSecret')->name('generate2faSecret');
         Route::post('/enable2fa','LoginSecurityController@enable2fa')->name('enable2fa');
         Route::post('/disable2fa','LoginSecurityController@disable2fa')->name('disable2fa');
-    
+
         // 2fa middleware
         Route::post('/2faVerify', function () {
             return redirect(URL()->previous());
         })->name('2faVerify')->middleware('2fa');
     });
-    
+
     // test middleware
     Route::get('/test_middleware', function () {
         return "2FA middleware work!";

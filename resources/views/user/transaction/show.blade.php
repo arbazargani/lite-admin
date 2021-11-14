@@ -14,25 +14,25 @@
                     <i class="fas fa-horizontal-rule"></i>
                     <a href="#">
                         <li>
-                           <p class="progress-step-icon step-icon-active">2</p> 
+                           <p class="progress-step-icon step-icon-active">2</p>
                            <p class="progress-step-txt">تایید فاکتور</p>
                         </li>
                     </a>
                     <i class="fas fa-horizontal-rule"></i>
                     <a href="#">
                         <li>
-                           <p class="progress-step-icon">3</p> 
+                           <p class="progress-step-icon">3</p>
                            <p class="progress-step-txt">افزودن TxID</p>
                         </li>
                     </a>
                     <i class="fas fa-horizontal-rule"></i>
                     <a href="#">
                         <li>
-                           <p class="progress-step-icon">4</p> 
+                           <p class="progress-step-icon">4</p>
                            <p class="progress-step-txt">تایید و پرداخت</p>
                         </li>
                     </a>
-                </ul>  
+                </ul>
                 <div class="sell-progress-bar-wrap">
                     <div class="sell-progress-bar sell-progress-bar-2"></div>
                 </div>
@@ -65,10 +65,11 @@
                         }
                         .coin-logo {
                             text-align: center;
-                            font-size: 50px;
-                            background: #ffffff;
+                            font-size: 15px;
+                            /*background: #ffffff;*/
                             border-radius: 10px 10px 0px 0px;
-                            margin-bottom: 10%
+                            margin-bottom: 10%;
+                            margin-top: 10%;
                         }
                         .credit-number {
                             margin: 5px 5px 25px 5px;
@@ -96,10 +97,12 @@
                     </style>
                         <div class="bank-cart">
                             <div class="coin-logo">
-                                <img width="95px" src="https://cdn1.iconfinder.com/data/icons/cryptocurrency-set-2018/375/Asset_1480-512.png" alt="bitcoin banking">
+{{--                                <img width="95px" src="https://cdn1.iconfinder.com/data/icons/cryptocurrency-set-2018/375/Asset_1480-512.png" alt="bitcoin banking">--}}
+                                <img width="50px" src="{{ asset('assets/v3/src/icon/' . strtolower(str_replace(['USDT', 'usdt'], null, $transaction->selected_coin)) . '.svg') }}" alt="">
                             </div>
                             <div class="credit-number">
-                                <p>{{ substr($transaction->hash, 0, 20) . '...' }}</p>
+{{--                                <p>{{ substr($transaction->hash, 0, 20) . '...' }}</p>--}}
+                                <p style="font-size: 13px">{{ $transaction->hash }}</p>
                             </div>
                             <div class="credit-info">
                                 <span class="cvv">***</span>
