@@ -38,10 +38,11 @@
 
                                             <label>اسلاگ بایننس:</label>
                                             <input type="text" name="slug" id="" value="">
-            
+                                            <p style="color: red; font-size: 12px">با حروف بزرگ و بدون USDT وارد شود. به عنوان مثال BTC, SHIB, ETC</p>
+
                                             <label>موجودی:</label>
                                             <input type="text" name="balance" id="" value="">
-            
+
                                             <label>وضعیت:</label>
                                             <input type="text" name="activate" id="" value="">
 

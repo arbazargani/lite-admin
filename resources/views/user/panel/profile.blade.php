@@ -51,6 +51,13 @@
             </div>
 
             <div id="user-personal-info" class="user-left-box-tabs">
+                
+                @if ($errors->any())
+                    @foreach ($errors->all() as $error)
+                        <div>{{$error}}</div>
+                    @endforeach
+                @endif
+
                 <form class="user-info-form" action="{{ route('User > Profile > Update') }}" method="POST">
                     @csrf
                     <label for="user-name">نام کامل:</label>

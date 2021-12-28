@@ -73,6 +73,8 @@ Route::middleware(['auth', 'HasAdminAccess', '2fa'])->group(function () {
 
         Route::post('/sessions/destroy', 'AdminController@DestroyOtherSessions')->name('Admin > Sessions > Destroy');
 
+        Route::get('asset/render/{hash}', 'AdminController@SafeFileShower')->name('Receipt > Safe File');
+
     });
 
 });
@@ -123,6 +125,8 @@ Route::middleware(['CheckRegion'])->group(function () {
 
                 Route::get('/transaction/raw/tx/{hash}', 'TransactionController@RawTx')->name('User > Transaction > Raw');
                 Route::get('/transaction/raw/tracking_id/{hash}', 'TransactionController@RawTrackingID')->name('User > Transaction > Tracking ID > Raw');
+
+                Route::post('/upload/receipt/{hash}', 'ReceiptController@UploadPaymentReceipt')->name('Upload > UploadPaymentReceipt');
 
             });
             Route::get('/profile', 'UserController@Profile')->name('User > Profile');

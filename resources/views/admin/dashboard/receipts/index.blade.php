@@ -57,7 +57,11 @@
                                     <td>
                                         <div class="order-table-status" style="direction: rtl; text-align: right">
                                             <p>وضعیت سفارش: {{ is_null($receipt->admin_tx) ? 'در حال انجام' : 'انجام شده' }}</p>
-                                            <p>وضعیت پرداخت: {!! (!is_null($receipt->paid_at)) ? '<span title="'. $receipt->payment->trans_id .'"><span style="color: green">پرداخت شده</span> <i class="fas fa-external-link-alt"></i></span>' : '<span style="color: red; font-weight: 800">در انتظار پرداخت</span>' !!}</p>
+                                            @if(!is_null($receipt->payment))
+                                                <p>وضعیت پرداخت: {!! (!is_null($receipt->paid_at)) ? '<span title="'. $receipt->payment->trans_id .'"><span style="color: green">پرداخت شده</span> <i class="fas fa-external-link-alt"></i></span>' : '<span style="color: red; font-weight: 800">در انتظار پرداخت</span>' !!}</p>
+                                            @else
+                                                <p>وضعیت پرداخت: {!! (!is_null($receipt->paid_at)) ? '<a href="'. route('Receipt > Safe File', $receipt->hash) .'" target="_blank"><span style="color: green">فیش واریز</span> <i class="fas fa-external-link-alt"></i></a>' : '<span style="color: red; font-weight: 800">در انتظار پرداخت</span>' !!}</p>
+                                            @endif
                                             <p>تاریخ پرداخت: {{ (!is_null($receipt->paid_at)) ? Facades\Verta::instance($receipt->paid_at) : '-' }}</p>
                                         </div>
                                     </td>

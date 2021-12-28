@@ -8,8 +8,12 @@ use Carbon\Carbon;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReceiptCreation;
+use App\Mail\ReceiptPaid;
 
 use App\Jobs\SendReceiptCreationMail;
+use App\Jobs\SendReceiptPaidMail;
+use App\Jobs\SendSms;
+
 
 use Auth;
 use App\User;
@@ -17,6 +21,7 @@ use App\Receipt;
 use App\StringTrait;
 use App\Settings;
 use App\Coin;
+use Illuminate\Support\Facades\Storage;
 
 class ReceiptController extends Controller
 {
@@ -284,12 +289,13 @@ class ReceiptController extends Controller
     {
         // $receipt = Receipt::findOrFail($id);
         // return view('user.receipt.show', compact(['receipt']));
+        $payment_account = Settings::where('name', 'payment_account')->first();
         $receipt = Receipt::where('hash', $hash)->first();
         if (is_null($receipt)) {
             return abort(404);
         }
 
-        return view('user.receipt.show', compact(['receipt']));
+        return view('user.receipt.show', compact(['receipt', 'payment_account']));
     }
 
     public function Binance($symbol)
@@ -378,4 +384,40 @@ class ReceiptController extends Controller
             return substr($response->$index, 0, -1);
         }
     }
+
+    public function UploadPaymentReceipt(Request $request, $hash) {
+        $receipt = Receipt::where('hash', $hash)->first();
+
+        if (is_null($receipt)) {
+            return abort(404);
+        }
+
+        $index = time();
+        $receipt->receipt_file = Storage::disk('local')->put("receipts/$index", $request->file('receipt_file'));
+        $receipt->status = 'paid';
+        $receipt->paid_at = now();
+        $receipt->save();
+
+        $user = User::findOrFail($receipt->user_id);
+        // Mail::to($user->email)->send(new ReceiptPadi($receipt, $user));
+        // SendReceiptPadiMail::dispatch($receipt, $user);
+        $emailJob = (new  SendReceiptPaidMail($receipt, $user))->delay(Carbon::now()->addMinutes(2));
+        dispatch($emailJob);
+
+        $information = [
+            'to' => [$user->phone_number],
+            'text' => "اعلان پرداخت - کاربر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ " . number_format($receipt->payable) . "ت پرداخت و در سیستم ثبت گردید. کریپتاینر",
+        ];
+        SendSms::dispatch($information)->delay(now()->addMinutes(1));
+
+
+        $information = [
+            'to' => ['09308990856', '09356252177', '09213840980'],
+            'text' => "اعلان پرداخت - مدیر گرامی، فاکتور شماره " . $receipt->id . " به مبلغ " . number_format($receipt->payable) . " ت پرداخت و در سیستم ثبت گردید. کریپتاینر",
+        ];
+        SendSms::dispatch($information)->delay(now()->addMinutes(0));
+
+        return back();
+    }
+
 }

@@ -60,6 +60,7 @@ class CoinController extends Controller
     public function COIN_TO_USD($currency)
     {
         $response = (Cache::has("$currency-usd-price")) ? Cache::get("$currency-usd-price") : $this->binance($currency);
+
         /*
         $currency = strtolower($currency);
         if ($currency == 'bitcoin') {
@@ -162,8 +163,8 @@ class CoinController extends Controller
             $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->AbanTether() - $settings['dollar_price_sell_tolerance']->value : $settings['dollar_price_sell']->value;
 
             $array = array('ok' => true,
-                'dollars' => number_format($this->COIN_TO_USD($request['currency-in'])),
-                'tomans' => number_format($this->CalculatePrice($request['currency-in'], $request['amount'], $usd_price, 'tomans')),
+                'dollars' => number_format(ceil($this->COIN_TO_USD($request['currency-in']))),
+                'tomans' => number_format(ceil($this->CalculatePrice($request['currency-in'], $request['amount'], $usd_price, 'tomans'))),
             );
             return json_encode($array);
         }
@@ -200,8 +201,8 @@ class CoinController extends Controller
             // $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->Nobitex()+$settings['dollar_price_buy_tolerance']->value : $settings['dollar_price_buy']->value;
             $usd_price = ($settings['price_calculation_method']->value == 'auto') ? $this->AbanTether() + $settings['dollar_price_buy_tolerance']->value : $settings['dollar_price_buy']->value;
             $array = array('ok' => true,
-                'dollars' => number_format($this->COIN_TO_USD($request['currency-in'])),
-                'tomans' => number_format($this->CalculatePrice($request['currency-in'], $request['amount'], $usd_price, 'tomans')),
+                'dollars' => number_format(ceil($this->COIN_TO_USD($request['currency-in']))),
+                'tomans' => number_format(ceil($this->CalculatePrice($request['currency-in'], $request['amount'], $usd_price, 'tomans'))),
             );
             return json_encode($array);
         }
@@ -339,6 +340,10 @@ class CoinController extends Controller
             // echo json_encode($response);
 
             Cache::put("$symbol-usd-price", $response, now()->addMinutes(1));
+//            echo "<pre>Binance() - Symbol: $symbol <br/>";
+//            if (!is_object($response)) {
+//                die(var_dump($response) . "<br/>");
+//            }
             return $response;
         }
     }
@@ -350,7 +355,8 @@ class CoinController extends Controller
             $name = $coin->name;
             $slug = $coin->slug;
             $response = $this->binance($slug);
-            $price = round(json_decode(json_encode($response->price)));
+//            echo "<pre>UpdateRepository() - Coin: $name - Slug: $slug<br/>";
+            $price = $response->price;
 
             $settings = [
                 'price_calculation_method' => Settings::where('name', 'price_calculation_method')->first(),
@@ -371,6 +377,7 @@ class CoinController extends Controller
                 'toman_price' => $this->CalculatePrice($name, 1, $usd_price, 'tomans')
             ]);
         }
+//        echo "UpdateRepo - process complete.<br/>";
     }
 
     /*

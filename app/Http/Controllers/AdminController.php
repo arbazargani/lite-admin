@@ -122,7 +122,7 @@ class AdminController extends Controller
             'active_users' => $this->active_users_count(),
             'suspended_users' => $this->suspended_users_count(),
         ];
-        
+
 
         return view('admin.dashboard.index', compact(['alerts', 'today_sells', 'today_receipts', 'active_users', 'logs', 'coins', 'receipts_dataset', 'users_dataset']));
     }
@@ -279,7 +279,7 @@ class AdminController extends Controller
         if ($request->isMethod('get')) {
             $transactions = Transaction::where('status', '!=', 'unpaid')->latest()->paginate(10);
             // $transactions = Transaction::paginate(10);
-            
+
             return view('admin.dashboard.transactions.verification', compact(['transactions']));
         } elseif ($request->isMethod('post')) {
             $transaction = Transaction::find($id);
@@ -337,7 +337,7 @@ class AdminController extends Controller
 
             $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Accepted ' . "#$id " . 'receipt.';
             $this->MakeLog(Auth::id(), $log);
-    
+
         } else {
             $receipt = Receipt::where('id', $id)->update([
                 'admin_action' => $request['admin_action']
@@ -392,5 +392,33 @@ class AdminController extends Controller
     public function DestroyOtherSessions(Request $request) {
         SessionAuthenticator::logoutOtherDevices($request['password']);
         return back();
+    }
+
+    public function SafeFileShower($hash)
+    {
+        $receipt = Receipt::where('hash', $hash)->first();
+
+        if (is_null($receipt)) {
+            return abort(404);
+        }
+
+        $asset = $receipt->receipt_file;
+//        die("/storage/$asset");
+//
+////        $filename = basename($asset);
+////        $file_extension = strtolower(substr(strrchr($filename,"."),1));
+////
+////        switch( $file_extension ) {
+////            case "gif": $ctype="image/gif"; break;
+////            case "png": $ctype="image/png"; break;
+////            case "jpeg":
+////            case "jpg": $ctype="image/jpeg"; break;
+////            case "svg": $ctype="image/svg+xml"; break;
+////            default:
+////        }
+////
+////        header('Content-type: ' . $ctype);
+
+        return response()->file("../storage/app/$asset");
     }
 }

@@ -23,7 +23,7 @@
         margin: 0;
         padding: 0;
         -ms-text-size-adjust: 100%;
-        -webkit-text-size-adjust: 100%; 
+        -webkit-text-size-adjust: 100%;
         direction: rtl;
         text-align: right;
         }
@@ -307,7 +307,11 @@
                                     <li>معادل دلار: {{ number_format($receipt->usd_amount) }} $</li>
                                     <li>قیمت محاسبه دلار: {{ number_format($receipt->usd_price) }} $</li>
                                     <li>{{ $receipt->description }}</li>
-                                    <li>شناسه پرداخت: {{ $receipt->payment->trans_id }}</li>
+                                    @if(!is_null($receipt->payment))
+                                        <li>شناسه پرداخت: {{ $receipt->payment->trans_id }}</li>
+                                    @else
+                                        <li>شناسه پرداخت:  ندارد - پرداخت از طریق واریز فیش بانکی</li>
+                                    @endif
                                     <li>تاریخ پرداخت: {{ $receipt->paid_at }}</li>
                                 </ul>
                               </td>

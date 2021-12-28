@@ -49,7 +49,12 @@
                                     $now = \Carbon\Carbon::parse(date("Y-m-d H:i:s"));
                                     @endphp
                                     @if($now > $exptime)
-                                        <span>-</span>
+                                        @if(!is_null($transaction->tx_id))
+                                            <p><span onclick="window.open('{{ route('User > Transaction > Raw', $transaction->hash) }}','name','width=600,height=400')">نمایش</span></p>
+                                        @endif
+                                        @if(is_null($transaction->tx_id))
+                                            <span>اتمام اعتبار</span>
+                                        @endif
                                     @else
                                         @if((!is_null($transaction->tx_id)))
                                         <p><span onclick="window.open('{{ route('User > Transaction > Raw', $transaction->hash) }}','name','width=600,height=400')">نمایش</span></p>

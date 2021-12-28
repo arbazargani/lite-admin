@@ -198,21 +198,31 @@ class UserController extends Controller
             'home_number' => 'required|digits:11',
             'national_code' => 'required|digits:10',
             'credit_card' => 'required|digits:16',
-            'credit_account' => 'required|digits:10',
-            'sheba_account' => 'required|digits:24',
+            'credit_account' => 'required|string',
+            'sheba_account' => 'required|string',
             'home_address' => 'required|min:5',
         ]);
 
-        User::where('id', Auth::id())->update([
-            'phone_number' => $request['phone_number'],
-            'home_number' => $request['home_number'],
-            'home_address' => $request['home_address'],
-            'national_code' => $request['national_code'],
-            'credit_card' => $request['credit_card'],
-            'credit_account' => $request['credit_account'],
-            'sheba_account' => $request['sheba_account']
-        ]);
-        return back();
+        // User::where('id', Auth::id())->update([
+        //     'phone_number' => $request['phone_number'],
+        //     'home_number' => $request['home_number'],
+        //     'home_address' => $request['home_address'],
+        //     'national_code' => $request['national_code'],
+        //     'credit_card' => $request['credit_card'],
+        //     'credit_account' => $request['credit_account'],
+        //     'sheba_account' => $request['sheba_account']
+        // ]);
+        $user = User::find(Auth::id());
+        $user->phone_number = $request['phone_number'];
+        $user->home_number = $request['home_number'];
+        $user->home_address = $request['home_address'];
+        $user->national_code = $request['national_code'];
+        $user->credit_card = $request['credit_card'];
+        $user->credit_account = $request['credit_account'];
+        $user->sheba_account = $request['sheba_account'];
+        $user->save();
+
+        return redirect(route('User > Profile'));
     }
     public function SendSms($information) {
         if (!array_key_exists('to', $information) || !array_key_exists('text', $information)) {

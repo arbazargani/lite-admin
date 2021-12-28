@@ -90,27 +90,61 @@
                             font-family: 'iranyekan'
                         }
                     </style>
-                        <div class="bank-cart">
-                            <div class="coin-logo">
-                                <img width="95px" src="https://cdn1.iconfinder.com/data/icons/cryptocurrency-set-2018/375/Asset_1480-512.png" alt="bitcoin banking">
-                            </div>
-                            <div class="credit-number">
-                                <span>{{ Auth::user($receipt->user_id)->credit_card }}</span>
-                            </div>
-                            <div class="credit-info">
-                                <span class="cvv">***</span>
-                                <span class="name">{{ Auth::user($receipt->user_id)->name }}</span>
-                            </div>
-                        </div>
+{{--                        <div class="bank-cart">--}}
+{{--                            <div class="coin-logo">--}}
+{{--                                <img width="95px" src="https://cdn1.iconfinder.com/data/icons/cryptocurrency-set-2018/375/Asset_1480-512.png" alt="bitcoin banking">--}}
+{{--                            </div>--}}
+{{--                            <div class="credit-number">--}}
+{{--                                <span>{{ Auth::user($receipt->user_id)->credit_card }}</span>--}}
+{{--                            </div>--}}
+{{--                            <div class="credit-info">--}}
+{{--                                <span class="cvv">***</span>--}}
+{{--                                <span class="name">{{ Auth::user($receipt->user_id)->name }}</span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
                         <div>
-                            <form action="{{ route('Ipg > Request', $receipt->hash) }}" method="post">
-                                @csrf
-                                <button type="submit" class="button td-btn">پرداخت</button>
-                            </form>
+                            @php
+                                /*
+                                <form action="{{ route('Ipg > Request', $receipt->hash) }}" method="post">
+                                    @csrf
+                                    <button type="submit" class="button td-btn">پرداخت</button>
+                                </form>
+                                */
+                            @endphp
+                            @if(is_null($receipt->receipt_file) && $receipt->status == 'unpaid')
+                                <div style="direction: rtl; text-align: right">
+                                    @php
+                                        $bank_info = json_decode($payment_account->value);
+                                    @endphp
+                                    <h3 style="padding: 4px 10px; border-radius: 3px; color: #ca3232; font-weight: bold; text-align: right">توجه داشته باشید:</h3>
+                                    <p style="padding: 4px 10px; border-radius: 3px; background: #ffcbcb; font-size: 13px; font-weight: bold">- مسئولیت هرگونه اشتباه در واریز با شما خواهد بود.
+                                    <br>
+                                    - اعتبار این فاکتور تنها تا ۲۰ دقیقه پس از ایجاد می‌باشد.
+                                    </p>
+                                    <hr>
+                                    <p>شماره حساب: {{ $bank_info->hesab }}</p>
+                                    <p>شماره شبا: {{ $bank_info->sheba }}</p>
+                                    <p>شماره کارت: {{ $bank_info->number }}</p>
+                                    <p>{{ $bank_info->info }}</p>
+                                </div>
+                                <form action="{{ route('Upload > UploadPaymentReceipt', $receipt->hash) }}" enctype="multipart/form-data"  method="post">
+                                    @csrf
+                                <center>
+                                        <input type="file" name="receipt_file" id="receipt_file" style="display: none" required/>
+                                        <label for="receipt_file"><h5>برای انتخاب رسید پرداخت کلید کنید</h5></label>
+                                </center>
+                                <hr>
+                                    <button type="submit" class="button td-btn">پرداخت</button>
+                                </form>
+                            @else
+                                <span>رسید پرداخت شما دریافت شد.</span>
+                                <img src="/{{ str_replace('public', 'storage', $receipt->receipt_file) }}" style="max-width: 200px" alt="" srcset="">
+                            @endif
                         </div>
                     @endif
                 @else
                     <p>فاکتور مورد نظر در تاریخ {{ Facades\Verta::instance($receipt->paid_at) }} پرداخت شده است.</p>
+                    <img src="/{{ str_replace('public', 'storage', $receipt->receipt_file) }}" style="max-width: 200px" alt="" srcset="">
                     @if (!is_null($receipt->admin_tx))
                         <p>TX-ID ثبت شده برای این سفارش:</p>
                         <pre>{{ $receipt->admin_tx }}</pre>

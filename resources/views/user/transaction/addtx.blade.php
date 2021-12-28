@@ -43,42 +43,11 @@
         <div id="sell-step-3">
             @if(is_null($transaction->tx_id))
             <div class="site-wallet">
-                <h3>آدرس ولت Bitcoin:</h3>
-                <span style="word-break: break-all">1HFrsrcMXDxPV6CjYLFeAaGPKaEAgcksXv</span>
-                <hr>
-                <h3>آدرس ولت Tether Erc20:</h3>
-                <span style="word-break: break-all">0xdd45f252092bfc2aa2fc57dc77118aa5f159c2cc</span>
-                <hr>
-                <h3>آدرس ولت Tether Trc20:</h3>
-                <span style="word-break: break-all">TRSSJ7d4fAcbv1tecUz1QdDcpsrJ8y1Lg6</span>
-                <hr>
-                <h3>آدرس ولت Zcash:</h3>
-                <span style="word-break: break-all">t1XRJzKXJRbvL8P9XL1nJQnc9G7SuWdyWk4</span>
-                <hr>
-                <h3>آدرس ولت Etherum classic:</h3>
-                <span style="word-break: break-all">0xdd45f252092bfc2aa2fc57dc77118aa5f159c2cc</span>
-                <hr>
-                <h3>آدرس ولت Ravencoin:</h3>
-                <span style="word-break: break-all">RS5TKpnAmMQTzJ4mPx8qU8iaBpzZg2M1zu</span>
-                <hr>
-                <h3>آدرس ولت Etherum:</h3>
-                <span style="word-break: break-all">0xdd45f252092bfc2aa2fc57dc77118aa5f159c2cc</span>
-                <hr>
-                <h3>آدرس ولت Litecoin:</h3>
-                <span style="word-break: break-all">Lfj9BtDnViMJaBN2QFkz29s4jjmgSVD3Mj</span>
-                <hr>
-                <h3>آدرس ولت Tron:</h3>
-                <span style="word-break: break-all">TRSSJ7d4fAcbv1tecUz1QdDcpsrJ8y1Lg6</span>
-                <hr>
-                <h3>آدرس ولت Ripple:</h3>
-                <span style="word-break: break-all">rEb8TK3gBgk5auZkwc6sHnwrGVJH8DuaLh</span>
-                <hr>
-                <h3>آدرس ولت Linkusdt:</h3>
-                <span style="word-break: break-all">0xdd45f252092bfc2aa2fc57dc77118aa5f159c2cc</span>
-                <hr>
-                <h3>آدرس ولت Neo:</h3>
-                <span style="word-break: break-all">AVmXA1Uwaz27sHs9qa1vcj2gj9XuEBampf</span>
-
+                @php
+                    $asset = \App\Coin::where('slug', $transaction->selected_coin)->first();
+                @endphp
+                <h3>آدرس ولت {{ $asset->name }}:</h3>
+                <span style="word-break: break-all">{{ $asset->wallet_address }}</span>
             </div>
             <hr>
             <div class="txid-wrap">
@@ -92,7 +61,7 @@
             </div>
             @else
                 <div>
-                    <p>شناسه زیر برای این پرداخت ثبت شده است:</p>
+                    <p>کاربر گرامی، واریز این درخواست انجام شده است. شناسه پرداخت بانکی:</p>
                     <p style="word-break: break-all; background: #f3f3f3; padding: 0.5%; border: 1px solid green; border-radius: 3px; color: green;">{{ $transaction->tx_id }}</p>
                 </div>
             @endif

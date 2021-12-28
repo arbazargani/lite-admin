@@ -31,6 +31,7 @@ class SettingsController extends Controller
             'check_region' => Settings::where('name', 'check_region')->first(),
             'dollar_price_buy_tolerance' => Settings::where('name', 'dollar_price_buy_tolerance')->first(),
             'dollar_price_sell_tolerance' => Settings::where('name', 'dollar_price_sell_tolerance')->first(),
+            'payment_account' => Settings::where('name', 'payment_account')->first(),
         ];
 
         return view('admin.dashboard.settings.index', compact(['settings']));
@@ -70,6 +71,7 @@ class SettingsController extends Controller
         Settings::where('name', 'check_region')->update(['value' => $region]);
         Settings::where('name', 'dollar_price_sell_tolerance')->update(['value' => $request['dollar_price_sell_tolerance']]);
         Settings::where('name', 'dollar_price_buy_tolerance')->update(['value' => $request['dollar_price_buy_tolerance']]);
+        Settings::where('name', 'payment_account')->update(['value' => $request['payment_account']]);
 
         $log = 'User ' . Auth::id() . '-' . User::find(Auth::id())->name . '-' . User::find(Auth::id())->email . '-' . ' Updated the settings.';
         $this->MakeLog(Auth::id(), $log);
@@ -126,7 +128,7 @@ class SettingsController extends Controller
             return back();
         } else {
             abort(403, 'Bad method.');
-        }   
+        }
     }
 
     public function UpdateCoins(Request $request, $id) {

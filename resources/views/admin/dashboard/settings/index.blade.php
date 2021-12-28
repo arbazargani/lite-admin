@@ -57,7 +57,7 @@
                                 {{-- <input type="text" name="dollar_price_sell" id="" value="{{ $settings['dollar_price_sell']->value }}"> --}}
                                 <input type="text" name="application_start_time" class="form-control start-picker" value="{{ $settings['application_start_time']->value }}">
                                 <div class="start-container"></div>
-                                
+
                                 <script>
                                     new Picker(document.querySelector('.start-picker'), {
                                         format: 'HH:mm',
@@ -116,6 +116,9 @@
 
                                     <label>متا robots:</label>
                                     <input type="text" name="application_index_meta_robots" id="" value="{{ $settings['application_index_meta_robots']->value }}">
+
+                                    <label>حساب بانکی سامانه:</label>
+                                    <textarea name="payment_account" id="">{{ $settings['payment_account']->value }}</textarea>
 
                                     <div class="dollar-toggle-switch-wrap clearfix">
                                         <p>بلاک کردن دسترسی کاربران غیر ایرانی</p>
