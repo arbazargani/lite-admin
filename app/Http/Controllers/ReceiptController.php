@@ -386,6 +386,12 @@ class ReceiptController extends Controller
     }
 
     public function UploadPaymentReceipt(Request $request, $hash) {
+
+        $request->validate([
+            'receipt_file' => 'required|image|mimes:jpeg,jpg,png|max:5120'
+//            'receipt_file' => 'required|image|mimes:jpeg,jpg,png|max:2048'
+        ]);
+
         $receipt = Receipt::where('hash', $hash)->first();
 
         if (is_null($receipt)) {

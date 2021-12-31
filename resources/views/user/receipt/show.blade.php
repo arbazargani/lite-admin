@@ -120,6 +120,10 @@
                                     <p style="padding: 4px 10px; border-radius: 3px; background: #ffcbcb; font-size: 13px; font-weight: bold">- مسئولیت هرگونه اشتباه در واریز با شما خواهد بود.
                                     <br>
                                     - اعتبار این فاکتور تنها تا ۲۰ دقیقه پس از ایجاد می‌باشد.
+                                    <br>
+                                    - پسوندی بجز jpg و یا png برای رسید پرداخت قابل قبول نیست.
+                                    <br>
+                                    - حجم فایل رسید نباید از ۳ مگابایت بیشتر باشد.
                                     </p>
                                     <hr>
                                     <p>شماره حساب: {{ $bank_info->hesab }}</p>
@@ -127,14 +131,21 @@
                                     <p>شماره کارت: {{ $bank_info->number }}</p>
                                     <p>{{ $bank_info->info }}</p>
                                 </div>
+                                @if ($errors->any())
+                                    <p style="padding: 4px 10px; border-radius: 3px; background: #ffcbcb; font-size: 13px; font-weight: bold">
+                                    @foreach ($errors->all() as $error)
+                                            <span>{{$error}}</span><br/>
+                                    @endforeach
+                                    </p>
+                                @endif
                                 <form action="{{ route('Upload > UploadPaymentReceipt', $receipt->hash) }}" enctype="multipart/form-data"  method="post">
                                     @csrf
                                 <center>
                                         <input type="file" name="receipt_file" id="receipt_file" style="display: none" required/>
-                                        <label for="receipt_file"><h5>برای انتخاب رسید پرداخت کلید کنید</h5></label>
+                                        <label for="receipt_file"><h5 class="button" style="background: #00b38a">مرحله ۱ - برای انتخاب رسید پرداخت کلید کنید</h5></label>
                                 </center>
                                 <hr>
-                                    <button type="submit" class="button td-btn">پرداخت</button>
+                                    <button type="submit" class="button td-btn">مرحله ۲ - بارگذاری رسید</button>
                                 </form>
                             @else
                                 <span>رسید پرداخت شما دریافت شد.</span>
