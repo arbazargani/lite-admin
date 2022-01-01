@@ -5,7 +5,7 @@
 	<!-- Header Start -->
 	<div id="header">
 		<div id="top-header">
-			<div class="top-head-wrap">
+			<div class="top-head-wrap" style="max-width: unset !important;">
 			<style>
 				#coinset li img {
 					width: 16px;
@@ -42,7 +42,7 @@
 								circleSize: 4,
 							});
 						</script>
-						BTC/USD {{ $coins_usd->where('name', 'Bitcoin')->first()->usd_price }} $
+						BTC/USD {{ number_format($coins_usd->where('name', 'Bitcoin')->first()->usd_price) }} $
 						</li>
 
 						<li>
@@ -69,7 +69,7 @@
 								circleSize: 4,
 							});
 						</script>
-						ETH/USD {{ $coins_usd->where('name', 'Ethereum')->first()->usd_price }} $
+						ETH/USD {{ number_format($coins_usd->where('name', 'Ethereum')->first()->usd_price) }} $
 						</li>
 
 						<li>
@@ -96,7 +96,7 @@
 								circleSize: 4,
 							});
 						</script>
-						ETC/USD {{ $coins_usd->where('name', 'Ethereum_classic')->first()->usd_price }} $
+						ETC/USD {{ number_format($coins_usd->where('name', 'Ethereum_classic')->first()->usd_price) }} $
 						</li>
 
 						<li>
@@ -123,9 +123,9 @@
 								circleSize: 4,
 							});
 						</script>
-						LTC/USD {{ $coins_usd->where('name', 'Litecoin')->first()->usd_price }} $
+						LTC/USD {{ number_format($coins_usd->where('name', 'Litecoin')->first()->usd_price) }} $
 						</li>
-						
+
 						<li>
 						<img src="/assets/v3/src/icon/zec.svg" alt="zecash">
 						@php
@@ -150,9 +150,9 @@
 								circleSize: 4,
 							});
 						</script>
-						ZEC/USD {{ $coins_usd->where('name', 'Zecash')->first()->usd_price }} $
+						ZEC/USD {{ number_format($coins_usd->where('name', 'Zecash')->first()->usd_price) }} $
 						</li>
-						
+
 						<li>
 						<img src="/assets/v3/src/icon/rvn.svg" alt="tether">
 						@php
@@ -177,7 +177,7 @@
 								circleSize: 4,
 							});
 						</script>
-						RVN/USD {{ $coins_usd->where('name', 'Ravencoin')->first()->usd_price }} $
+						RVN/USD {{ number_format($coins_usd->where('name', 'Ravencoin')->first()->usd_price, 3) }} $
 						</li>
 
 						<li>
@@ -204,7 +204,7 @@
 								circleSize: 4,
 							});
 						</script>
-						USDT/USD {{ $coins_usd->where('name', 'Tether')->first()->usd_price }} $
+						USDT/USD {{ number_format($coins_usd->where('name', 'Tether')->first()->usd_price) }} $
 						</li>
 					</a>
 				</ul>
@@ -246,7 +246,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div id="main-section">
 		<div class="main-slider clearfix">
 			<div class="main-slider-img">
@@ -266,7 +266,7 @@
 		</div>
 	</div>
 	</div>
-	
+
 <!--	Start Coin Calculating Section	-->
 	<div id="coin-cal-section">
 		<div class="buy-coin">
@@ -310,7 +310,7 @@
 				<form>
 					<select class="wide" id="sell-currency-in" onchange="makeExchange('sell')">
 						@foreach ($coins as $coin)
-						<option value="{{ $coin->slug }}">{{ $coin->name }}</option>	
+						<option value="{{ $coin->slug }}">{{ $coin->name }}</option>
 						@endforeach
 						{{-- <option value="bitcoin">Bitcoin / BTC</option>
 						<option value="ethereum">Ethereum / ETH</option>
@@ -359,14 +359,14 @@
 			return str.endsWith(".");
 		}
         function makeExchange(type) {
-			
+
             if (document.getElementById(type+"-amount").value == "" || DotEnd(type) == true || !isNumber(document.getElementById(type+"-amount").value)) {
 				if (document.getElementById(type+"-tomans-loader").style.display !== null) {
 					document.getElementById(type+"-tomans-loader").style.display = "none";
 				}
                 return;
 			}
-			
+
             if (document.getElementById(type+"-tomans-loader").style.display !== null && document.getElementById(type+"-tomans-loader").style.display !== "inline") {
                 document.getElementById(type+"-tomans-loader").style.display = "inline";
 			}
@@ -394,7 +394,7 @@
 			if (type == 'sell') {
 				xhttp.open("GET", "{{ route('CoinExchange') }}?currency-in=" + from + "&amount=" + number, true);
 			}
-            
+
             xhttp.send();
         }
     </script>
@@ -413,7 +413,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div id="why-us" class="section">
 		<div class="section-wrap">
 			<div class="section-txt col-alt">
@@ -430,7 +430,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div id="feature" class="section bg2">
 		<div class="section-wrap">
 			<div class="feature-box">
@@ -453,9 +453,9 @@
 			</div>
 		</div>
 	</div>
-	
+
 <!--      Footer      -->
-	
+
 	<div id="footer">
 		<div class="footer-wrap">
 			<div class="footer-sec footer-social">
