@@ -422,12 +422,23 @@ class CoinController extends Controller
             $this->Debugger(true, "cache has 'usd-price-$index", 0);
             return Cache::get("usd-price-$index");
         } else {
+            $agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36';
             $this->Debugger(true, "cache doesn't have 'usd-price-$index", 0);
             /*** curl get  start ***/
             $url = "http://api.arbazargani.ir/usd_v2.php";
             $curl = curl_init($url);
+
+            // v1 headers
+            /*
             curl_setopt($curl, CURLOPT_URL, $url);
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            */
+
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($ch, CURLOPT_VERBOSE, true);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_USERAGENT, $agent);
+            curl_setopt($ch, CURLOPT_URL,$url);
 
             //for debug only!
             /*
