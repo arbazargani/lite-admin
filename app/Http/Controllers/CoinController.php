@@ -434,11 +434,11 @@ class CoinController extends Controller
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             */
 
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($ch, CURLOPT_VERBOSE, true);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_USERAGENT, $agent);
-            curl_setopt($ch, CURLOPT_URL,$url);
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl, CURLOPT_VERBOSE, true);
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($curl, CURLOPT_USERAGENT, $agent);
+            curl_setopt($curl, CURLOPT_URL,$url);
 
             //for debug only!
             /*
