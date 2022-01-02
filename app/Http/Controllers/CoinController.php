@@ -438,11 +438,11 @@ class CoinController extends Controller
                 */
 
                 $res = curl_exec($curl);
-                $this->Debugger(true, "\$res: " . var_dump($res), 0);
-                $response = json_decode($res);
-                // header('Content-Type: application/json');
-                curl_close($curl);
-            } while (!is_null($response));
+            } while (!is_null($res));
+            $this->Debugger(true, "\$res: " . var_dump($res), 0);
+            $response = json_decode($res);
+            // header('Content-Type: application/json');
+            curl_close($curl);
 
 
             // echo json_encode($response);
