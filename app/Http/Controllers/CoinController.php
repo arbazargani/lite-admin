@@ -419,11 +419,11 @@ class CoinController extends Controller
     public function AbanTether($index = 'best_sell')
     {
         if (Cache::has("usd-price-$index")) {
-            $this->Debugger(true, "cache has 'usd-price-$index", 0);
+//            $this->Debugger(true, "cache has 'usd-price-$index", 0);
             return Cache::get("usd-price-$index");
         } else {
             $agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36';
-            $this->Debugger(true, "cache doesn't have 'usd-price-$index", 0);
+//            $this->Debugger(true, "cache doesn't have 'usd-price-$index", 0);
 
             $url = "http://api.arbazargani.ir/usd_v2.php";
             $curl = curl_init($url);
@@ -437,14 +437,14 @@ class CoinController extends Controller
             */
 
             $res = curl_exec($curl);
-            $this->Debugger(true, "\$res: " . var_dump($res), 0);
+//            $this->Debugger(true, "\$res: " . var_dump($res), 0);
             $response = json_decode($res);
             // header('Content-Type: application/json');
             curl_close($curl);
 
 
             // echo json_encode($response);
-            $this->Debugger(true, "curl closed, \$response: " . var_dump($response), 0);
+//            $this->Debugger(true, "curl closed, \$response: " . var_dump($response), 0);
 
             Cache::put("usd-price-$index", $response->$index, now()->addMinutes(10));
             return substr($response->$index, 0, -1);
