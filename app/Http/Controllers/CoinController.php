@@ -424,33 +424,27 @@ class CoinController extends Controller
         } else {
             $agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36';
             $this->Debugger(true, "cache doesn't have 'usd-price-$index", 0);
-            /*** curl get  start ***/
-            $url = "http://api.arbazargani.ir/usd_v2.php";
-            $curl = curl_init($url);
 
-            // v1 headers
-            /*
-            curl_setopt($curl, CURLOPT_URL, $url);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            */
+            do {
+                $url = "http://api.arbazargani.ir/usd_v2.php";
+                $curl = curl_init($url);
 
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($curl, CURLOPT_VERBOSE, true);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl, CURLOPT_USERAGENT, $agent);
-            curl_setopt($curl, CURLOPT_URL,$url);
+                /*
+                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+                curl_setopt($curl, CURLOPT_VERBOSE, true);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($curl, CURLOPT_USERAGENT, $agent);
+                curl_setopt($curl, CURLOPT_URL,$url);
+                */
 
-            //for debug only!
-            /*
-            curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-            */
+                $res = curl_exec($curl);
+                $this->Debugger(true, "\$res: " . var_dump($res), 0);
+                $response = json_decode($res);
+                // header('Content-Type: application/json');
+                curl_close($curl);
+            } while (!is_null($response));
 
-            $res = curl_exec($curl);
-            $this->Debugger(true, "\$res: " . var_dump($res), 0);
-            $response = json_decode($res);
-            // header('Content-Type: application/json');
-            curl_close($curl);
+
             // echo json_encode($response);
             $this->Debugger(true, "curl closed, \$response: " . var_dump($response), 0);
 
