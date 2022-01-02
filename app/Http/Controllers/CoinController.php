@@ -419,35 +419,43 @@ class CoinController extends Controller
     public function AbanTether($index = 'best_sell')
     {
         if (Cache::has("usd-price-$index")) {
-//            $this->Debugger(true, "cache has 'usd-price-$index", 0);
             return Cache::get("usd-price-$index");
         } else {
-            $agent = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/96.0.4664.110 Safari/537.36';
-//            $this->Debugger(true, "cache doesn't have 'usd-price-$index", 0);
-
             $url = "http://api.arbazargani.ir/usd_v2.php";
-            $curl = curl_init($url);
+            try {
+                $curl = curl_init($url);
 
-            /*
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($curl, CURLOPT_VERBOSE, true);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl, CURLOPT_USERAGENT, $agent);
-            curl_setopt($curl, CURLOPT_URL,$url);
-            */
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+                curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+                curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+                /*
+                curl_setopt($curl, CURLOPT_VERBOSE, true);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                curl_setopt($curl, CURLOPT_USERAGENT, $agent);
+                curl_setopt($curl, CURLOPT_URL,$url);
+                */
 
-            $res = curl_exec($curl);
-//            $this->Debugger(true, "\$res: " . var_dump($res), 0);
-            $response = json_decode($res);
-            // header('Content-Type: application/json');
-            curl_close($curl);
+                $res = curl_exec($curl);
+                $response = json_decode($res);
+                curl_close($curl);
+
+                Cache::put("usd-price-$index", $response->$index, now()->addMinutes(10));
+                return substr($response->$index, 0, -1);
+                // Check if initialization had gone wrong*
+                if ($ch === false) {
+                    throw new Exception('failed to initialize');
+                }
 
 
-            // echo json_encode($response);
-//            $this->Debugger(true, "curl closed, \$response: " . var_dump($response), 0);
 
-            Cache::put("usd-price-$index", $response->$index, now()->addMinutes(10));
-            return substr($response->$index, 0, -1);
+            } catch(Exception $e) {
+
+                trigger_error(sprintf(
+                    'Curl failed with error #%d: %s',
+                    $e->getCode(), $e->getMessage()),
+                    E_USER_ERROR);
+
+            }
         }
     }
 
