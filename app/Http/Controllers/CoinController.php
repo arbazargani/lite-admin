@@ -421,7 +421,8 @@ class CoinController extends Controller
         if (Cache::has("usd-price-$index")) {
             return Cache::get("usd-price-$index");
         } else {
-            $url = "http://api.arbazargani.ir/usd_v2.php";
+//            $url = "http://api.arbazargani.ir/usd_v2.php";
+            $url = "http://api.arbazargani.ir/usd.php";
             try {
                 $curl = curl_init($url);
 
@@ -439,12 +440,13 @@ class CoinController extends Controller
                 $response = json_decode($res);
                 curl_close($curl);
 
-                Cache::put("usd-price-$index", $response->$index, now()->addMinutes(10));
-                return substr($response->$index, 0, -1);
                 // Check if initialization had gone wrong*
-                if ($ch === false) {
+                if ($curl === false) {
                     throw new Exception('failed to initialize');
                 }
+
+                Cache::put("usd-price-$index", $response->$index, now()->addMinutes(10));
+                return substr($response->$index, 0, -1);
 
 
 
